@@ -19,7 +19,7 @@ export class HomePage {
       this.alertify.presentAlert('Error', error);
     }, () => {
       this.check.username = 'angular';
-      this.check.password = 'hi'
+      this.check.password = 'hi';
       this.usersService.createUser(this.check)
       .subscribe((res: User) => {
       }, error => {

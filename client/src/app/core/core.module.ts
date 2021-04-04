@@ -1,10 +1,10 @@
-import { CommonModule } from "@angular/common";
-import { NgModule, Optional, SkipSelf } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
-import { IonicModule, isPlatform } from "@ionic/angular";
+import { CommonModule } from '@angular/common';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { IonicModule, isPlatform } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
-import { ErrorInterceptorProvider } from "./interceptors/error.interceptor";
+import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 
 const getConfig = () => {
   let config = {

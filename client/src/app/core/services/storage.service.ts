@@ -16,19 +16,19 @@ export class StorageService {
   }
 
   async set(key: string, value: string) {
-    await this.storage.set(key, value);
+    await this.storage?.set(key, value);
   }
 
   async get(key: string) {
-    await this.storage.get(key);
+    await this.storage?.get(key);
   }
 
   async remove(key: string) {
-    await this.storage.remove(key);
+    await this.storage?.remove(key);
   }
 
   async clearAll() {
-    await this.storage.clear();
+    await this.storage?.clear();
   }
 
   // To enumerate the stored key/value pairs:
