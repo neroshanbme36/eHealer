@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { IonicModule, isPlatform } from "@ionic/angular";
 import { HttpClientModule } from '@angular/common/http';
+import { ErrorInterceptorProvider } from "./interceptors/error.interceptor";
 
 const getConfig = () => {
   let config = {
@@ -29,7 +30,9 @@ const getConfig = () => {
     HttpClientModule,
     IonicModule.forRoot(getConfig())
   ],
-  providers: [],
+  providers: [
+    ErrorInterceptorProvider
+  ],
   exports: [IonicModule]
 })
 

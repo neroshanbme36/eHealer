@@ -21,7 +21,8 @@ export class LoaderService {
   }
 
   async hideLoader() {
-    await this.loaderToShow.dismiss();
-    console.log('Loading dismissed!');
+    if (this.loaderToShow) {
+      await this.loaderToShow.dismiss();
+    }
   }
 }

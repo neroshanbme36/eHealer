@@ -12,7 +12,6 @@ export class AlertService {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: heading,
-      subHeader: 'Subtitle',
       message: msg,
       backdropDismiss: false,
       buttons: ['OK']

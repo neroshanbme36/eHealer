@@ -5,9 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LoaderService } from '../services/loader.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 
 // HttpInterceptor is an interface which we contract to our class
 // Interface should implements method in our class which they poses
@@ -22,14 +20,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     this.loader.showLoader();
     return next.handle(req).pipe(
       map((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
-        }
         this.loader.hideLoader();
         return event;
       }),
       catchError(error => {
-        console.error(error);
         this.loader.hideLoader();
 
         if (error.status === 0) {
@@ -69,14 +63,14 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
 
           // serverError can be 500 internal server error
-          const serverError = error.error;
+          const serverError = error;
           let modalStateErrors = '';
           // if the server error is of type object then it is the model state
-          if (serverError.errors && typeof serverError.errors === 'object') {
+          if (serverError.error && typeof serverError.error === 'object') {
             // Model in json will key value pair
-            for (const key in serverError.errors) {
-              if (serverError.errors[key]) {
-                modalStateErrors += serverError.errors[key] + '\n';
+            for (const key in serverError.error) {
+              if (serverError.error[key]) {
+                modalStateErrors += serverError.error[key] + '\n';
               }
             }
           }
@@ -93,3 +87,9 @@ export const ErrorInterceptorProvider  = {
   // Add error response from server to interceptor array
   multi: true
 };
+
+// Important
+// Finally add in app.module.ts
+/*providers: [
+  ErrorInterceptorProvider
+]*/

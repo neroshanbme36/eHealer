@@ -9,14 +9,22 @@ import { UsersService } from '../core/services/users.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  check: User;
 
   constructor(private usersService: UsersService, private alertify: AlertService) {
     this.usersService.getUsers()
     .subscribe((res: User[]) => {
-      console.log(res);
+      this.check = res[0];
     }, error => {
-      // console.log(error);
-      // this.alertify.presentAlert('Error', error);
+      this.alertify.presentAlert('Error', error);
+    }, () => {
+      this.check.username = 'angular';
+      this.check.password = 'hi'
+      this.usersService.createUser(this.check)
+      .subscribe((res: User) => {
+      }, error => {
+        this.alertify.presentAlert('Error', error);
+      })
     })
   }
 }
