@@ -7,11 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers, Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    IonicStorageModule.forRoot({
+      name: 'eHealer',
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+    }),
     CoreModule,
     BrowserModule,
     AppRoutingModule,
