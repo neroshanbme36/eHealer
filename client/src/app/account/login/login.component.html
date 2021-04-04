@@ -1,0 +1,44 @@
+<ion-content>
+  <div class="ion-padding content">
+    <!-- <ion-img alt="logo" id="header_logo" expand="block" src="../../assets/images/logo.png"></ion-img> -->
+    <h1>Login</h1>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <ion-list style="margin-bottom: 20px;">
+        <ion-item >
+          <ion-label class="lbl"  position="floating"> E-mail</ion-label>
+          <ion-input  email name="email" ngModel #email="ngModel" required></ion-input>
+          <div class="error" *ngIf="!email.valid && email.dirty">
+            Should be a valid email address!!
+          </div>
+        </ion-item>
+        <!-- <ion-label *ngIf="!email.valid && email.dirty" class="error">Should be a valid email address!!</ion-label> -->
+        <ion-item>
+          <ion-label class="lbl" position="floating"> Password</ion-label>
+          <ion-input minlength="4" name="password" ngModel #pwd="ngModel" required 
+            type="password" show-hide-input>
+          </ion-input>
+          <div class="error" *ngIf="!pwd.valid && pwd.dirty">
+            Should at least be 4 characters long.
+          </div>
+        </ion-item>
+        <!-- <ion-label *ngIf="!pwd.valid && pwd.dirty" class="error">Should at least be 4 characters long.</ion-label> -->
+      </ion-list>
+      
+      <ion-button expand="full" type="submit" color="secondary"
+        [disabled]="f.invalid">
+        <ion-icon ios="ios-log-in" md="md-log-in" class="icon-login"></ion-icon>
+        SignIn
+      </ion-button>      
+    </form>
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-text style="padding-top: 20px;" class="create">
+          Don't have an account? 
+          <a style="text-decoration: none;" [routerLink]="['/account/register']" routerDirection="root"> Create Account</a>
+        </ion-text>
+      </ion-col>
+      
+    </ion-row>
+  </div>
+</ion-content>
+
