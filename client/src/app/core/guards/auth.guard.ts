@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate} from '@angular/router';;
+import { CanActivate} from '@angular/router';
 import { RepositoryService } from '../services/repository.service';
 
 @Injectable({
@@ -15,8 +15,9 @@ export class AuthGuard implements CanActivate {
     // if (this.authService.isAuthenticated()) {
     //   return true;
     // }
-    // this.repository.navigate('login');
-    // this.alert.showErrorAlert('Authentication Failed', 'Please Login...', 'login');
+    if (!res) {
+      this.repository.navigate('login');
+    }
     return res;
   }
 }

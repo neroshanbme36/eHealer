@@ -1,0 +1,73 @@
+ion-item{
+    border: solid var(--ion-color-secondary);
+    border-radius: 10px;
+}
+.header{
+    color: var(--ion-color-secondary);
+}
+h4{
+    color: var(--ion-color-medium);
+}
+.error{
+    font-size: 15px;
+    color: red;
+}
+.mt-20{
+    margin-top: 10px;
+}
+ion-icon{
+    font-size: 22px !important;
+    padding-right: 10px;
+}
+
+.icon-login{
+    padding-right: 3px;
+    font-weight: bold !important;
+}
+
+.lbl{
+    color: var(--ion-color-medium);
+    font-size: 11px;
+    font-weight: bold;
+}
+.inpt{
+    font-size: 14px;
+}
+.link{
+    text-decoration: none;
+}
+.policy{
+    font-size: 13px;
+    padding-bottom: 10px;
+    padding: 0px 5px 15px 5px;
+}
+.create{
+    font-size: 14px !important;
+}
+.ios .policy{
+    font-size: 13px;
+    padding: 0px 5px 15px 5px;
+}
+.forgot-password{
+    padding-top: 10px;
+    font-size: 14px;
+}
+.ios .create{
+    font-size: 15px;
+}
+/**for ios 5SE**/
+@media screen and  (max-width: 325px) {
+    .create{
+        font-size: 13px !important;
+    }
+    .forgot-password{
+        font-size: 13px !important;
+    }
+    .policy{
+        font-size: 11px !important;
+    }
+}
+.b-link {
+    color: var(--ion-color-link);
+    font-weight: normal !important;
+}

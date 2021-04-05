@@ -1,0 +1,46 @@
+<ion-content>
+  <div class="ion-padding content">
+    <h1 class="ion-text-center header">e-healer</h1>
+    <h4 class="ion-text-center">Login</h4>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <ion-list style="margin-bottom: 20px;">
+        <ion-item lines="none" class="w100">
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-input class="inpt" email name="email" placeholder="E-mail" ngModel #email="ngModel" required></ion-input>
+        <ion-label class="lbl"> E-mail</ion-label>
+        </ion-item>
+        <ion-label *ngIf="!email.valid && email.dirty" class="error">Should be a valid email address!!</ion-label>
+        <ion-item lines="none" class="w100 mt-20">
+          <ion-icon name="lock-open-outline"></ion-icon>
+          <ion-input class="inpt" minlength="4" name="password" placeholder="Password" ngModel #pwd="ngModel" required 
+          type="password" show-hide-input></ion-input>
+        <ion-label class="lbl"> Password</ion-label>
+        </ion-item>
+        <ion-label *ngIf="!pwd.valid && pwd.dirty" class="error">Should at least be 4 characters long.</ion-label>
+      </ion-list>
+      
+      <ion-button expand="block" type="submit" color="secondary"
+        [disabled]="f.invalid">
+        <ion-icon name="log-in" class="icon-login"></ion-icon>
+        SignIn
+      </ion-button>      
+    </form>
+     <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-text style="padding-top: 20px;" class="create">
+          Dont't have an account? 
+          <a style="text-decoration: none;" class="b-link" [routerLink]="['/auth/register']" routerDirection="root"> Create Account</a>
+        </ion-text>
+      </ion-col>
+      
+    </ion-row>
+  </div>
+</ion-content>
+<!-- <ion-row>
+  <ion-col size="12" class="ion-text-center">
+    <ion-text class="policy">By signing in, You are accepting the 
+      <b class="b-link" (click)="goToPrivacyPolicy()">Privacy Policy</b> and 
+      <a class="b-link" (click)="goToTerms()">Terms of Use</a> 
+      of SPOS Loyalty</ion-text>
+  </ion-col>
+</ion-row> -->

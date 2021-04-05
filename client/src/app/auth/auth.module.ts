@@ -4,9 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AccountPageRoutingModule } from './account-routing.module';
-
-import { AccountPage } from './account.page';
+import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -15,12 +13,11 @@ import { RegisterComponent } from './register/register.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    AccountPageRoutingModule
+    AuthRoutingModule
   ],
   declarations: [
-    AccountPage,
     LoginComponent,
     RegisterComponent
   ]
 })
-export class AccountPageModule {}
+export class AuthModule {}

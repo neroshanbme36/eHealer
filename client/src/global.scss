@@ -24,3 +24,12 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@font-face {
+    font-family: drystick;
+    src: url(assets/fonts/drystick-geo-grotesk/Drystick-Light.ttf);
+}
+* {
+    
+    font-family: 'drystick', 'arial', sans-serif;
+  }
