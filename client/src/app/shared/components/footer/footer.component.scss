@@ -1,0 +1,22 @@
+ion-button div{
+    line-height: 10px;
+    color: #a2a4abf2;
+    ion-icon{
+        font-size: 22px;;
+    }
+    ion-label{
+        font-size: 12px;
+     }
+ }
+ .active{
+     color: var(--ion-color-top-main) !important;
+     font-weight: bold;
+ }
+ @media screen and  (max-width: 325px) {
+    ion-icon{
+        font-size: 20px !important;
+    }
+    ion-label{
+        font-size: 10px !important;;
+     }
+}

@@ -1,0 +1,48 @@
+<ion-footer class="ion-no-padding">
+  <ion-toolbar>
+    <ion-grid style="padding: 0px;background-color: #a2a4ab0d;">
+      <ion-row >
+        <ion-col size="2">
+          <ion-button expand="block" fill="clear" (click)="navigate('home')">
+            <div  [ngClass]="{'active':service.active == 'home'}">
+              <ion-icon slot="icon-only" name="home"></ion-icon><br>
+              <ion-label>HOME</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button expand="block" fill="clear" (click)="navigate('cards')">
+            <div [ngClass]="{'active':service.active == 'cards'}">
+              <ion-icon slot="icon-only" name="card"></ion-icon><br>
+              <ion-label>CARDS</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button expand="block" fill="clear" (click)="navigate('promotion-list')">
+            <div [ngClass]="{'active':service.active == 'promotion-list'}">
+              <ion-icon slot="icon-only" name="pricetags"></ion-icon><br>
+              <ion-label>OFFERS</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button expand="block" fill="clear" (click)="navigate('benefits')">
+            <div [ngClass]="{'active':service.active == 'benefits'}">
+              <ion-icon slot="icon-only" name="gift"></ion-icon><br>
+              <ion-label>BENEFITS</ion-label>
+            </div>  
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button expand="block" fill="clear" (click)="navigate('account')">
+            <div [ngClass]="{'active':service.active == 'account'}">
+              <ion-icon slot="icon-only" name="person"></ion-icon><br>
+              <ion-label>ACCOUNT</ion-label>
+            </div>  
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>  
+</ion-footer>

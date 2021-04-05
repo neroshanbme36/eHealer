@@ -5,14 +5,16 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { BaseComponent } from './components/base/base.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     // If component should be shared you need declare and export
     // Importantly dont declare in app.module.ts if you are going to share
     // You cant import component if u are connected with mainRepo
+    BaseComponent,
     HeaderComponent,
-    BaseComponent
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { BaseComponent } from './components/base/base.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ]
 })
 
