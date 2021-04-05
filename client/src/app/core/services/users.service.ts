@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { JwtTokenDto } from '../dtos/jwtTokenDto';
+import { LoginDto } from '../dtos/loginDto';
 import { User } from '../models/user';
 
 @Injectable({
@@ -12,6 +14,10 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
+  login(dto: LoginDto): Observable<JwtTokenDto> {
+    return this.http.post<JwtTokenDto>(environment.apiUrl + 'login/', dto);
+  }
+
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl);
   }
@@ -21,14 +27,21 @@ export class UsersService {
   }
 
   createUser(model: User): Observable<User> {
-    return this.http.post<User>(this.baseUrl, model);
+    return this.http.post<User>(this.baseUrl + 'register/', model);
   }
 
   updateUser(model: User): Observable<User> {
-    return this.http.put<User>(this.baseUrl + model.id + '/', model);
+    return this.http.put<User>(environment.apiUrl + 'update_user/' + model.id + '/', model);
   }
 
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(this.baseUrl + id + '/');
+  }
+
+  getUsersByRole(roleType: string, isActive: boolean): Observable<User[]> {
+    let params = new HttpParams();
+    params.append('role_type', roleType);
+    params.append('is_active', isActive.toString());
+    return this.http.get<User[]>(this.baseUrl + 'users_by_role/', {params})
   }
 }

@@ -20,3 +20,13 @@ class User(AbstractUser):
 
   def __str__(self):
     return self.username
+
+class Schedule(models.Model):
+  day_of_week = models.IntegerField(blank=False)
+  day = models.CharField(max_length=50, blank=False)
+  opening_time = models.TimeField(blank=False)
+  closing_time = models.TimeField(blank=False)
+  user_id = models.ForeignKey(User,blank=False, on_delete=models.CASCADE, related_name='schedules')
+
+  def __str__(self):
+    return self.day
