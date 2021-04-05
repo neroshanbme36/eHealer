@@ -14,7 +14,8 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
      children: [
-        { path: 'home' , loadChildren: () => import('./home/home.module').then( m => m.HomePageModule) }
+        { path: 'home' , loadChildren: () => import('./home/home.module').then( m => m.HomePageModule) },
+        { path: 'account' , loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule) }
       ]
 },
 { path: '**' , redirectTo: '/home', pathMatch: 'full'},
