@@ -1,8 +1,15 @@
 <ion-content>
+  <ion-row class="ion-no-padding header">
+    <ion-col size="12">
+      <ion-button class="back" fill="clear" color="primary" style="height: 30px;">
+        <ion-icon style="color: white;" name="log-in"></ion-icon>
+        <ion-text style="color: white;">Login</ion-text>
+      </ion-button>
+    </ion-col>
+  </ion-row>
   <div class="ion-padding content" style="margin-top: 30px;">
     <ion-img alt="logo" id="header_logo" expand="block" src="../../assets/images/logo.png"></ion-img>
-    <!-- <h1 class="ion-text-center header">e-healer</h1> -->
-    <h4 class="ion-text-center">Login</h4>
+    <!-- <h4 class="ion-text-center">Login</h4> -->
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" style="margin-top: 25px;">
       <ion-list style="margin-bottom: 20px;">
         <ion-item lines="none" class="w100">
@@ -28,7 +35,7 @@
     </form>
      <ion-row>
       <ion-col size="12" class="ion-text-center">
-        <ion-text style="padding-top: 20px;" class="create">
+        <ion-text style="padding-top: 30px;" class="create">
           Dont't have an account? 
           <a style="text-decoration: none;" class="b-link" [routerLink]="['/auth/register']" routerDirection="root"> Create Account</a>
         </ion-text>
