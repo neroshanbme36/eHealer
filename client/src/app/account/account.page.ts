@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RepositoryService } from '../core/services/repository.service';
+import { UsersService } from '../core/services/users.service';
 
 @Component({
   selector: 'app-account',
@@ -8,10 +9,9 @@ import { RepositoryService } from '../core/services/repository.service';
 })
 export class AccountPage implements OnInit {
 
-  constructor(public repository: RepositoryService) { }
+  constructor(public repository: RepositoryService, private usersService: UsersService) { }
 
   ngOnInit() {
-    console.log(this.repository.loggedInUser);
   }
 
   get greeting(): string {
@@ -28,14 +28,13 @@ export class AccountPage implements OnInit {
   }
 
   get name(): string {
-    // if (this.repository.loggedInCustomer) {
-    //   if (this.repository.loggedInCustomer.lastName) {
-    //       return this.repository.loggedInCustomer.firstName + ' ' + this.repository.loggedInCustomer.lastName;
-    //   } else {
-    //     return this.repository.loggedInCustomer.firstName;
-    //   }
-    // }
-    return 'TEST';
+    if (this.repository.loggedInUser) {
+      if (this.repository.loggedInUser.lastName) {
+          return this.repository.loggedInUser.firstName + ' ' + this.repository.loggedInUser.lastName;
+      } else {
+        return this.repository.loggedInUser.firstName;
+      }
+    }
   }
 
   goPage(url: string): void {
@@ -43,6 +42,7 @@ export class AccountPage implements OnInit {
   }
 
   logout() {
-    // this.authService.logout();
+    localStorage.removeItem('healerToken');
+    location.reload();
   }
 }

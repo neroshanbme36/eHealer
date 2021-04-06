@@ -5,7 +5,7 @@
       <h4>Account</h4>
     <h6>{{greeting}}</h6>
       <h3>
-        {{name.toLocaleUpperCase()}}
+        {{name?.toLocaleUpperCase()}}
       </h3>
       <ion-text>
         Member Since {{repository.loggedInUser?.dateJoined | date: 'dd-MM-yyyy'}}

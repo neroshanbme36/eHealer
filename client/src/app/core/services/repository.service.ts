@@ -19,6 +19,8 @@ export class RepositoryService {
       this.nav.navigateRoot('/home');
     } else if (tag === 'account') {
       this.nav.navigateRoot('/account');
+    } else if (tag === 'my-profile') {
+      this.nav.navigateRoot('/account/my-profile');
     }
   }
 
