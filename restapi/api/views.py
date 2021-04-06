@@ -75,7 +75,12 @@ class ScheduleViewSet(viewsets.ModelViewSet):
       serializer = self.serializer_class(data=request.data)
       if serializer.is_valid(raise_exception=True):
         try:
-          if Schedule.objects.filter(user_id=request.data["user_id"], day_of_week=request.data["day_of_week"], opening_time__range=[request.data["opening_time"],  request.data["closing_time"]], closing_time__range=[request.data["opening_time"],  request.data["closing_time"]]).exists():
+          if request.data["opening_time"] >= request.data["closing_time"]:
+            return Response({
+              'status_code': '400',
+              'detail': 'Opening time cannot be greate than or equal to closing time'
+            }, status = status.HTTP_400_BAD_REQUEST)
+          if Schedule.objects.filter(user_id=request.data["user_id"], day_of_week=request.data["day_of_week"], closing_time__lte=request.data["closing_time"]).exists():
             return Response({
               'status_code': '400',
               'detail': 'Schedule already exists'
