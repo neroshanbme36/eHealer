@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate} from '@angular/router';
 import { RepositoryService } from '../services/repository.service';
+import { UsersService } from '../services/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +9,17 @@ import { RepositoryService } from '../services/repository.service';
 
 export class AuthGuard implements CanActivate {
 
-  constructor(private repository: RepositoryService) {}
+  constructor(
+    private repository: RepositoryService,
+    private usersService: UsersService
+    ) {}
 
   canActivate(): boolean {
     const res = false;
-    // if (this.authService.isAuthenticated()) {
-    //   return true;
-    // }
-    if (!res) {
-      this.repository.navigate('login');
+    if (this.usersService.loggedIn()) {
+      return true;
     }
+    this.repository.navigate('login');
     return res;
   }
 }

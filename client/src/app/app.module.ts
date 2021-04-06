@@ -10,6 +10,19 @@ import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers, Storage } from '@ionic/storage';
 import { SharedModule } from './shared/shared.module';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  const token = localStorage.getItem('healerToken');
+  if (this.jwtHelper.isTokenExpired(token)) {
+    const url = location.pathname;
+    // if (!url.endsWith('login')) {
+    //    location.reload();
+    // }
+  }
+  console.log(token);
+  return token;
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +36,13 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
+    JwtModule.forRoot({
+      config: {
+          tokenGetter,
+          allowedDomains: [environment.apiDomain],
+          disallowedRoutes: [environment.apiDomain + 'api/login/'] // this will send without token
+      }
+  }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

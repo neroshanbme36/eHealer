@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { IonicModule, isPlatform } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
+import { BaseComponent } from './components/base/base.component';
 
 const getConfig = () => {
   let config = {
@@ -22,7 +23,7 @@ const getConfig = () => {
 };
 
 @NgModule({
-  declarations: [],
+  declarations: [BaseComponent],
   imports: [
     CommonModule,
     FormsModule,
