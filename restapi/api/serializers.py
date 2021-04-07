@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
         'birth_date','gender','martial_status','contact_no',
         'qualification','role_type','address_line_1',
         'address_line_2','city','postcode','state',
-        'country','updated_on'
+        'country','updated_on', 'specialization', 'experience'
       )
       # hashed password should not be displayed in get api method
       # by adding this password will be available only for post and put methods
@@ -30,7 +30,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
           'birth_date','gender','martial_status','contact_no',
           'qualification','role_type','address_line_1',
           'address_line_2','city','postcode','state',
-          'country','updated_on'
+          'country','updated_on', 'specialization', 'experience'
         )
         extra_kwargs = {'password': {'read_only': True}, 'last_login': {'read_only': True}}
 

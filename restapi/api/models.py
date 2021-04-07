@@ -18,6 +18,8 @@ class User(AbstractUser):
   state = models.CharField(max_length=50, blank=False)
   country = models.CharField(max_length=50, blank=False)
   updated_on = models.DateTimeField(auto_now=True)
+  specialization = models.TextField(max_length=250, blank=True, default='')
+  experience = models.DecimalField(blank=True,max_digits=5, decimal_places=2,validators=[MinValueValidator(0), MaxValueValidator(200)], default=0)
 
   def __str__(self):
     return self.username

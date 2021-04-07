@@ -21,6 +21,8 @@ export class User {
     public postcode: string = '',
     public state: string = '',
     public country: string = '',
-    public updatedOn: string = ''
+    public updatedOn: string = '',
+    public specialization: string = '',
+    public experience: number = 0
   ) {}
 }
