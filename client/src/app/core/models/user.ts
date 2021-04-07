@@ -9,7 +9,7 @@ export class User {
     public email: string = '',
     public isActive: boolean = false,
     public dateJoined: Date = new Date('1900-01-01'),
-    public birthDate: Date = new Date('1900-01-01'),
+    public birthDate: string = '1900-01-01',
     public gender: string = '',
     public martialStatus: string = '',
     public contactNo: string = '',

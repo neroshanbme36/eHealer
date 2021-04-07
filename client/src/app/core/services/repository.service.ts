@@ -34,4 +34,22 @@ export class RepositoryService {
       return 'home';
     }
   }
+
+  public getCsharpFormat(d: string, tag: string ) {
+    const ddd = d.split('T');
+    const dd = ddd[0];
+    // tslint:disable-next-line:variable-name
+    const date_ = new Date(dd);
+    const month = ('0' + (date_.getMonth() + 1)).slice(-2);
+    const day  = ('0' + date_.getDate()).slice(-2);
+    const hour = ('0' + date_.getHours()).slice(-2);
+    const minutes = ('0' + date_.getMinutes()).slice(-2);
+    if (tag === 'current') {
+      return [ date_.getFullYear(), month, day ].join('-');
+    } else if (tag === 'start') {
+      return [ date_.getFullYear(), month, day ].join('-');
+    } else if (tag === 'end') {
+      return [ date_.getFullYear(), month, day ].join('-');
+    }
+  }
 }

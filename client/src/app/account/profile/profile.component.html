@@ -1,3 +1,246 @@
-<p>
-  profile works!
-</p>
+<!-- <app-header></app-header> -->
+
+<ion-header>
+  <ion-row class="header">
+    <ion-col size=12>
+      <h5>This is you</h5>
+      <ion-icon name="person-outline" style="font-size: 25px;color: white;"></ion-icon>
+      <!-- <div style="padding-left: 41%">
+        <ion-avatar item-start>
+          <ion-img src="../assets/images/person.png?tui"></ion-img>
+        </ion-avatar> 
+      </div> -->
+      <h6>
+        {{name | titlecase}}
+      </h6>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!editUser" class="title">
+    <ion-col  size="10">
+      <ion-text>My Profile</ion-text>
+    </ion-col>
+    <ion-col size="2">
+      <ion-badge color="secondary" (click)="setUser(user)">
+        <ion-icon name="create"></ion-icon> Edit
+      </ion-badge>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="editUser" class="title">
+    <ion-col  size="6">
+      <ion-text>Edit Profile</ion-text>
+    </ion-col>
+    <ion-col size="3">
+      <ion-badge color="success" (click)="saveUser()">
+        <ion-icon name="checkmark"></ion-icon> Save
+      </ion-badge>
+    </ion-col>
+    <ion-col size="3">
+      <ion-badge color="danger" (click)="editUser=null">
+        <ion-icon name="close"></ion-icon> Cancel
+      </ion-badge>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <ion-row *ngIf="!editUser">
+    <ion-col size="12">
+      <ion-list style="margin-bottom: 0px;">
+        <ion-item>
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-label>
+            <div><b >E-mail</b></div>
+            <div>{{user?.email}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="man-outline"></ion-icon>
+          <ion-label>
+            <div><b >Gender</b></div>
+            <div>{{user?.gender}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-label>
+            <div><b >Contact No</b></div>
+            <div>{{user?.contactNo}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="calendar-outline"></ion-icon>
+          <ion-label>
+            <div><b >Date Of Birth</b></div>
+            <div>{{user?.birthDate | date: 'MMM dd, yyyy'}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="man-outline"></ion-icon>
+          <ion-label>
+            <div><b >Marital Status</b></div>
+            <div>{{user?.martialStatus}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="book-outline"></ion-icon>
+          <ion-label>
+            <div><b >Qualification</b></div>
+            <div>{{user?.qualification == null ? '-' : user?.qualification}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="pin-outline"></ion-icon>
+          <ion-label>
+            <div><b >Address 1</b></div>
+            <div>{{user?.addressLine1}}</div>
+          </ion-label>
+        </ion-item>   
+        <ion-item>
+          <ion-icon name="pin-outline"></ion-icon>
+          <ion-label>
+            <div><b >Address 2</b></div>
+            <div>{{user?.addressLine2 == null ? '-' : user?.addressLine2}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="podium-outline"></ion-icon>
+          <ion-label>
+            <div><b >City</b></div>
+            <div>{{user?.city}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="podium-outline"></ion-icon>
+          <ion-label>
+            <div><b >Postcode</b></div>
+            <div>{{user?.postcode}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="podium-outline"></ion-icon>
+          <ion-label>
+            <div><b >State</b></div>
+            <div>{{user?.state}}</div>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="podium-outline"></ion-icon>
+          <ion-label>
+            <div><b >Country</b></div>
+            <div>{{user?.country}}</div>
+          </ion-label>
+        </ion-item>    
+      </ion-list>
+    </ion-col>
+  </ion-row>
+
+  <ng-container *ngIf="editUser">
+    <form #editUserForm="ngForm">
+      <ion-row>
+        <ion-col size="12">
+          <ion-list style="margin-bottom: 0px;">
+            <ion-item class="required">
+              <ion-icon name="person"></ion-icon>
+              <ion-input class="inpt" name="fname" [(ngModel)]="editUser.firstName" required></ion-input>
+              <ion-label class="lbl"> First Name </ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="person"></ion-icon>
+              <ion-input class="inpt" name="lname" [(ngModel)]="editUser.lastName" required></ion-input>
+              <ion-label class="lbl"> Last Name </ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="mail-outline"></ion-icon>
+              <ion-input class="inpt" name="email" #email="ngModel" [(ngModel)]="editUser.email" email required></ion-input>
+              <ion-label class="lbl">E-mail </ion-label>
+            </ion-item>
+            <ion-label *ngIf="!email.valid && email.dirty" class="error">Should be a valid email address!!</ion-label>
+            <ion-item class="required">
+              <ion-icon name="man-outline"></ion-icon>
+              <ion-select class="inpt" name="gender" required
+                  [ngModel]="editUser.gender"
+                  (ionChange)="genderChange($event)">
+                  <ion-select-option value="male">
+                      Male
+                  </ion-select-option>
+                  <ion-select-option value="female">
+                      Female
+                  </ion-select-option>
+                  <ion-select-option value="other" >
+                      Other
+                  </ion-select-option>
+                  <ion-select-option value="prefer not to Say">
+                      Prefer not to Say
+                  </ion-select-option>
+                </ion-select>
+              <ion-label class="lbl select-lbl">Gender</ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="call-outline"></ion-icon>
+              <ion-input class="inpt" name="contact" [(ngModel)]="editUser.contactNo" required></ion-input>
+              <ion-label class="lbl">Contact No</ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="calendar-outline"></ion-icon>
+              <ion-datetime class="inpt" name="dob"
+                [(ngModel)]="editUser.birthDate" required
+                displayFormat="YYYY-MM-DD" ></ion-datetime>
+              <ion-label class="lbl date-lbl">Date Of Birth</ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="man-outline"></ion-icon>
+              <ion-select class="inpt" name="marital" required
+                  [ngModel]="editUser.martialStatus"
+                  (ionChange)="mariralChange($event)">
+                    <ion-select-option value="single">Single</ion-select-option>
+                    <ion-select-option value="married">Married</ion-select-option>
+                    <ion-select-option value="engaged">Engaged</ion-select-option>
+                    <ion-select-option value="divorced">Divorced</ion-select-option>
+                    <ion-select-option value="widowed">Widowed</ion-select-option>
+                    <ion-select-option value="prefer not to Say">Prefer not to Say</ion-select-option>
+                </ion-select>
+              <ion-label class="lbl select-lbl">Marital Status</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="book-outline"></ion-icon>
+              <ion-input class="inpt" name="qualification" [(ngModel)]="editUser.qualification"></ion-input>
+              <ion-label class="lbl">Qualification</ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="pin-outline"></ion-icon>
+              <ion-input class="inpt" name="address1" [(ngModel)]="editUser.addressLine1" required></ion-input>
+              <ion-label class="lbl">Address1</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-icon name="pin-outline"></ion-icon>
+              <ion-input class="inpt" name="address2" [(ngModel)]="editUser.addressLine2"></ion-input>
+              <ion-label class="lbl">Address2</ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="podium-outline"></ion-icon>
+              <ion-input class="inpt" name="city" [(ngModel)]="editUser.city" required></ion-input>
+              <ion-label class="lbl">City</ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="podium-outline"></ion-icon>
+              <ion-input class="inpt" name="postcode" [(ngModel)]="editUser.postcode" required></ion-input>
+              <ion-label class="lbl">Postcode</ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="podium-outline"></ion-icon>
+              <ion-input class="inpt" name="state" [(ngModel)]="editUser.state" required></ion-input>
+              <ion-label class="lbl">State</ion-label>
+            </ion-item>
+            <ion-item class="required">
+              <ion-icon name="podium-outline"></ion-icon>
+              <ion-input class="inpt" name="country" [(ngModel)]="editUser.country" required></ion-input>
+              <ion-label class="lbl">Country</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ng-container>
+  
+</ion-content>
+<!-- <app-footer></app-footer> -->
