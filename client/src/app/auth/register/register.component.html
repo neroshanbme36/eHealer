@@ -209,7 +209,9 @@
             </ion-col>
            <ion-col size="11">
               <ion-text>I have read and agree to the 
-                <b class="b-link" (click)="goToPrivacyPolicy()">Privacy Policy</b>
+                <b class="b-link"
+                 [routerLink]="['/auth/register/policy']" 
+                 [queryParams]="{ roleType: roleType}">Privacy Policy</b>
               </ion-text>
            </ion-col>
           </ion-row>

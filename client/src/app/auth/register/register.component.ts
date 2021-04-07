@@ -60,12 +60,10 @@ export class RegisterComponent implements OnInit {
     this.registerUser.martialStatus = event.detail.value;
   }
   onSubmit() {
-    this.registerUser.roleType = this.roleType; //  'client'; // therapist
+    this.registerUser.roleType = this.roleType;
     this.registerUser.birthDate = this.repository.getCsharpFormat(this.registerUser.birthDate, 'start');
-    console.log(this.registerUser);
     this.usersService.createUser(this.registerUser).subscribe((res: User) => {
       this.alertify.presentAlert('Success', 'User registered successfully');
-      console.log(User);
     }, e => {
       this.alertify.presentAlert('Error', e);
     }, () => {

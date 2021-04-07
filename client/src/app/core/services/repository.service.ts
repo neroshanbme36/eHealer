@@ -14,13 +14,17 @@ export class RepositoryService {
   navigate(tag: string): void {
     tag = tag.toLocaleLowerCase();
     if (tag === 'login') {
-      this.nav.navigateRoot('/auth/login');
+      this.nav.navigateBack('/auth/login');
     } else if (tag === 'home') {
-      this.nav.navigateRoot('/home');
+      this.nav.navigateBack('/home');
     } else if (tag === 'account') {
-      this.nav.navigateRoot('/account');
+      this.nav.navigateBack('/account');
     } else if (tag === 'my-profile') {
-      this.nav.navigateRoot('/account/my-profile');
+      this.nav.navigateBack('/account/my-profile');
+    } else if (tag === 'register') {
+      this.nav.navigateBack('/auth/register');
+    } else if (tag === 'account-policy') {
+      this.nav.navigateBack('/account/policy');
     }
   }
 
