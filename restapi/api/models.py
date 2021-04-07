@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 # extending the user model of django framework user model
@@ -22,11 +23,15 @@ class User(AbstractUser):
     return self.username
 
 class Schedule(models.Model):
-  day_of_week = models.IntegerField(blank=False)
+  day_of_week = models.IntegerField(blank=False, validators=[MinValueValidator(1),MaxValueValidator(7)])
   day = models.CharField(max_length=50, blank=False)
   opening_time = models.TimeField(blank=False)
   closing_time = models.TimeField(blank=False)
-  user_id = models.ForeignKey(User,blank=False, on_delete=models.CASCADE, related_name='schedules')
+  user = models.ForeignKey(User,blank=False, on_delete=models.CASCADE, related_name='schedules')
 
   def __str__(self):
     return self.day
+
+class TherapistFee(models.Model):
+  fee = models.DecimalField(blank=False,max_digits=22, decimal_places=4,validators=[MinValueValidator(0)])
+  user = models.OneToOneField(User,blank=False, on_delete=models.CASCADE, related_name='therapistFees')

@@ -2,11 +2,12 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
-from .serializers import UserSerializer, UserUpdateSerializer, ScheduleSerializer
+from .serializers import UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Schedule
+from .models import Schedule, TherapistFee
+from django.db.models import Q
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -71,26 +72,18 @@ class ScheduleViewSet(viewsets.ModelViewSet):
     serializer_class = ScheduleSerializer
     permission_classes = (IsAuthenticated,)
 
-    def create(self, request, *args, **kwargs):
-      serializer = self.serializer_class(data=request.data)
-      if serializer.is_valid(raise_exception=True):
-        try:
-          if request.data["opening_time"] >= request.data["closing_time"]:
-            return Response({
-              'status_code': '400',
-              'detail': 'Opening time cannot be greate than or equal to closing time'
-            }, status = status.HTTP_400_BAD_REQUEST)
-          if Schedule.objects.filter(user_id=request.data["user_id"], day_of_week=request.data["day_of_week"], closing_time__lte=request.data["closing_time"]).exists():
-            return Response({
-              'status_code': '400',
-              'detail': 'Schedule already exists'
-            }, status = status.HTTP_400_BAD_REQUEST)
-          created_schedule = Schedule.objects.create(**serializer.validated_data)
-          serializer = ScheduleSerializer(created_schedule, many=False)
-          return Response(serializer.data, status = status.HTTP_201_CREATED)
-        except Exception:
+    @action(methods=['get'], detail=False)
+    def schedules_by_user_id(self, request):
+      try:
+        qu_user_id = request.query_params.get('user_id')
+        schedules = Schedule.objects.filter(user=qu_user_id)
+        serializer = ScheduleSerializer(schedules, many=True)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+      except Exception:
           return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-      return Response({
-        'status_code': '400',
-        'detail': 'Schedule could not be created with received data'
-      }, status = status.HTTP_400_BAD_REQUEST)
+
+class TherapistFeeViewSet(viewsets.ModelViewSet):
+  queryset = TherapistFee.objects.all()
+  serializer_class = TherapistFeeSerializer
+  permission_classes = (IsAuthenticated,)
+  http_method_names = ['get','post', 'put']

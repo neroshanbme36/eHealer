@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Schedule
+from .models import Schedule, TherapistFee
 from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,4 +37,9 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 class ScheduleSerializer(serializers.ModelSerializer):
   class Meta:
     model = Schedule
+    fields = '__all__'
+
+class TherapistFeeSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = TherapistFee
     fields = '__all__'
