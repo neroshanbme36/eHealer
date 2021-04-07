@@ -25,8 +25,8 @@ export class SchedulesService {
   }
 
   getSchedulesByUserId(userId: number): Observable<Schedule[]> {
-    const params = new HttpParams();
-    params.append('user_id', userId.toString());
+    let params = new HttpParams();
+    params = params.append('user_id', userId.toString());
     return this.http.get<Schedule[]>(this.baseUrl + 'schedules_by_user_id/', {params});
   }
 }

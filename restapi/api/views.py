@@ -88,6 +88,18 @@ class TherapistFeeViewSet(viewsets.ModelViewSet):
   permission_classes = (IsAuthenticated,)
   http_method_names = ['get','post', 'put']
 
+  @action(methods=['get'], detail=False)
+  def therapist_fee_by_user(self, request):
+    try:
+      qu_user_id = request.query_params.get('user_id')
+      qu_role_type = request.query_params.get('role_type')
+      qu_is_active = request.query_params.get('is_active')
+      therapist_fee = TherapistFee.objects.get(user=qu_user_id)
+      serializer = TherapistFeeSerializer(therapist_fee, many=False)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class AppointmentViewSet(viewsets.ModelViewSet):
   queryset = Appointment.objects.all()
   serializer_class = AppointmentSerializer

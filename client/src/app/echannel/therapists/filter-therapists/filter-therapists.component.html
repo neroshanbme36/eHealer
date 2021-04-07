@@ -1,0 +1,15 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Modal Content</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-searchbar placeholder="Therapist Name" name="searchTherapistName" id="searchTherapistName"
+    [(ngModel)]="searchTherapistName"></ion-searchbar>
+  <ion-searchbar placeholder="Specialization" name="searchSpecialization" id="searchSpecialization"
+    [(ngModel)]="searchSpecialization"></ion-searchbar>
+  <ion-button color="secondary" (click)="onSearchBtnClicked()">Search</ion-button>
+</ion-content>

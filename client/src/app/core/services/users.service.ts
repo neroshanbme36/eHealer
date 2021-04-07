@@ -46,10 +46,10 @@ export class UsersService {
     return this.http.delete<void>(this.baseUrl + id + '/');
   }
 
-  getUsersByRole(roleType: string, isActive: boolean): Observable<User[]> {
-    const params = new HttpParams();
-    params.append('role_type', roleType);
-    params.append('is_active', isActive.toString());
+  getUsersByRole(roleType: string, isActive: string): Observable<User[]> {
+    let params = new HttpParams();
+    params = params.append('role_type', roleType);
+    params = params.append('is_active', isActive);
     return this.http.get<User[]>(this.baseUrl + 'users_by_role/', {params});
   }
 }

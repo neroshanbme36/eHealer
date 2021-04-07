@@ -8,7 +8,7 @@ import { UsersService } from 'src/app/core/services/users.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   registerUser?: User;

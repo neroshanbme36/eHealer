@@ -1,0 +1,19 @@
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Therapists
+    </ion-list-header>
+    <ion-button color="secondary" (click)="presentFiltersModal()">Filters</ion-button>
+    <ion-item *ngFor="let per of filteredTherapists" (click)="onViewTherapistPrf(per)">
+      <ion-avatar slot="start">
+        <img src="./avatar-finn.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{per.firstName + ' ' + per.lastName}}</h2>
+        <h3>Qualification: {{per.qualification}}</h3>
+        <p>Specialization: {{per.specialization}}</p>
+        <p>Experince: {{per.experience}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

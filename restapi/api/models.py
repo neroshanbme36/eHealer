@@ -36,7 +36,7 @@ class Schedule(models.Model):
 
 class TherapistFee(models.Model):
   fee = models.DecimalField(blank=False,max_digits=22, decimal_places=4,validators=[MinValueValidator(0)])
-  user = models.OneToOneField(User,blank=False, on_delete=models.CASCADE, related_name='therapistFees')
+  user = models.OneToOneField(User,blank=False, on_delete=models.CASCADE, related_name='therapist_fees')
   slot_duration_in_mins = models.IntegerField(blank=False, validators=[MinValueValidator(1)], default=1)
 
   def __str__(self):
