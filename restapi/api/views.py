@@ -2,11 +2,11 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
-from .serializers import UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer
+from .serializers import PaymentSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Schedule, TherapistFee
+from .models import Session, Schedule, TherapistFee, Appointment, Payment
 from django.db.models import Q
 
 # Create your views here.
@@ -85,5 +85,43 @@ class ScheduleViewSet(viewsets.ModelViewSet):
 class TherapistFeeViewSet(viewsets.ModelViewSet):
   queryset = TherapistFee.objects.all()
   serializer_class = TherapistFeeSerializer
+  permission_classes = (IsAuthenticated,)
+  http_method_names = ['get','post', 'put']
+
+class AppointmentViewSet(viewsets.ModelViewSet):
+  queryset = Appointment.objects.all()
+  serializer_class = AppointmentSerializer
+  permission_classes = (IsAuthenticated,)
+  http_method_names = ['get','post', 'put']
+
+  @action(methods=['get'], detail=False)
+  def appointments_by_client(self, request):
+    try:
+      qu_user_id = request.query_params.get('user_id')
+      appointments = Appointment.objects.filter(client=qu_user_id)
+      serializer = AppoitmentUserSerializer(appointments, many=True)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+  @action(methods=['get'], detail=False)
+  def appointments_to_therapist(self, request):
+    try:
+      qu_user_id = request.query_params.get('user_id')
+      appointments = Appointment.objects.filter(therapist=qu_user_id)
+      serializer = AppoitmentUserSerializer(appointments, many=True)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class PaymentViewSet(viewsets.ModelViewSet):
+  queryset = Payment.objects.all()
+  serializer_class = PaymentSerializer
+  permission_classes = (IsAuthenticated,)
+  http_method_names = ['get','post', 'put']
+
+class SessionViewSet(viewsets.ModelViewSet):
+  queryset = Session.objects.all()
+  serializer_class = SessionSerializer
   permission_classes = (IsAuthenticated,)
   http_method_names = ['get','post', 'put']

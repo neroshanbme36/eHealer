@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Schedule, TherapistFee
+from .models import Session, Schedule, TherapistFee, Appointment, Payment
 from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
@@ -42,4 +42,25 @@ class ScheduleSerializer(serializers.ModelSerializer):
 class TherapistFeeSerializer(serializers.ModelSerializer):
   class Meta:
     model = TherapistFee
+    fields = '__all__'
+
+class AppointmentSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Appointment
+    fields = '__all__'
+
+class AppoitmentUserSerializer(serializers.ModelSerializer):
+  therapist = UserSerializer(many=False)
+  class Meta:
+    model = Appointment
+    fields = '__all__'
+
+class PaymentSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Payment
+    field = '__all__'
+
+class SessionSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Session
     fields = '__all__'
