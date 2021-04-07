@@ -5,7 +5,7 @@
     <ion-col size="12">
       <ion-button class="back" fill="clear" color="primary" (click)="back()" style="height: 30px;">
         <ion-icon style="color: white;" name="arrow-back"></ion-icon>
-        <ion-text style="color: white;">Create Account</ion-text>
+        <ion-text style="color: white;">Create {{roleType | titlecase}} Account</ion-text>
       </ion-button>
     </ion-col>
   </ion-row>
@@ -203,8 +203,19 @@
             <ion-label class="lbl">Country</ion-label>
           </ion-item>
 
+          <ion-row class="email-promotion">
+            <ion-col size="1">
+              <ion-checkbox style="margin-top: 5px;" (click)="isAgreePolicy=!isAgreePolicy"></ion-checkbox>
+            </ion-col>
+           <ion-col size="11">
+              <ion-text>I have read and agree to the 
+                <b class="b-link" (click)="goToPrivacyPolicy()">Privacy Policy</b>
+              </ion-text>
+           </ion-col>
+          </ion-row>
+
           <ion-button expand="block" (click)="onSubmit()" color="secondary"
-            [disabled]="f.invalid">
+            [disabled]="f.invalid || !isAgreePolicy">
             <ion-icon name="log-in" class="icon-login"></ion-icon>
             Submit
           </ion-button>

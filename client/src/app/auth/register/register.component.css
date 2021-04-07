@@ -55,3 +55,12 @@ ion-img{
     color: var(--ion-color-link);
     font-weight: normal !important;
 }
+.email-promotion{
+    padding-top: 4px;
+    padding-bottom: 3px;
+    margin: 3px;
+    border: 1px solid;
+    border-radius: 20px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+}

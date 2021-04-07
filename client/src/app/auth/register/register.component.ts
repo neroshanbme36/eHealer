@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/core/models/user';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
+import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
   selector: 'app-register',
@@ -11,13 +14,24 @@ export class RegisterComponent implements OnInit {
   registerUser?: User;
   registerNext ?: number;
   repeatPassword?: string;
+  isAgreePolicy: false;
+  roleType = 'client';
 
-  constructor(private repository: RepositoryService) { }
+  constructor(
+    private repository: RepositoryService,
+    private usersService: UsersService,
+    private alertify: AlertService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
     this.registerUser = new User();
     this.registerNext = 0;
     this.repeatPassword = '';
+
+    this.route.queryParams.subscribe((param) => {
+      this.roleType = param.roleType;
+    });
   }
 
   back(): void {
@@ -46,7 +60,19 @@ export class RegisterComponent implements OnInit {
     this.registerUser.martialStatus = event.detail.value;
   }
   onSubmit() {
-    // set role type
+    this.registerUser.roleType = this.roleType; //  'client'; // therapist
+    this.registerUser.birthDate = this.repository.getCsharpFormat(this.registerUser.birthDate, 'start');
     console.log(this.registerUser);
+    this.usersService.createUser(this.registerUser).subscribe((res: User) => {
+      this.alertify.presentAlert('Success', 'User registered successfully');
+      console.log(User);
+    }, e => {
+      this.alertify.presentAlert('Error', e);
+    }, () => {
+      this.repository.navigate('login');
+    });
+  }
+
+  goToPrivacyPolicy() {
   }
 }

@@ -60,17 +60,12 @@ export class ProfileComponent implements OnInit {
   save() {
     this.editUser.birthDate = this.repository.getCsharpFormat(this.editUser.birthDate, 'start');
     this.usersService.updateUser(this.editUser).subscribe((res: User) => {
+      this.repository.loggedInUser = res;
       this.alertify.presentAlert('Success', 'User updated successfully');
     }, e => {
       this.alertify.presentAlert('Error', e);
     }, () => {
-      this.usersService.getUser(this.repository.loggedInUser.id).subscribe((res) => {
-        this.repository.loggedInUser = res;
-      }, err => {
-        this.alertify.presentAlert('Error', err);
-      }, () => {
-        this.editUser = null;
-      });
+      this.editUser = null;
     });
   }
 }

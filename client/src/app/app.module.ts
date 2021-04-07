@@ -9,7 +9,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers, Storage } from '@ionic/storage';
-import { SharedModule } from './shared/shared.module';
 import { JwtModule } from '@auth0/angular-jwt';
 
 export function tokenGetter() {
@@ -35,7 +34,6 @@ export function tokenGetter() {
     CoreModule,
     BrowserModule,
     AppRoutingModule,
-    SharedModule,
     JwtModule.forRoot({
       config: {
           tokenGetter,

@@ -6,6 +6,8 @@ import { IonicModule, isPlatform } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { BaseComponent } from './components/base/base.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 
 const getConfig = () => {
   let config = {
@@ -23,7 +25,11 @@ const getConfig = () => {
 };
 
 @NgModule({
-  declarations: [BaseComponent],
+  declarations: [
+    BaseComponent,
+    HeaderComponent,
+    FooterComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -34,7 +40,11 @@ const getConfig = () => {
   providers: [
     ErrorInterceptorProvider
   ],
-  exports: [IonicModule]
+  exports: [
+    IonicModule,
+    HeaderComponent,
+    FooterComponent
+  ]
 })
 
 export class CoreModule {
