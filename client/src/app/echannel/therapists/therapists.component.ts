@@ -14,6 +14,7 @@ import { FilterTherapistsComponent } from './filter-therapists/filter-therapists
 })
 export class TherapistsComponent implements OnInit {
   therapists: User[];
+  imgUrl = '';
 
   constructor(
     private usersSer: UsersService,
@@ -26,6 +27,7 @@ export class TherapistsComponent implements OnInit {
   ngOnInit() {
     this.therapists = [];
     this.bindTherapists();
+    this.imgUrl = '../../../assets/therapists/';
   }
 
   private bindTherapists(): void {
@@ -33,11 +35,10 @@ export class TherapistsComponent implements OnInit {
     .subscribe((res: User[]) => {
       if (res) {
         this.therapists = res;
-        console.log(this.therapists);
       }
     }, error => {
       this.alertify.presentAlert('Error', error);
-    })
+    });
   }
 
   get filteredTherapists(): User[] {
@@ -57,15 +58,20 @@ export class TherapistsComponent implements OnInit {
   }
 
   onViewTherapistPrf(therapist: User): void {
-    this.router.navigate(['echannel/therapist_profile', therapist.id])
+    this.router.navigate(['echannel/therapist_profile', therapist.id]);
   }
 
-  async presentFiltersModal(): Promise<void> {
-    const modal = await this.modalController.create({
-      component: FilterTherapistsComponent,
-      swipeToClose: true,
-      presentingElement: await this.modalController.getTop() // Get the top-most ion-modal,
-    });
-    return await modal.present();
+  getImg(gender: string): string {
+    if (gender === 'male') {
+      return 'male.png';
+    } else if (gender === 'female'){
+      return 'female.png';
+    } else {
+      return 'other.png';
+    }
+  }
+
+  back(): void {
+    this.router.navigate(['home']);
   }
 }

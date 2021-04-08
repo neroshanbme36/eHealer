@@ -88,6 +88,22 @@
             <div>{{user?.qualification == null ? '-' : user?.qualification}}</div>
           </ion-label>
         </ion-item>
+        <ng-container *ngIf="user.roleType=='therapist'">
+          <ion-item>
+            <ion-icon name="ribbon-outline"></ion-icon>
+            <ion-label>
+              <div><b >Specialization</b></div>
+              <div>{{user?.specialization == null ? '-' : user?.specialization}}</div>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="thumbs-up-outline"></ion-icon>
+            <ion-label>
+              <div><b >Experience(in year)</b></div>
+              <div>{{user?.experience == null ? '-' : user?.experience}}</div>
+            </ion-label>
+          </ion-item>
+        </ng-container>
         <ion-item>
           <ion-icon name="pin-outline"></ion-icon>
           <ion-label>
@@ -206,6 +222,18 @@
               <ion-input class="inpt" name="qualification" [(ngModel)]="editUser.qualification"></ion-input>
               <ion-label class="lbl">Qualification</ion-label>
             </ion-item>
+            <ng-container *ngIf="editUser.roleType=='therapist'">
+              <ion-item class="required">
+                <ion-icon name="ribbon-outline"></ion-icon>
+                <ion-input class="inpt" name="specialization" [(ngModel)]="editUser.specialization" required></ion-input>
+                <ion-label class="lbl">Specialization</ion-label>
+              </ion-item>
+              <ion-item class="required">
+                <ion-icon name="thumbs-up-outline"></ion-icon>
+                <ion-input class="inpt" name="experience" [(ngModel)]="editUser.experience" required></ion-input>
+                <ion-label class="lbl">Experience(in year)</ion-label>
+              </ion-item>
+            </ng-container>
             <ion-item class="required">
               <ion-icon name="pin-outline"></ion-icon>
               <ion-input class="inpt" name="address1" [(ngModel)]="editUser.addressLine1" required></ion-input>

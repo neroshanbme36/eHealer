@@ -19,7 +19,6 @@ export function tokenGetter() {
     //    location.reload();
     // }
   }
-  console.log(token);
   return token;
 }
 

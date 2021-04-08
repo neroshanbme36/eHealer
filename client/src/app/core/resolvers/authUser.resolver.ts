@@ -21,7 +21,6 @@ export class AuthUserResolver implements Resolve<User> {
                 return Observable.create(observer => {
                     observer.next(this.repositoryService.loggedInUser);
                     observer.complete();
-                    console.log('complete');
                 });
         } else {
             return this.usersService.getUser(this.usersService.decodedToken.user_id).pipe(

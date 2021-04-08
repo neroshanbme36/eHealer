@@ -17,14 +17,12 @@ export class PolicyComponent implements OnInit {
 
   back() {
     const segments = this.route.snapshot.url;
-    console.log(segments);
     let path = '';
     if (segments.length >= 2) {
       path = segments[segments.length - 2].path;
     } else if (segments.length === 1) {
       path = 'account';
     }
-    console.log(path);
     this.route.queryParams.subscribe((param) => {
       this.roleType = param.roleType;
       if (this.roleType) {

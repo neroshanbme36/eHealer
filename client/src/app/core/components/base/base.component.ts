@@ -23,7 +23,6 @@ export class BaseComponent implements OnInit {
   loadUser() {
     this.route.data.subscribe(data => {
       this.repository.loggedInUser = data.authUser;
-      console.log(this.repository.loggedInUser);
     });
   }
 }

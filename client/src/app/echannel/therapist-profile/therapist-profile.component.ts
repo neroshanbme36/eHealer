@@ -17,6 +17,7 @@ export class TherapistProfileComponent implements OnInit {
   userId: number;
   therapist?: User;
   therpaistFee?: TherapistFee;
+  imgUrl = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class TherapistProfileComponent implements OnInit {
   ngOnInit() {
     this.userId = Number(this.route.snapshot.params.id);
     this.bindTherapistDetails();
+    this.imgUrl = '../../../assets/therapists/';
   }
 
   bindTherapistDetails(): void {
@@ -43,11 +45,24 @@ export class TherapistProfileComponent implements OnInit {
         this.therpaistFee = res;
       }, error => {
         this.alertify.presentAlert('Error', error);
-      }, () => {})
+      }, () => {});
     });
   }
 
   onBookAnAppointmentBtnClicked(): void {
-    this.router.navigate(['echannel/book_an_appointment', this.userId])
+    this.router.navigate(['echannel/book_an_appointment', this.userId]);
+  }
+
+  getImg(gender: string): string {
+    if (gender === 'male') {
+      return 'male.png';
+    } else if (gender === 'female'){
+      return 'female.png';
+    } else {
+      return 'other.png';
+    }
+  }
+  back(): void {
+    this.router.navigate(['echannel/therapists']);
   }
 }

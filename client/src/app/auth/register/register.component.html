@@ -39,7 +39,7 @@
             <ion-label *ngIf="!pwd.valid && pwd.dirty" class="error">Should at least be 4 characters long.</ion-label>
 
             <ion-item class="border required" lines="none">
-              <ion-icon name="mail-outline"></ion-icon>
+              <ion-icon name="lock-open-outline"></ion-icon>
               <ion-input class="inpt" type="password" name="repeatpwd" placeholder="Repeat Password*" ngModel #repeatpwd="ngModel" required
                 [(ngModel)]="repeatPassword">
               </ion-input>
@@ -203,6 +203,41 @@
             <ion-label class="lbl">Country</ion-label>
           </ion-item>
 
+          <ion-button expand="block" (click)="registerNext=registerNext+1; isAgreePolicy=false" color="secondary"
+            [disabled]="f.invalid">
+            <ion-icon name="log-in" class="icon-login"></ion-icon>
+            Next
+          </ion-button>
+        </ng-container>
+
+        <ng-container *ngIf="registerNext==3">
+          <ion-item class="border" lines="none">
+            <ion-icon name="book-outline"></ion-icon>
+            <ion-input class="inpt" name="qualification" placeholder="Qualification (Optional)" #qualification="ngModel"
+            style="text-transform: capitalize;"
+            [(ngModel)]="registerUser.qualification">
+            </ion-input>
+          <ion-label class="lbl">Qualification</ion-label>
+          </ion-item>
+
+          <ng-container *ngIf="roleType=='therapist'">
+            <ion-item class="border required" lines="none">
+              <ion-icon name="ribbon-outline"></ion-icon>
+              <ion-input class="inpt" name="specialization" placeholder="specialization" #specialization="ngModel"
+              required style="text-transform: capitalize;"
+              [(ngModel)]="registerUser.specialization">
+              </ion-input>
+            <ion-label class="lbl">Specialization</ion-label>
+            </ion-item>
+            <ion-item class="border required" lines="none">
+              <ion-icon name="thumbs-up-outline"></ion-icon>
+              <ion-input class="inpt" name="experience" placeholder="Experience(in year)" #experience="ngModel"
+              required style="text-transform: capitalize;"
+              [(ngModel)]="registerUser.experience">
+              </ion-input>
+            <ion-label class="lbl">Experience</ion-label>
+            </ion-item>
+          </ng-container>
           <ion-row class="email-promotion">
             <ion-col size="1">
               <ion-checkbox style="margin-top: 5px;" (click)="isAgreePolicy=!isAgreePolicy"></ion-checkbox>
@@ -215,12 +250,11 @@
               </ion-text>
            </ion-col>
           </ion-row>
-
           <ion-button expand="block" (click)="onSubmit()" color="secondary"
             [disabled]="f.invalid || !isAgreePolicy">
             <ion-icon name="log-in" class="icon-login"></ion-icon>
             Submit
-          </ion-button>
+        </ion-button>
         </ng-container>
       </ion-list>
     </form>
