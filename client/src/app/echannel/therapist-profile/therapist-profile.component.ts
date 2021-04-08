@@ -27,7 +27,7 @@ export class TherapistProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userId = Number(this.route.snapshot.paramMap.get('id'));
+    this.userId = Number(this.route.snapshot.params.id);
     this.bindTherapistDetails();
   }
 
