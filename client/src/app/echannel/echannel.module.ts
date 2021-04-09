@@ -5,6 +5,9 @@ import { EchannelRoutingModule } from './echannel-routing.module';
 import { TherapistsComponent } from './therapists/therapists.component';
 import { FilterTherapistsComponent } from './therapists/filter-therapists/filter-therapists.component';
 import { BookAnAppointmentComponent } from './book-an-appointment/book-an-appointment.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { StripeElementsComponent } from './checkout/stripe-elements/stripe-elements.component';
+import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 
 @NgModule({
   imports: [
@@ -15,7 +18,10 @@ import { BookAnAppointmentComponent } from './book-an-appointment/book-an-appoin
     TherapistProfileComponent,
     TherapistsComponent,
     FilterTherapistsComponent,
-    BookAnAppointmentComponent
+    BookAnAppointmentComponent,
+    CheckoutComponent,
+    StripeElementsComponent,
+    PaymentConfirmationComponent
   ]
 })
 export class EchannelModule {}

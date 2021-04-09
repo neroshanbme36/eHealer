@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -38,7 +38,8 @@ const getConfig = () => {
     IonicModule.forRoot(getConfig())
   ],
   providers: [
-    ErrorInterceptorProvider
+    ErrorInterceptorProvider,
+    DatePipe
   ],
   exports: [
     IonicModule,

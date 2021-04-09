@@ -1,3 +1,22 @@
-<p>
-  book-an-appointment works!
-</p>
+<ion-content>
+  <ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime displayFormat="DDDD MMM D, YYYY" [min]="strToday" [max]="maxAppointmentYear"
+    [(ngModel)]="selectedDate" (ionChange)="onAppointmentDateChanged()"></ion-datetime>
+  </ion-item>
+  <ion-list>
+    <ion-radio-group allow-empty-selection value="anchovies" (ionChange)="onTimeSlotSelected($event)">
+      <ion-list-header>
+        <ion-label>Availablity</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let sch of schedules">
+        <ion-label>
+          <ion-icon name="time-outline"></ion-icon>
+          {{sch.openingTime}} - {{sch.closingTime}}
+        </ion-label>
+        <ion-radio slot="end" color="secondary" [value]="sch.id"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  <ion-button color="secondary" [disabled]="!selectedSchedule" (click)="onConfirmBtnClicked()">Confirm</ion-button>
+</ion-content>

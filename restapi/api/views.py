@@ -8,6 +8,8 @@ from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Session, Schedule, TherapistFee, Appointment, Payment
 from django.db.models import Q
+from datetime import datetime, timedelta
+from django.utils.dateparse import parse_date
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -82,6 +84,28 @@ class ScheduleViewSet(viewsets.ModelViewSet):
       except Exception:
           return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @action(methods=['get'], detail=False)
+    def unbooked_slots(self, request):
+      try:
+        qu_requested_date = request.query_params.get('requested_date')
+        qu_user_id = request.query_params.get('user_id')
+        req_day_name = parse_date(qu_requested_date).strftime("%A")
+        start_date = parse_date(qu_requested_date)
+        end_date = parse_date(qu_requested_date) + timedelta(days=1)
+        schedules = Schedule.objects.filter(user=qu_user_id, day=req_day_name)
+        appointments = Appointment.objects.filter(therapist=qu_user_id, slot_date__gte=start_date, slot_date__lte=end_date, status_type__lte=1)
+        unbooked_sch = []
+        if schedules.exists():
+          for s in schedules:
+            open_tim = datetime.combine(start_date, s.opening_time)
+            clos_tim = datetime.combine(start_date, s.closing_time)
+            if appointments.filter(slot_start_time__gte=open_tim, slot_start_time__lte=clos_tim).exists() == False:
+              unbooked_sch.append(s)
+        serializer = ScheduleSerializer(unbooked_sch, many=True)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+      except Exception:
+          return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class TherapistFeeViewSet(viewsets.ModelViewSet):
   queryset = TherapistFee.objects.all()
   serializer_class = TherapistFeeSerializer
@@ -92,8 +116,6 @@ class TherapistFeeViewSet(viewsets.ModelViewSet):
   def therapist_fee_by_user(self, request):
     try:
       qu_user_id = request.query_params.get('user_id')
-      qu_role_type = request.query_params.get('role_type')
-      qu_is_active = request.query_params.get('is_active')
       therapist_fee = TherapistFee.objects.get(user=qu_user_id)
       serializer = TherapistFeeSerializer(therapist_fee, many=False)
       return Response(serializer.data, status = status.HTTP_200_OK)
@@ -123,6 +145,20 @@ class AppointmentViewSet(viewsets.ModelViewSet):
       appointments = Appointment.objects.filter(therapist=qu_user_id)
       serializer = AppoitmentUserSerializer(appointments, many=True)
       return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+  @action(methods=['get'], detail=False)
+  def is_appointment_exist(self, request):
+    try:
+      qu_requested_date = request.query_params.get('requested_date')
+      qu_schedule_id = request.query_params.get('schedule_id')
+      schedule = Schedule.objects.get(id=qu_schedule_id)
+      req_date = parse_date(qu_requested_date)
+      open_tim = datetime.combine(req_date, schedule.opening_time)
+      clos_tim = datetime.combine(req_date, schedule.closing_time)
+      is_appointment_exist = Appointment.objects.filter(therapist=schedule.user, slot_date=qu_requested_date, slot_start_time__gte=open_tim, slot_end_time__lte=clos_tim).exists()
+      return Response({'result': is_appointment_exist}, status = status.HTTP_200_OK)
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

@@ -1,0 +1,4 @@
+<ion-content>
+  <app-stripe-elements (stripeElementToParent)="onEventEmittedFromStripeEleComp($event)"></app-stripe-elements>
+  <ion-button color="secondary" [disabled]="!isEnableConfirmPaymentBtn" (click)="onPayBtnClicked()">Pay</ion-button>
+</ion-content>

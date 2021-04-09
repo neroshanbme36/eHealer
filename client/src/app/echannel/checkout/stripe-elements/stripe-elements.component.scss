@@ -1,0 +1,10 @@
+.StripeElement {
+  height: 2rem;
+  padding-left: 6px;
+}
+
+.StripeElement--focus {
+  border-color: #80BDFF;
+  outline:0;
+  transition: border-color .15s ease-in-out;
+}

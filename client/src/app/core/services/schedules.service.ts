@@ -29,4 +29,16 @@ export class SchedulesService {
     params = params.append('user_id', userId.toString());
     return this.http.get<Schedule[]>(this.baseUrl + 'schedules_by_user_id/', {params});
   }
+
+  getSchedule(id: number): Observable<Schedule> {
+    return this.http.get<Schedule>(this.baseUrl + id + '/');
+  }
+
+  // 2021-04-05
+  getUnbookedSlots(userId: number, requestedDate: string): Observable<Schedule[]> {
+    let params = new HttpParams();
+    params = params.append('user_id', userId.toString());
+    params = params.append('requested_date', requestedDate.toString());
+    return this.http.get<Schedule[]>(this.baseUrl + 'unbooked_slots/', {params});
+  }
 }
