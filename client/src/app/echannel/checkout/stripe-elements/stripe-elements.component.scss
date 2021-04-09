@@ -8,3 +8,20 @@
   outline:0;
   transition: border-color .15s ease-in-out;
 }
+.txt-box{
+  padding: 5px;
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.w-100{
+  width: 100%;
+}
+
+label{
+  font-size: 15px;
+}
+.text-danger{
+  color: red;
+}

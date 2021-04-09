@@ -18,11 +18,8 @@
     <ion-col>
       <div class="cus-required">
         <label for="nameOnCard">Name on card</label>
-        <div class="input-group input-group-sm">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-user"></i></span>
-          </div>
-          <input type="text" name="nameOnCard" id="nameOnCard" required
+        <div>
+          <input class="txt-box w-100" type="text" name="nameOnCard" id="nameOnCard" required
             [(ngModel)]="stripeElementDto.nameOnCard" #nameOnCardCtrl="ngModel">
         </div>
       </div>
@@ -32,7 +29,7 @@
     <ion-col>
       <div class="cus-required">
         <label for="cardNumber">Card Number</label>
-        <div id="cardNumber" #cardNumberCtrl></div>
+        <div class="txt-box w-100" id="cardNumber" #cardNumberCtrl></div>
       </div>
     </ion-col>
   </ion-row>
@@ -40,13 +37,13 @@
     <ion-col size=6>
       <div class="cus-required">
         <label for="cardExpiry">Expiry</label>
-        <div id="cardExpiry" #cardExpiryCtrl></div>
+        <div class="txt-box" id="cardExpiry" #cardExpiryCtrl></div>
       </div>
     </ion-col>
     <ion-col size=6>
       <div class="cus-required">
         <label for="cardCvc">CVC</label>
-        <div id="cardCvc" #cardCvcCtrl></div>
+        <div class="txt-box" id="cardCvc" #cardCvcCtrl></div>
       </div>
     </ion-col>
   </ion-row>

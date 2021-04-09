@@ -1,4 +1,45 @@
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
+      </ion-button>  
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">Checkout</ion-text>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <app-stripe-elements (stripeElementToParent)="onEventEmittedFromStripeEleComp($event)"></app-stripe-elements>
-  <ion-button color="secondary" [disabled]="!isEnableConfirmPaymentBtn" (click)="onPayBtnClicked()">Pay</ion-button>
+  <ion-card>
+    <ion-card-content>
+      <ion-text>Appoint Summary</ion-text>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start">
+          <ion-img [src]="imgUrl + getImg(therapist?.gender)"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h4 style="font-weight: bold;">{{therapist?.firstName + ' ' + therapist?.lastName}}</h4>
+          <h4>{{therapist?.specialization}}</h4>
+          <h4>Date: {{requestedDate | date:'MMM dd, yyyy'}}</h4> 
+          <h4>Time: {{schedule?.openingTime}}-{{schedule?.closingTime}}</h4>         
+          <h4>Fee: {{therpaistFee?.fee | number: '.0-2'}}</h4>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <app-stripe-elements (stripeElementToParent)="onEventEmittedFromStripeEleComp($event)"></app-stripe-elements>
+      <!-- <ion-button color="secondary" [disabled]="!isEnableConfirmPaymentBtn" (click)="onPayBtnClicked()">Pay</ion-button> -->
+      <ion-button color="secondary" expand="full" class="pay"
+          [disabled]="!isEnableConfirmPaymentBtn" (click)="onPayBtnClicked()">
+          <ion-icon name="log-in"></ion-icon>
+          Pay
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

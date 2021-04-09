@@ -26,6 +26,7 @@ export class CheckoutComponent implements OnInit {
   requestedDate?: string;
   stripeElementDto: StripeElementDto;
   appointment?: Appointment;
+  imgUrl = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +50,7 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.router.navigate(['']);
     }
+    this.imgUrl = '../../../assets/therapists/';
   }
 
   bindRequiredDetails(therapistId: number, scheduleId: number): void {
@@ -94,7 +96,7 @@ export class CheckoutComponent implements OnInit {
               this.appointment.client = this.mainRepo.loggedInUser.id;
               this.appointment.therapist = this.therapist.id;
             });
-          })
+          });
       } else {
         this.router.navigate(['']);
       }
@@ -151,16 +153,31 @@ export class CheckoutComponent implements OnInit {
             }, error => {
               this.alertify.presentAlert('Error', error);
             }, () => {
-              this.router.navigate(['echannel/payment_confirmation', payt.id])
-            })
+              this.router.navigate(['echannel/payment_confirmation', payt.id]);
+            });
           } else {
             this.alertify.presentAlert('Error', 'This schedule is already booked please select another schedule')
             .then(() => {
               this.router.navigate(['echannel/book_an_appointment', this.therapist.id]);
-            })
+            });
           }
-        })
+        });
       }
-    })
+    });
+  }
+
+  back(): void {
+    const therapistId = this.route.snapshot.queryParams.therapist_id;
+    this.router.navigate(['echannel/book_an_appointment', therapistId]);
+  }
+
+  getImg(gender: string): string {
+    if (gender === 'male') {
+      return 'male.png';
+    } else if (gender === 'female'){
+      return 'female.png';
+    } else {
+      return 'other.png';
+    }
   }
 }
