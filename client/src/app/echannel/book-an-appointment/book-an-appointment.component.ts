@@ -49,7 +49,7 @@ export class BookAnAppointmentComponent implements OnInit {
         }
       }, error => {
         this.alertify.presentAlert('Error', error);
-      })
+      });
   }
 
   onAppointmentDateChanged(): void {
@@ -57,11 +57,11 @@ export class BookAnAppointmentComponent implements OnInit {
     this.schedulesSer.getUnbookedSlots(this.therapistId, sDate)
       .subscribe((res: Schedule[]) => {
         if (res) {
-          this.unbookedSlots = res
+          this.unbookedSlots = res;
         }
       }, error => {
         this.alertify.presentAlert('Error', error);
-      })
+      });
   }
 
   onTimeSlotSelected(data: any): void {
@@ -76,5 +76,9 @@ export class BookAnAppointmentComponent implements OnInit {
   onConfirmBtnClicked(): void {
     this.router.navigate(['echannel/checkout'],
     {queryParams: {requested_date: this.selectedDate, therapist_id: this.therapistId, schedule_id: this.selectedSchedule.id}});
+  }
+
+  back(): void {
+    this.router.navigate(['echannel/therapist_profile', this.therapistId]);
   }
 }

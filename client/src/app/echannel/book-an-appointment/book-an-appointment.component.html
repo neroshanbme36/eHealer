@@ -1,22 +1,55 @@
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
+      </ion-button>  
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">Appointment Booking</ion-text>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <ion-item>
-    <ion-label>Date</ion-label>
-    <ion-datetime displayFormat="DDDD MMM D, YYYY" [min]="strToday" [max]="maxAppointmentYear"
-    [(ngModel)]="selectedDate" (ionChange)="onAppointmentDateChanged()"></ion-datetime>
+  <ion-img src="../../../assets/images/appontment.png" style="height: 100px;"></ion-img>
+  <ion-item lines="none">
+    <ion-icon name="calendar-outline"></ion-icon>
+    <ion-label class="lbl">
+      <div><b >Pick appointment date</b></div>
+      <div>
+        <ion-datetime displayFormat="DDDD MMM D, YYYY" [min]="strToday" [max]="maxAppointmentYear"
+          [(ngModel)]="selectedDate" (ionChange)="onAppointmentDateChanged()">
+        </ion-datetime>
+      </div>
+    </ion-label>
   </ion-item>
   <ion-list>
+    <ion-list-header>
+      <ion-row>
+        <ion-col>
+          <ion-text>Availablity</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-list-header>
     <ion-radio-group allow-empty-selection value="anchovies" (ionChange)="onTimeSlotSelected($event)">
-      <ion-list-header>
-        <ion-label>Availablity</ion-label>
-      </ion-list-header>
-      <ion-item *ngFor="let sch of schedules">
-        <ion-label>
-          <ion-icon name="time-outline"></ion-icon>
-          {{sch.openingTime}} - {{sch.closingTime}}
+      <ion-item *ngFor="let sch of unbookedSlots" style="margin-top: 10px;">
+        <ion-icon name="time-outline"></ion-icon>
+        <ion-label class="lbl">
+          <div>{{sch.openingTime}} - {{sch.closingTime}}</div>
         </ion-label>
         <ion-radio slot="end" color="secondary" [value]="sch.id"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>
-  <ion-button color="secondary" [disabled]="!selectedSchedule" (click)="onConfirmBtnClicked()">Confirm</ion-button>
+  <ion-button *ngIf="unbookedSlots.length > 0" color="secondary" expand="full"
+    class="confirm"
+    [disabled]="!selectedSchedule" 
+    (click)="onConfirmBtnClicked()">
+      <ion-icon name="log-in"></ion-icon>
+      Confirm
+  </ion-button>
+  <ion-img *ngIf="unbookedSlots.length == 0" src="../../../assets/images/notfound.png"></ion-img>
 </ion-content>
