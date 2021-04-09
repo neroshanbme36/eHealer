@@ -48,7 +48,7 @@ class Appointment(models.Model):
   client = models.ForeignKey(User,blank=False, on_delete=models.DO_NOTHING, related_name='client_appointments')
   therapist = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='therapist_appointments')
 
-class Payment(models.Model):
+class PaymentTransaction(models.Model):
   # 0 - sale, 1 - refund
   trans_type = models.IntegerField(blank=False, validators=[MinValueValidator(0),MaxValueValidator(1)])
   fee = models.DecimalField(blank=False,max_digits=22, decimal_places=4,validators=[MinValueValidator(0)])

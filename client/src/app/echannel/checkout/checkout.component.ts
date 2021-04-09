@@ -8,7 +8,7 @@ import { TherapistFee } from 'src/app/core/models/therapistFee';
 import { User } from 'src/app/core/models/user';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { AppointmentsService } from 'src/app/core/services/appointments.service';
-import { PaymentsService } from 'src/app/core/services/payments.service';
+import { PaymentTransactionsService } from 'src/app/core/services/paymentTransactions.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
 import { SchedulesService } from 'src/app/core/services/schedules.service';
 import { TherapistfeesService } from 'src/app/core/services/therapistfees.service';
@@ -37,7 +37,7 @@ export class CheckoutComponent implements OnInit {
     private therapistFeeSer: TherapistfeesService,
     private appointmentSer: AppointmentsService,
     private mainRepo: RepositoryService,
-    private paymentsSer: PaymentsService
+    private paymentsSer: PaymentTransactionsService
   ) { }
 
   ngOnInit() {

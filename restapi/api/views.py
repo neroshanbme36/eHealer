@@ -2,11 +2,11 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
-from .serializers import AppoitmentUserSerializer, PaymentSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
+from .serializers import PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Session, Schedule, TherapistFee, Appointment, Payment
+from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils.dateparse import parse_date
@@ -162,11 +162,11 @@ class AppointmentViewSet(viewsets.ModelViewSet):
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class PaymentViewSet(viewsets.ModelViewSet):
-  queryset = Payment.objects.all()
-  serializer_class = PaymentSerializer
-  permission_classes = (IsAuthenticated,)
-  http_method_names = ['get','post', 'put']
+class PaymentTransactionViewSet(viewsets.ModelViewSet):
+    queryset = PaymentTransaction.objects.all()
+    serializer_class = PaymentTransactionSerializer
+    permission_classes = (IsAuthenticated,)
+    http_method_names =  ['get','post', 'put']
 
 class SessionViewSet(viewsets.ModelViewSet):
   queryset = Session.objects.all()

@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework import routers
 from django.conf.urls import include
-from .views import PaymentViewSet, SessionViewSet, UserViewSet, UserUpdateViewSet, ScheduleViewSet, TherapistFeeViewSet, AppointmentViewSet
+from .views import PaymentTransactionViewSet, SessionViewSet, UserViewSet, UserUpdateViewSet, ScheduleViewSet, TherapistFeeViewSet, AppointmentViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
@@ -12,7 +12,7 @@ router.register('schedules', ScheduleViewSet)
 router.register('therapist_fees', TherapistFeeViewSet)
 router.register('appointments', AppointmentViewSet)
 router.register('sessions', SessionViewSet)
-router.register('payments', PaymentViewSet)
+router.register('payment_transactions', PaymentTransactionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -26,4 +26,8 @@ export class AppointmentsService {
     params = params.append('schedule_id', scheduleId.toString());
     return this.http.get<any>(this.baseUrl + 'is_appointment_exist/', {params})
   }
+
+  getAppoitment(id: number): Observable<Appointment> {
+    return this.http.get<Appointment>(this.baseUrl + id + '/');
+  }
 }
