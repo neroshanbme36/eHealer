@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { UsersService } from './core/services/users.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { UsersService } from './core/services/users.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService, private afs: AngularFirestore) {}
 
   ngOnInit() {
     const token = localStorage.getItem('healerToken');

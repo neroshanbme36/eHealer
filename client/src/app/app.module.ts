@@ -10,6 +10,9 @@ import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers, Storage } from '@ionic/storage';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 export function tokenGetter() {
   const token = localStorage.getItem('healerToken');
@@ -39,13 +42,16 @@ export function tokenGetter() {
           allowedDomains: [environment.apiDomain],
           disallowedRoutes: [environment.apiDomain + 'api/login/'] // this will send without token
       }
-  }),
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
