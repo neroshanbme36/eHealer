@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TherapistFee } from 'src/app/core/models/therapistFee';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
@@ -15,7 +16,8 @@ export class ConsultationFeeComponent implements OnInit {
   constructor(
     private mainRepo: RepositoryService,
     private therapistFeeSer: TherapistfeesService,
-    private alertify: AlertService
+    private alertify: AlertService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -29,10 +31,11 @@ export class ConsultationFeeComponent implements OnInit {
     .subscribe((res: TherapistFee) => {
       if (res) {
         this.therapistFee = res;
+        console.log(this.therapistFee);
       }
     }, error => {
       this.alertify.presentAlert('Error', error);
-    })
+    });
   }
 
   onSaveBtnClicked(): void {
@@ -43,7 +46,7 @@ export class ConsultationFeeComponent implements OnInit {
         this.alertify.presentAlert('Message', 'Consulation fee updated successfully');
       }, error => {
         this.alertify.presentAlert('Error', error);
-      })
+      });
     } else {
       this.therapistFeeSer.createTherapistFee(this.therapistFee)
       .subscribe((res: TherapistFee) => {
@@ -51,7 +54,11 @@ export class ConsultationFeeComponent implements OnInit {
         this.alertify.presentAlert('Message', 'Consulation fee saved successfully.');
       }, error => {
         this.alertify.presentAlert('Error', error);
-      })
+      });
     }
+  }
+
+  back(): void {
+    this.router.navigate(['home']);
   }
 }
