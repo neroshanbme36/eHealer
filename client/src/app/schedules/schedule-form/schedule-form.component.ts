@@ -19,6 +19,7 @@ export class ScheduleFormComponent implements OnInit {
   today: Date;
   startDateIsoStr: string;
   endDateIsoStr: string;
+  headingStr = 'Edit';
 
   constructor(
     private router: Router,
@@ -43,6 +44,10 @@ export class ScheduleFormComponent implements OnInit {
     this.startDateIsoStr = (this.today).toISOString();
     this.endDateIsoStr = (this.today).toISOString();
     this.bindScheduleDetails();
+    const path = this.route.snapshot.routeConfig.path;
+    if (path === 'new') {
+      this.headingStr = 'Create';
+    }
   }
 
   private bindScheduleDetails(): void {
@@ -68,8 +73,10 @@ export class ScheduleFormComponent implements OnInit {
               if (res) {
                 this.schedule = res;
                 let timeArr = this.schedule.openingTime.split(':'); // HH:MM:SS
+                // tslint:disable-next-line:max-line-length
                 this.startDateIsoStr = this.mainRepo.combineDateWithTime(this.today, new Date(1900, 1, 1, Number(timeArr[0]), Number(timeArr[1]), Number(timeArr[2]))).toISOString();
                 timeArr = this.schedule.closingTime.split(':');
+                // tslint:disable-next-line:max-line-length
                 this.endDateIsoStr = this.mainRepo.combineDateWithTime(this.today, new Date(1900, 1, 1, Number(timeArr[0]), Number(timeArr[1]), Number(timeArr[2]))).toISOString();
               } else {
                 this.router.navigate(['']);
@@ -77,9 +84,9 @@ export class ScheduleFormComponent implements OnInit {
             }, error => {
               this.alertify.presentAlert('Error', error);
               this.router.navigate(['']);
-            })
+            });
         }
-      })
+      });
   }
 
   onSaveBtnClicked(): void {
@@ -96,7 +103,7 @@ export class ScheduleFormComponent implements OnInit {
           this.alertify.presentAlert('Message', 'Schedule updated successfully');
         }, error => {
           this.alertify.presentAlert('Error', error);
-        })
+        });
     } else {
       this.schedulesSer.createSchedule(this.schedule)
         .subscribe((res: Schedule) => {
@@ -106,11 +113,16 @@ export class ScheduleFormComponent implements OnInit {
           this.alertify.presentAlert('Error', error);
         }, () => {
           this.router.navigate(['schedules/edit', this.schedule.id]);
-        })
+        });
     }
   }
 
   onStartTimeChanged(): void {
+    // tslint:disable-next-line:max-line-length
     this.endDateIsoStr = (new Date((new Date(this.startDateIsoStr).getTime()) + (this.therapistFee.slotDurationInMins * 60 * 1000))).toISOString();
+  }
+
+  back(): void {
+    this.router.navigate(['schedules/list']);
   }
 }

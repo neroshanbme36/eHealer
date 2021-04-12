@@ -32,7 +32,7 @@ export class ScheduleListComponent implements OnInit {
       this.schedules = res;
     }, error => {
       this.alertify.presentAlert('Error', error);
-    })
+    });
   }
 
   get filteredSchedules(): Schedule[] {
@@ -45,7 +45,7 @@ export class ScheduleListComponent implements OnInit {
           return -1;
         }
         return 0;
-      })
+      });
       if (this.filterByDay !== '') {
         return fsch.filter(x => x.day.trim().toLowerCase().includes(this.filterByDay.trim().toLowerCase()));
       } else {
@@ -64,7 +64,7 @@ export class ScheduleListComponent implements OnInit {
           this.alertify.presentAlert('Error', error);
         }, () => {
           this.bindSchedules();
-        })
+        });
       }, () => { // cancel call back});
     });
   }
@@ -75,5 +75,9 @@ export class ScheduleListComponent implements OnInit {
 
   onEditBtnClicked(id: number): void {
     this.router.navigate(['schedules/edit', id]);
+  }
+
+  back(): void {
+    this.router.navigate(['home']);
   }
 }

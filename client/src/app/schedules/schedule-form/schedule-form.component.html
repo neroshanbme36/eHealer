@@ -1,8 +1,25 @@
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">{{headingStr}} Schedules</ion-text>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
+  <ion-img src="../../../assets/images/schedule.png" style="height: 150px;margin-top: 10px;"></ion-img>
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label>Day</ion-label>
+        <ion-icon name="calendar"></ion-icon>
+        <ion-label class="lbl">Pick Day</ion-label>
         <ion-select placeholder="Select One" [value]="schedule.dayOfWeek" [(ngModel)]="schedule.dayOfWeek">
           <ion-select-option [value]="day.id" *ngFor="let day of mainRepo.daysDto">{{day.name| titlecase}}</ion-select-option>
         </ion-select>
@@ -12,7 +29,8 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label>Start Time</ion-label>
+        <ion-icon name="time"></ion-icon>
+        <ion-label class="lbl">Pick Start Time</ion-label>
         <ion-datetime display-format="HH:mm" picker-format="HH:mm" [(ngModel)]="startDateIsoStr" (ionChange)="onStartTimeChanged()"></ion-datetime>
       </ion-item>
     </ion-col>
@@ -20,14 +38,12 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label>End Time</ion-label>
+        <ion-icon name="time"></ion-icon>
+        <ion-label class="lbl">Pick End Time</ion-label>
         <ion-datetime disabled display-format="HH:mm" picker-format="HH:mm" [(ngModel)]="endDateIsoStr"></ion-datetime>
       </ion-item>
     </ion-col>
   </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-button color="secondary" (click)="onSaveBtnClicked()" [disabled]="schedule.dayOfWeek === 0">Save</ion-button>
-    </ion-col>
-  </ion-row>
+  <ion-button color="secondary"  expand="full" shape="round" class="ion-padding"
+      (click)="onSaveBtnClicked()" [disabled]="schedule.dayOfWeek === 0">Save</ion-button>
 </ion-content>
