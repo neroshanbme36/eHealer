@@ -9,7 +9,7 @@ const routes: Routes = [
       { path: '', redirectTo: '/schedules/list', pathMatch: 'full' },
       { path: 'list', component: ScheduleListComponent},
       { path: 'new', component: ScheduleFormComponent },
-      { path: 'edit', component: ScheduleFormComponent }
+      { path: 'edit/:id', component: ScheduleFormComponent }
     ]
   }
 ];

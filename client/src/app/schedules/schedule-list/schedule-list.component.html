@@ -1,7 +1,29 @@
 <ion-content>
   <ion-row>
     <ion-col>
-      <ion-button color="secondary">Add</ion-button>
+      <ion-button color="secondary" (click)="onCreateBtnClicked()">Add</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-searchbar placeholder="Day" name="filterByDay" id="filterByDay"
+      [(ngModel)]="filterByDay">
+    </ion-searchbar>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item-sliding *ngFor="let sch of filteredSchedules">
+          <ion-item>
+            <ion-label>Day: {{sch.day | titlecase}} Time: {{sch.openingTime}}-{{sch.closingTime}}</ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option><ion-icon name="create" (click)="onEditBtnClicked(sch.id)"></ion-icon></ion-item-option>
+            <ion-item-option><ion-icon name="trash" (click)="onDeleteBtnClicked(sch)"></ion-icon></ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
     </ion-col>
   </ion-row>
 </ion-content>

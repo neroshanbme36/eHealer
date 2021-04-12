@@ -5,46 +5,41 @@ import { AlertController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class AlertService {
+  ionicAlert?: HTMLIonAlertElement;
 
   constructor(private alertCtrl: AlertController) { }
 
   async presentAlert(heading: string, msg: string) {
-    const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
-      header: heading,
-      message: msg,
-      backdropDismiss: false,
-      buttons: ['OK']
-    });
-
-    await alert.present();
+    await this.presentIonicAlertConfirm(
+      heading, msg,
+      [
+        {text: 'Cancel', role: 'cancel', cssClass: 'secondary', handler: () => {}},
+        {text: 'Ok', handler: () => {}}
+      ]
+    );
   }
 
-  async presentAlertConfirm(heading: string, msg: string, okBtnTxt: string,
-     okCallback: () => any, cancelCallback: () => any) {
-    const alert = await this.alertCtrl.create({
+  async presentAlertConfirm(
+    title: string, message: string, okBtnLabel: string, cancelBtnLabel: string,
+    okCallback: () => any, cancelCallback: () => any) {
+    await this.presentIonicAlertConfirm(
+      title, message,
+      [
+        { text: cancelBtnLabel, role: 'cancel', cssClass: 'secondary', handler: () => { cancelCallback(); } },
+        { text: okBtnLabel, handler: () => { okCallback(); } }
+      ]
+    );
+  }
+
+  async presentIonicAlertConfirm(heading: string, msg: string, btns: any[]) {
+    this.ionicAlert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: heading,
       message: msg,
       backdropDismiss: false,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            cancelCallback();
-          }
-        }, {
-          text: okBtnTxt,
-          handler: () => {
-            okCallback();
-          }
-        }
-      ]
+      buttons: btns
     });
-
-    await alert.present();
+    await this.ionicAlert.present();
   }
 
   // showExitAlert(): void {
