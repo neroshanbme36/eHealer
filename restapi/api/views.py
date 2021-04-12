@@ -163,10 +163,20 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class PaymentTransactionViewSet(viewsets.ModelViewSet):
-    queryset = PaymentTransaction.objects.all()
-    serializer_class = PaymentTransactionSerializer
-    permission_classes = (IsAuthenticated,)
-    http_method_names =  ['get','post', 'put']
+  queryset = PaymentTransaction.objects.all()
+  serializer_class = PaymentTransactionSerializer
+  permission_classes = (IsAuthenticated,)
+  http_method_names =  ['get','post', 'put']
+
+  @action(methods=['get'], detail=False)
+  def payment_by_appointmentId(self, request):
+    try:
+      qu_appointment_id = request.query_params.get('appointment_id')
+      payment = PaymentTransaction.objects.get(appointment=qu_appointment_id)
+      serializer = PaymentTransactionSerializer(payment, many=False)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class SessionViewSet(viewsets.ModelViewSet):
   queryset = Session.objects.all()

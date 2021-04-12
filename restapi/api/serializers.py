@@ -51,6 +51,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
 class AppoitmentUserSerializer(serializers.ModelSerializer):
   therapist = UserSerializer(many=False)
+  client = UserSerializer(many=False)
   class Meta:
     model = Appointment
     fields = '__all__'

@@ -9,7 +9,7 @@ export class AppoitmentUserDto {
     public slotDurationInMins: number = 0,
     public fee: number = 0,
     public clientNote: string = '',
-    // 0 - waiting, 1 - Accepted, 32 - Cancelled By Therapist, 3 - Cancelled by Client
+    // 0 - waiting, 1 - Accepted, 2 - Cancelled By Therapist, 3 - Cancelled by Client
     public statusType: number = 0,
     public cancellationReason: string = '',
     public createdOn: Date = new Date('1900-01-01'),

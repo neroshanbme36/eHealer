@@ -1,7 +1,5 @@
 <ng-container *ngIf="appointment">
-  <ng-container *ngIf="appointment.statusType === 0">
-    <ion-button color="secondary" expand="full" shape="round" class="ion-padding" (click)="onAcceptBtnClicked()">Accept
-    </ion-button>
+  <ng-container *ngIf="appointment.statusType <= 1">
     <ion-button color="secondary" expand="full" shape="round" class="ion-padding" (click)="onCancelBtnClicked()">Cancel
     </ion-button>
   </ng-container>

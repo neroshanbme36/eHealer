@@ -6,11 +6,11 @@ import { AppointmentsService } from 'src/app/core/services/appointments.service'
 import { RepositoryService } from 'src/app/core/services/repository.service';
 
 @Component({
-  selector: 'app-client-appointment-list',
-  templateUrl: './client-appointment-list.component.html',
-  styleUrls: ['./client-appointment-list.component.scss']
+  selector: 'app-my-booking-list',
+  templateUrl: './my-booking-list.component.html',
+  styleUrls: ['./my-booking-list.component.scss']
 })
-export class ClientAppointmentListComponent implements OnInit {
+export class MyBookingListComponent implements OnInit {
   appointmentUserDtos?: AppoitmentUserDto[];
 
   constructor(
@@ -25,7 +25,7 @@ export class ClientAppointmentListComponent implements OnInit {
   }
 
   private bindAppointments(): void {
-    this.appointmentsSer.getAppointmentsToTherapist(this.mainRepo.loggedInUser.id)
+    this.appointmentsSer.getAppointmentsByClient(this.mainRepo.loggedInUser.id)
     .subscribe((res: AppoitmentUserDto[]) => {
       this.appointmentUserDtos = res;
       console.log(this.appointmentUserDtos);
@@ -35,6 +35,6 @@ export class ClientAppointmentListComponent implements OnInit {
   }
 
   onClientAppointmentBtnClicked(id: number): void {
-    this.router.navigate(['/appointments/client_appointment', id]);
+    this.router.navigate(['/appointments/my_booking', id]);
   }
 }

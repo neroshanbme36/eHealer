@@ -40,8 +40,8 @@ class Appointment(models.Model):
   slot_duration_in_mins = models.IntegerField(blank=False, validators=[MinValueValidator(1)], default=1)
   fee = models.DecimalField(blank=False,max_digits=22, decimal_places=4,validators=[MinValueValidator(0)])
   client_note = models.TextField(max_length=500, blank=True, null=True)
-  # 0 - waiting, 1 - Accepted, 2 - Cancelled By Therapist, 3 - Cancelled by Client
-  status_type = models.IntegerField(blank=False, validators=[MinValueValidator(0),MaxValueValidator(3)])
+  # 0 - waiting, 1 - Accepted, 2-Completed, 3 - Cancelled By Therapist, 4 - Cancelled by Client
+  status_type = models.IntegerField(blank=False, validators=[MinValueValidator(0),MaxValueValidator(4)])
   cancellation_reason = models.TextField(max_length=500, blank=True, null=True)
   created_on = models.DateTimeField(auto_now_add=True)
   updated_on = models.DateTimeField(auto_now=True)

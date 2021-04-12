@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AppoitmentUserDto } from '../dtos/appoitmentUserDto';
 import { Appointment } from '../models/appointment';
 
 @Injectable({
@@ -29,5 +30,17 @@ export class AppointmentsService {
 
   getAppoitment(id: number): Observable<Appointment> {
     return this.http.get<Appointment>(this.baseUrl + id + '/');
+  }
+
+  getAppointmentsByClient(clientId: number): Observable<AppoitmentUserDto[]> {
+    let params = new HttpParams();
+    params = params.append('user_id', clientId.toString());
+    return this.http.get<AppoitmentUserDto[]>(this.baseUrl + 'appointments_by_client/', {params});
+  }
+
+  getAppointmentsToTherapist(therapistId: number): Observable<AppoitmentUserDto[]> {
+    let params = new HttpParams();
+    params = params.append('user_id', therapistId.toString());
+    return this.http.get<AppoitmentUserDto[]>(this.baseUrl + 'appointments_to_therapist/', {params});
   }
 }

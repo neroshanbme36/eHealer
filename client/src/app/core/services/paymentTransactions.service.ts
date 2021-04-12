@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -22,5 +22,11 @@ export class PaymentTransactionsService {
 
   getPayment(id: number): Observable<Payment> {
     return this.http.get<Payment>(this.baseUrl + id + '/');
+  }
+
+  getPaymentByAppointmentId(aptId: number): Observable<Payment> {
+    let params = new HttpParams();
+    params = params.append('appointment_id', aptId.toString());
+    return this.http.get<Payment>(this.baseUrl + 'payment_by_appointmentId/', {params});
   }
 }
