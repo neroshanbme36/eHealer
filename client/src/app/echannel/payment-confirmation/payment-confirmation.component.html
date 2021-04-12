@@ -1,3 +1,42 @@
-<p>
-  payment-confirmation works!
-</p>
+
+<ion-content>
+  <ion-card>
+    <ion-header class="ion-text-center">
+      <ion-icon style="font-size: 90px;" name="checkmark-circle-outline" color="success"></ion-icon>
+      <h3>Payment Successfull</h3>
+      <h3>You paid {{payment?.fee | number: '.0-2'}}</h3>
+      <h3>Receipt No: {{payment?.id}}</h3>
+    </ion-header>
+    <ion-card-content >
+      <ion-row>
+        <b>Appointment Details</b>
+      </ion-row>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start">
+          <ion-img src="../../../assets/images/appontment.png"></ion-img>
+        </ion-thumbnail>
+        <ion-label class="lbl">
+          <h4>Id: {{appointment?.id}}</h4>
+          <h4>Date: {{appointment?.slotStartTime | date:'MMM dd, yyyy'}}</h4>
+          <h4>Time: {{appointment?.slotStartTime | date: 'HH:mm:ss'}}-{{appointment?.slotEndTime | date: 'HH:mm:ss'}}</h4>
+          <h4>Duration: {{appointment?.slotDurationInMins}} min</h4>
+        </ion-label>
+      </ion-item>
+      <ion-row>
+        <b>Therapist Details</b>
+      </ion-row>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start">
+          <ion-img src="../../../assets/therapists/other.png"></ion-img>
+        </ion-thumbnail>
+        <ion-label class="lbl">
+          <h4>{{therapist?.firstName + ' ' + therapist?.lastName}}</h4>
+          <h4>{{therapist?.specialization}}</h4>
+        </ion-label>
+      </ion-item>
+      <ion-button color="secondary" expand="full" shape="round" style="margin-top: 10px;">
+        OK
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

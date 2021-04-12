@@ -63,10 +63,10 @@ export class PaymentConfirmationComponent implements OnInit {
           this.alertify.presentAlert('Error', error);
           this.router.navigate(['']);
         }, () => {
-          console.log(this.payment);
-          console.log(this.appointment);
-          console.log(this.therapist);
-        })
+          // console.log(this.payment);
+          // console.log(this.appointment);
+          // console.log(this.therapist);
+        });
       });
     });
   }
