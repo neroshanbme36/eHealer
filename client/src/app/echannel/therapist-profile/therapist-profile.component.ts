@@ -40,7 +40,7 @@ export class TherapistProfileComponent implements OnInit {
     }, error => {
       this.alertify.presentAlert('Error', error);
     }, () => {
-      this.therapistFeesSer.getTherapistUserId(this.userId)
+      this.therapistFeesSer.getTherapistFeeUserId(this.userId)
       .subscribe((res: TherapistFee) => {
         this.therpaistFee = res;
       }, error => {

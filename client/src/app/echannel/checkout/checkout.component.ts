@@ -65,7 +65,7 @@ export class CheckoutComponent implements OnInit {
       this.router.navigate(['']);
     }, () => {
       if (this.therapist.isActive) {
-        this.therapistFeeSer.getTherapistUserId(this.therapist.id)
+        this.therapistFeeSer.getTherapistFeeUserId(this.therapist.id)
           .subscribe((res: TherapistFee) => {
             if (res) {
               this.therpaistFee = res;

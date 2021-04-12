@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { DayDto } from '../dtos/dayDto';
 import { User } from '../models/user';
 
 @Injectable({
@@ -8,8 +9,22 @@ import { User } from '../models/user';
 export class RepositoryService {
   loggedInUser?: User;
   url?: string;
+  daysDto: DayDto[];
 
-  constructor(private nav: NavController) { }
+  constructor(private nav: NavController) {
+    this.bindDays();
+  }
+
+  private bindDays(): void {
+    this.daysDto = [];
+    this.daysDto.push({id: 1, name: 'MONDAY'});
+    this.daysDto.push({id: 2, name: 'TUESDAY'});
+    this.daysDto.push({id: 3, name: 'WEDNESDAY'});
+    this.daysDto.push({id: 4, name: 'THURSDAY'});
+    this.daysDto.push({id: 5, name: 'FRIDAY'});
+    this.daysDto.push({id: 6, name: 'SATURDAY'});
+    this.daysDto.push({id: 7, name: 'SUNDAY'});
+  }
 
   navigate(tag: string): void {
     tag = tag.toLocaleLowerCase();
@@ -55,5 +70,17 @@ export class RepositoryService {
     } else if (tag === 'end') {
       return [ date_.getFullYear(), month, day ].join('-');
     }
+  }
+
+  combineDateWithTime(d: Date, t: Date): Date {
+    return new Date(
+      d.getFullYear(),
+      d.getMonth(),
+      d.getDate(),
+      t.getHours(),
+      t.getMinutes(),
+      t.getSeconds(),
+      t.getMilliseconds()
+      );
   }
 }

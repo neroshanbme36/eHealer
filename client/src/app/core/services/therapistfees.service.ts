@@ -24,7 +24,7 @@ export class TherapistfeesService {
     return this.http.get<TherapistFee>(this.baseUrl + id + '/');
   }
 
-  getTherapistUserId(userId: number): Observable<TherapistFee> {
+  getTherapistFeeUserId(userId: number): Observable<TherapistFee> {
     let params = new HttpParams();
     params = params.append('user_id', userId.toString());
     return this.http.get<TherapistFee>(this.baseUrl + 'therapist_fee_by_user/', {params});

@@ -10,13 +10,14 @@ export class AlertService {
   constructor(private alertCtrl: AlertController) { }
 
   async presentAlert(heading: string, msg: string) {
-    await this.presentIonicAlertConfirm(
-      heading, msg,
-      [
-        {text: 'Cancel', role: 'cancel', cssClass: 'secondary', handler: () => {}},
-        {text: 'Ok', handler: () => {}}
-      ]
-    );
+    this.ionicAlert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: heading,
+      message: msg,
+      buttons: ['OK']
+    });
+
+    await this.ionicAlert.present();
   }
 
   async presentAlertConfirm(
@@ -31,7 +32,7 @@ export class AlertService {
     );
   }
 
-  async presentIonicAlertConfirm(heading: string, msg: string, btns: any[]) {
+  private async presentIonicAlertConfirm(heading: string, msg: string, btns: any[]) {
     this.ionicAlert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: heading,

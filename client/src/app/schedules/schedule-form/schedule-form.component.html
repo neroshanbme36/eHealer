@@ -1,3 +1,33 @@
-<p>
-  schedule-form works!
-</p>
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Day</ion-label>
+        <ion-select placeholder="Select One" [value]="schedule.dayOfWeek" [(ngModel)]="schedule.dayOfWeek">
+          <ion-select-option [value]="day.id" *ngFor="let day of mainRepo.daysDto">{{day.name| titlecase}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>Start Time</ion-label>
+        <ion-datetime display-format="HH:mm" picker-format="HH:mm" [(ngModel)]="startDateIsoStr" (ionChange)="onStartTimeChanged()"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label>End Time</ion-label>
+        <ion-datetime disabled display-format="HH:mm" picker-format="HH:mm" [(ngModel)]="endDateIsoStr"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button color="secondary" (click)="onSaveBtnClicked()" [disabled]="schedule.dayOfWeek === 0">Save</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>
