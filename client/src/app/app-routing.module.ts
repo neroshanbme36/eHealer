@@ -19,6 +19,7 @@ const routes: Routes = [
         { path: 'account' , loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule) },
         { path: 'echannel', loadChildren: () => import('./echannel/echannel.module').then( m => m.EchannelModule) },
         { path: 'schedules', loadChildren: () => import('./schedules/schedules.module').then( m => m.SchedulesModule)},
+        { path: 'consultation-fee', loadChildren: () => import('./consultation-fee/consultation-fee.module').then( m => m.ConsultationFeeModule)},
       ]
 },
 { path: '**' , redirectTo: '/home', pathMatch: 'full'},
