@@ -5,6 +5,7 @@ export class MessageFirebaseDto {
   constructor(
     public id: string = '',
     public from: string = '',
+    public to: string = '',
     public msg: string = '',
     public fromName: string = '',
     public myMsg: boolean = false,

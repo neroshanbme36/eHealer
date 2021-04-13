@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '/chats/chat_list', pathMatch: 'full' },
       {path: 'chat_list', component: ChatListComponent},
-      {path: 'chat_page', component: ChatPageComponent}
+      {path: 'chat_page/:id', component: ChatPageComponent}
     ]
   }
 ];

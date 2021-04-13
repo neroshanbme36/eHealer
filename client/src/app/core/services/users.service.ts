@@ -52,4 +52,10 @@ export class UsersService {
     params = params.append('is_active', isActive);
     return this.http.get<User[]>(this.baseUrl + 'users_by_role/', {params});
   }
+
+  getUserByUsername(username: string): Observable<User> {
+    let params = new HttpParams();
+    params = params.append('username', username);
+    return this.http.get<User>(this.baseUrl + 'user_by_username/', {params});
+  }
 }

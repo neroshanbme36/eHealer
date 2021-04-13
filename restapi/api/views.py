@@ -62,6 +62,16 @@ class UserViewSet(viewsets.ModelViewSet):
       except Exception:
           return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @action(methods=['get'], detail=False)
+    def user_by_username(self, request):
+      try:
+        qu_username = request.query_params.get('username')
+        user = get_user_model().objects.get(username=qu_username)
+        serializer = UserSerializer(user, many=False)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+      except Exception:
+          return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class UserUpdateViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
