@@ -1,6 +1,6 @@
 <ion-item (click)="onChatMsgBtnClicked(cls.senderEmail)" *ngFor="let cls of chatList | async">
   <ion-avatar slot="start">
-    <img src="./avatar-finn.png">
+    <img [src]="imgUrl + 'male.png'">
   </ion-avatar>
   <ion-label>
     <h2>{{cls.firstname + ' ' + cls.lastname}}</h2>

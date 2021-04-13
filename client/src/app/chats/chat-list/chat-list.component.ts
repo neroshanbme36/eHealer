@@ -13,6 +13,7 @@ import { UsersService } from 'src/app/core/services/users.service';
   styleUrls: ['./chat-list.component.scss']
 })
 export class ChatListComponent implements OnInit {
+  imgUrl: string;
   users: User[];
   chatList: Observable<ChatListDto[]>;
 
@@ -24,6 +25,7 @@ export class ChatListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.imgUrl = '../../../assets/therapists/';
     this.bindUserDetails();
   }
 
