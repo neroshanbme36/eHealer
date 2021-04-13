@@ -73,7 +73,7 @@ export class MyBookingFormComponent implements OnInit {
   onCancelBtnClicked(): void {
     let isApprovedByTherapist = false;
     let cancelConfirmMsg = 'Are you sure to cancel this appointment.';
-    if (this.appointment.statusType === 2) {
+    if (this.appointment.statusType === 1) {
       cancelConfirmMsg += 'Please note the appointment is already approved by therapist and sorry the payment will not be refunded';
       isApprovedByTherapist = true;
     }
