@@ -37,7 +37,6 @@ export class MyBookingFormComponent implements OnInit {
       .subscribe((res: Appointment) => {
         if (res) {
           this.appointment = res;
-          console.log(res);
         } else {
           this.router.navigate(['']);
         }
@@ -60,16 +59,15 @@ export class MyBookingFormComponent implements OnInit {
               .subscribe((res: Payment) => {
                 if (res) {
                   this.payment = res;
-                  console.log(res);
                 } else {
                   this.router.navigate(['']);
                 }
               }, error => {
                 this.alertify.presentAlert('Error', error);
                 this.router.navigate(['']);
-              })
-          })
-      })
+              });
+          });
+      });
   }
 
   onCancelBtnClicked(): void {
@@ -94,9 +92,13 @@ export class MyBookingFormComponent implements OnInit {
                 this.payment = res;
               }, error => {
                 this.alertify.presentAlert('Error', error);
-              })
+              });
           }
-        })
+        });
     }, () => { });
+  }
+
+  back(): void {
+    this.router.navigate(['appointments/my_booking_list']);
   }
 }

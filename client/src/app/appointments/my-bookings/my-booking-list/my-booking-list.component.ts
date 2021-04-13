@@ -12,6 +12,9 @@ import { RepositoryService } from 'src/app/core/services/repository.service';
 })
 export class MyBookingListComponent implements OnInit {
   appointmentUserDtos?: AppoitmentUserDto[];
+  searchTherapistName = '';
+  searchTherapistSpecilization = '';
+  imgUrl = '';
 
   constructor(
     private appointmentsSer: AppointmentsService,
@@ -22,19 +25,46 @@ export class MyBookingListComponent implements OnInit {
 
   ngOnInit() {
     this.bindAppointments();
+    this.imgUrl = '../../../assets/therapists/';
   }
 
   private bindAppointments(): void {
     this.appointmentsSer.getAppointmentsByClient(this.mainRepo.loggedInUser.id)
     .subscribe((res: AppoitmentUserDto[]) => {
       this.appointmentUserDtos = res;
-      console.log(this.appointmentUserDtos);
     }, error => {
       this.alertify.presentAlert('Error', error);
-    })
+    });
   }
 
   onClientAppointmentBtnClicked(id: number): void {
     this.router.navigate(['/appointments/my_booking', id]);
+  }
+
+  get filteredBookings(): AppoitmentUserDto[] {
+    let ls = Object.assign([], this.appointmentUserDtos);
+    if (this.searchTherapistName !== '') {
+      ls = ls.filter(x => (x.therapist.firstName.trim().toLowerCase() + ' ' + x.therapist.lastName.trim().toLowerCase())
+      .includes(this.searchTherapistName));
+    }
+    if (this.searchTherapistSpecilization !== '') {
+      ls = ls.filter(x => (x.therapist.specialization.trim().toLowerCase())
+      .includes(this.searchTherapistSpecilization));
+    }
+    return ls;
+  }
+
+  getImg(gender: string): string {
+    if (gender === 'male') {
+      return 'male.png';
+    } else if (gender === 'female'){
+      return 'female.png';
+    } else {
+      return 'other.png';
+    }
+  }
+
+  back(): void {
+    this.router.navigate(['home']);
   }
 }

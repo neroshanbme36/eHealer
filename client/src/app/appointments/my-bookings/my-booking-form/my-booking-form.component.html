@@ -1,6 +1,102 @@
-<ng-container *ngIf="appointment">
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
+      </ion-button>  
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">Bookings Details</ion-text>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-thumbnail slot="start">
+          <ion-img src="../../../../assets/images/schedule.png"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h4 style="font-weight: bold;">Appointment No: {{appointment?.id}}</h4>
+          <h4>Fee: {{payment?.fee | number:'.0-2'}}</h4>          
+        </ion-label>
+      </ion-item>
+    </ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-icon name="person"></ion-icon>
+          <ion-label class="lbl">
+            <h4><b >Therapist</b></h4>
+            <h4>
+              {{therapist?.firstName + ' ' + therapist?.lastName}}
+            </h4>
+            <h5>{{therapist?.specialization}}</h5>
+          </ion-label>
+        </ion-item> 
+       <ion-item>
+          <ion-icon name="calendar"></ion-icon>
+          <ion-label class="lbl">
+            <h4><b >Appointment Date</b></h4>
+            <h4>
+              {{appointment?.slotStartTime | date: 'MMM dd, yyyy'}}
+            </h4>
+          </ion-label>
+        </ion-item> 
+        <ion-item>
+          <ion-icon name="time"></ion-icon>
+          <ion-label class="lbl">
+            <h4><b >Appointment Time</b></h4>
+            <h4>
+              {{appointment?.slotStartTime | date: 'HH:mm:ss'}}-{{appointment?.slotEndTime | date: 'HH:mm:ss'}}
+            </h4>
+          </ion-label>
+        </ion-item> 
+        <ion-item>
+          <ion-icon name="information-circle"></ion-icon>
+          <ion-label class="lbl">
+            <h4><b >Appointment Status</b></h4>
+            <h4 >
+              <ion-badge  [color]="appointment?.statusType==0 ? 'warning': appointment?.statusType==1 || appointment?.statusType==2? 'success':'danger'">
+                {{appointment?.statusType==0?'waiting':appointment?.statusType==1?'accepted':appointment?.statusType==2?'completed':appointment?.statusType==3?'Therapist cancelled':'you cancelled'}}
+              </ion-badge>
+            </h4>
+          </ion-label>
+        </ion-item> 
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="appointment">
+    <ion-card-content class="reason">
+      <ion-col>
+        <ion-item>
+          <ion-icon name="help"></ion-icon>
+          <ion-label class="lbl">
+            <h4>Reason for cancelling</h4>
+            <h4>
+              <ion-input [(ngModel)]="appointment.cancellationReason"
+              [readonly]="appointment.statusType>1"></ion-input>
+            </h4>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ng-container *ngIf="appointment.statusType <= 1">
+        <ion-button color="secondary" expand="full" shape="round" class="ion-padding" (click)="onCancelBtnClicked()"
+        [disabled]="appointment.cancellationReason==''">Cancel
+        </ion-button>
+      </ng-container>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<!-- <ng-container *ngIf="appointment">
   <ng-container *ngIf="appointment.statusType <= 1">
     <ion-button color="secondary" expand="full" shape="round" class="ion-padding" (click)="onCancelBtnClicked()">Cancel
     </ion-button>
   </ng-container>
-</ng-container>
+</ng-container> -->
