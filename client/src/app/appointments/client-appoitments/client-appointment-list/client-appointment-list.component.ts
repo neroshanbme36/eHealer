@@ -12,6 +12,8 @@ import { RepositoryService } from 'src/app/core/services/repository.service';
 })
 export class ClientAppointmentListComponent implements OnInit {
   appointmentUserDtos?: AppoitmentUserDto[];
+  imgUrl = '';
+  searchClientName = '';
 
   constructor(
     private appointmentsSer: AppointmentsService,
@@ -22,6 +24,7 @@ export class ClientAppointmentListComponent implements OnInit {
 
   ngOnInit() {
     this.bindAppointments();
+    this.imgUrl = '../../../assets/images/';
   }
 
   private bindAppointments(): void {
@@ -31,10 +34,33 @@ export class ClientAppointmentListComponent implements OnInit {
       console.log(this.appointmentUserDtos);
     }, error => {
       this.alertify.presentAlert('Error', error);
-    })
+    });
   }
 
   onClientAppointmentBtnClicked(id: number): void {
     this.router.navigate(['/appointments/client_appointment', id]);
+  }
+
+  back(): void {
+    this.router.navigate(['home']);
+  }
+
+  get filteredAppointments(): AppoitmentUserDto[] {
+    let ls = Object.assign([], this.appointmentUserDtos);
+    if (this.searchClientName !== '') {
+      ls = ls.filter(x => (x.client.firstName.trim().toLowerCase() + ' ' + x.client.lastName.trim().toLowerCase())
+      .includes(this.searchClientName));
+    }
+    return ls;
+  }
+
+  getImg(gender: string): string {
+    if (gender === 'male') {
+      return 'client-male.png';
+    } else if (gender === 'female'){
+      return 'client-female.png';
+    } else {
+      return 'client-other.png';
+    }
   }
 }

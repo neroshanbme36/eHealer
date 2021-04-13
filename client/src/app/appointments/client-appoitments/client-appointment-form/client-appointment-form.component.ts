@@ -66,13 +66,14 @@ export class ClientAppointmentFormComponent implements OnInit {
         }, error => {
           this.alertify.presentAlert('Error', error);
           this.router.navigate(['']);
-        })
-      })
-    })
+        });
+      });
+    });
   }
 
   onAcceptBtnClicked(): void {
     this.appointment.statusType = 1; // Accept
+    this.appointment.cancellationReason = '';
     this.updateAppointment();
   }
 
@@ -95,8 +96,12 @@ export class ClientAppointmentFormComponent implements OnInit {
           this.payment = res;
         }, error => {
           this.alertify.presentAlert('Error', error);
-        })
+        });
       }
-    })
+    });
+  }
+
+  back(): void {
+    this.router.navigate(['appointments/client_appointment_list']);
   }
 }
