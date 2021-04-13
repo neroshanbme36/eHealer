@@ -7,14 +7,14 @@ export const environment = {
   apiUrl: 'http://localhost:8000/api/',
   apiDomain: 'localhost:8000',
   firebaseConfig: {
-    apiKey: "AIzaSyBPVrqEcFeKu0NtZ3nBcmbmkuLmiRxM0t4",
-    authDomain: "ehealer-c6758.firebaseapp.com",
-    databaseURL: "https://ehealer-c6758-default-rtdb.firebaseio.com",
-    projectId: "ehealer-c6758",
-    storageBucket: "ehealer-c6758.appspot.com",
-    messagingSenderId: "236758345982",
-    appId: "1:236758345982:web:557f29b8ae35ba5de1ddaf",
-    measurementId: "G-D2NBCCJ1LX"
+    apiKey: "AIzaSyDNr-hDfkkYmSnyIAkrfUNCZeGiikPdYPw",
+    authDomain: "ehealer-887d2.firebaseapp.com",
+    databaseURL: "https://ehealer-887d2-default-rtdb.firebaseio.com",
+    projectId: "ehealer-887d2",
+    storageBucket: "ehealer-887d2.appspot.com",
+    messagingSenderId: "727499897049",
+    appId: "1:727499897049:web:d966268744ba60ef86a6c8",
+    measurementId: "G-8CR7CL023W"
   }
 };
 

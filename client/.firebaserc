@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ehealer-c6758": {
+      "hosting": {
+        "app": [
+          "ehealer-c6758"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "eHealer": "ehealer-887d2"
+  }
+}

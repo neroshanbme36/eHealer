@@ -31,30 +31,20 @@ export class LoginComponent implements OnInit {
     const dto: LoginDto = new LoginDto();
     dto.username = f.value.email;
     dto.password = f.value.password;
-    console.log(dto);
-    this.chatFirebaseSer.signup(dto.username, dto.password)
-      .then((user)=> {
-        this.repository.navigate('login');
-      }, async (err) => {
-        await this.alertify.presentAlert('Sign up failed', err.message);
-      })
 
-    // this.usersService.login(dto).subscribe((res: JwtTokenDto) => {
-    //   localStorage.setItem('healerToken', res.access);
-    //   this.usersService.decodedToken = this.usersService.jwtHelper.decodeToken(res.access);
-    // }, error => {
-    //   this.alertify.presentAlert('Error', error);
-    // }, () => {
-    //   this.chatFirebaseSer
-    //   .signIn(dto.username, dto.password)
-    //   .then(
-    //     (res) => {
-    //       this.repository.navigate('home');
-    //     },
-    //     async (err) => {
-    //       await this.alertify.presentAlert(':(', err.message);
-    //     }
-    //   );
-    // });
+    this.usersService.login(dto).subscribe((res: JwtTokenDto) => {
+      localStorage.setItem('healerToken', res.access);
+      this.usersService.decodedToken = this.usersService.jwtHelper.decodeToken(res.access);
+    }, error => {
+      this.alertify.presentAlert('Error', error);
+    }, () => {
+      this.chatFirebaseSer.signIn(dto.username, dto.password)
+      .then((res) => {
+          this.repository.navigate('home');
+        }, async (err) => {
+          await this.alertify.presentAlert(':(', err.message);
+        }
+      );
+    });
   }
 }
