@@ -1,39 +1,74 @@
-<!--
-<ion-content [fullscreen]="true">
-Home page
-
-  <div id="container">
-    <ion-text style="padding-top: 20px;" class="create">
-      <a style="text-decoration: none;" [routerLink]="['/account/login']" routerDirection="root"> Login</a>
-    </ion-text>
-  </div>
-</ion-content> -->
-
-
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons  slot="start">
+      <ion-button slot="end" style="color: white;">
+        <ion-icon style="color: white;" name="home" ></ion-icon> 
+        <ion-text style="color: white;margin-left: 5px;">Home</ion-text>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+<ion-img src="../../assets/images/logo.png"></ion-img>
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <ion-button color="secondary" expand="full" [routerLink]="['/echannel/therapists']">Search Therapist</ion-button>
+      <ion-col size="6">
+        <ion-button color="secondary" expand="full" [routerLink]="['/echannel/therapists']">
+          <div >
+            <ion-icon slot="icon-only" name="search"></ion-icon><br>
+            <ion-label>Search Therapist</ion-label>
+          </div>
+        </ion-button>
+        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/echannel/therapists']">Search Therapist</ion-button> -->
       </ion-col>
-      <ion-col>
-        <ion-button color="secondary" expand="full" [routerLink]="['/appointments/my_booking_list']">My Bookings</ion-button>
+      <ion-col size="6">
+        <ion-button color="secondary" expand="full" [routerLink]="['/appointments/my_booking_list']">
+          <div >
+            <ion-icon slot="icon-only" name="list"></ion-icon><br>
+            <ion-label>My Bookings</ion-label>
+          </div>
+        </ion-button>
+        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/my_booking_list']">My Bookings</ion-button> -->
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
-        <ion-button color="secondary" expand="full" [routerLink]="['/schedules/list']">Schedules</ion-button>
+      <ion-col size="6">
+        <ion-button color="secondary" expand="full" [routerLink]="['/schedules/list']">
+          <div >
+            <ion-icon slot="icon-only" name="calendar"></ion-icon><br>
+            <ion-label>Schedules</ion-label>
+          </div>
+        </ion-button>
+        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/schedules/list']">Schedules</ion-button> -->
       </ion-col>
-      <ion-col>
-        <ion-button color="secondary" expand="full" [routerLink]="['/consultation_fee']">Consultation Fee</ion-button>
+      <ion-col size="6">
+        <ion-button color="secondary" expand="full" [routerLink]="['/consultation_fee']">
+          <div >
+            <ion-icon slot="icon-only" name="thumbs-up"></ion-icon><br>
+            <ion-label>Consultation Fee</ion-label>
+          </div>
+        </ion-button>
+        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/consultation_fee']">Consultation Fee</ion-button> -->
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
-        <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">Client Appoitments</ion-button>
+      <ion-col size="6">
+        <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">
+          <div >
+            <ion-icon slot="icon-only" name="list"></ion-icon><br>
+            <ion-label>Client Appoitments </ion-label>
+          </div>
+        </ion-button>
+        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">Client Appoitments</ion-button> -->
       </ion-col>
-      <ion-col>
-        <ion-button color="secondary" expand="full" [routerLink]="['/chats/chat_list']">Message</ion-button>
+      <ion-col size="6">
+        <ion-button color="secondary" expand="full" [routerLink]="['/chats/chat_list']">
+          <div >
+            <ion-icon slot="icon-only" name="chatbubbles"></ion-icon><br>
+            <ion-label>Message </ion-label>
+          </div>
+        </ion-button>
+        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/chats/chat_list']">Message</ion-button> -->
       </ion-col>
     </ion-row>
   </ion-grid>

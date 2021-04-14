@@ -36,10 +36,11 @@ export class ChatListComponent implements OnInit {
       this.alertify.presentAlert('Error', error);
     }, () => {
       this.chatList = this.chatFirebaseSer.getChatListMessages(this.users);
-    })
+      console.log(this.chatList);
+    });
   }
 
   onChatMsgBtnClicked(senderEmail: string): void {
-    this.router.navigate(['/chats/chat_page', senderEmail])
+    this.router.navigate(['/chats/chat_page', senderEmail]);
   }
 }
