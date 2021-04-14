@@ -6,6 +6,7 @@ import { User } from 'src/app/core/models/user';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { AppointmentsService } from 'src/app/core/services/appointments.service';
 import { PaymentTransactionsService } from 'src/app/core/services/paymentTransactions.service';
+import { RepositoryService } from 'src/app/core/services/repository.service';
 import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class MyBookingFormComponent implements OnInit {
     private paymentTransSer: PaymentTransactionsService,
     private usersSer: UsersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private mainRepo: RepositoryService
   ) { }
 
   ngOnInit() {
@@ -44,7 +46,7 @@ export class MyBookingFormComponent implements OnInit {
         this.alertify.presentAlert('Error', error);
         this.router.navigate(['']);
       }, () => {
-        this.usersSer.getUser(this.appointment.client)
+        this.usersSer.getUser(this.appointment.therapist)
           .subscribe((res: User) => {
             if (res) {
               this.therapist = res;
@@ -100,5 +102,9 @@ export class MyBookingFormComponent implements OnInit {
 
   back(): void {
     this.router.navigate(['appointments/my_booking_list']);
+  }
+
+  onChatWithTherapistBtnClicked(): void {
+    this.router.navigate(['/chats/chat_page', this.therapist.username]);
   }
 }

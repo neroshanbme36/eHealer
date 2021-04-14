@@ -2,14 +2,14 @@
   <ion-toolbar  class="back-color">
     <ion-buttons>
       <ion-button class="back" fill="clear" (click)="back()" slot="start">
-        <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
-      </ion-button>  
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-buttons  slot="end">
       <ion-button slot="end" style="color: white;">
         <ion-text style="color: white;">Appointment Details</ion-text>
       </ion-button>
-    </ion-buttons> 
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +22,7 @@
         </ion-thumbnail>
         <ion-label>
           <h4 style="font-weight: bold;">Appointment No: {{appointment?.id}}</h4>
-          <h4>Fee: {{payment?.fee | number:'.0-2'}}</h4>          
+          <h4>Fee: {{payment?.fee | number:'.0-2'}}</h4>
         </ion-label>
       </ion-item>
     </ion-card-header>
@@ -39,7 +39,7 @@
             </h4>
             <h5>{{client?.contactNo}}</h5>
           </ion-label>
-        </ion-item> 
+        </ion-item>
        <ion-item>
           <ion-icon name="calendar"></ion-icon>
           <ion-label class="lbl">
@@ -48,7 +48,7 @@
               {{appointment?.slotStartTime | date: 'MMM dd, yyyy'}}
             </h4>
           </ion-label>
-        </ion-item> 
+        </ion-item>
         <ion-item>
           <ion-icon name="time"></ion-icon>
           <ion-label class="lbl">
@@ -57,7 +57,7 @@
               {{appointment?.slotStartTime | date: 'HH:mm:ss'}}-{{appointment?.slotEndTime | date: 'HH:mm:ss'}}
             </h4>
           </ion-label>
-        </ion-item> 
+        </ion-item>
         <ion-item>
           <ion-icon name="information-circle"></ion-icon>
           <ion-label class="lbl">
@@ -68,7 +68,7 @@
               </ion-badge>
             </h4>
           </ion-label>
-        </ion-item> 
+        </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
@@ -96,6 +96,8 @@
       </ng-container>
     </ion-card-content>
   </ion-card>
+  <ion-button color="secondary" expand="full" shape="round" class="ion-padding"
+  (click)="onChatWithClientBtnClicked()">Chat</ion-button>
 </ion-content>
 
 <!-- <ng-container *ngIf="appointment">

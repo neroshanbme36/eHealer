@@ -70,4 +70,8 @@ export class PaymentConfirmationComponent implements OnInit {
       });
     });
   }
+
+  onOkButtonClicked(): void {
+    this.router.navigate(['']);
+  }
 }

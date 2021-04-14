@@ -104,4 +104,8 @@ export class ClientAppointmentFormComponent implements OnInit {
   back(): void {
     this.router.navigate(['appointments/client_appointment_list']);
   }
+
+  onChatWithClientBtnClicked(): void {
+    this.router.navigate(['/chats/chat_page', this.client.username]);
+  }
 }
