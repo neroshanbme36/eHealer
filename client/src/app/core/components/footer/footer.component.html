@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-grid style="padding: 0px;background-color: #a2a4ab0d;">
       <ion-row >
-        <ion-col size="3">
+        <ion-col size="4">
           <ion-button expand="block" fill="clear" (click)="navigate('home')">
             <div  [ngClass]="{'active':service.active == 'home'}">
               <ion-icon slot="icon-only" name="home"></ion-icon><br>
@@ -10,13 +10,13 @@
             </div>
           </ion-button>
         </ion-col>
-        <ion-col size="6">
-          <!-- <ion-button expand="block" fill="clear" (click)="navigate('cards')">
-            <div [ngClass]="{'active':service.active == 'cards'}">
-              <ion-icon slot="icon-only" name="search-outline"></ion-icon><br>
-              <ion-label>SEARCH THERAPIST</ion-label>
+        <ion-col size="4">
+          <ion-button expand="block" fill="clear" (click)="navigate('chat_list')">
+            <div [ngClass]="{'active':service.active == 'chat_list'}">
+              <ion-icon slot="icon-only" name="chatbubbles"></ion-icon><br>
+              <ion-label>CHATS</ion-label>
             </div>
-          </ion-button> -->
+          </ion-button>
         </ion-col>
         <!-- <ion-col size="2">
           <ion-button expand="block" fill="clear" (click)="navigate('promotion-list')">
@@ -34,7 +34,7 @@
             </div>  
           </ion-button>
         </ion-col> -->
-        <ion-col size="3">
+        <ion-col size="4">
           <ion-button expand="block" fill="clear" (click)="navigate('account')">
             <div [ngClass]="{'active':service.active == 'account'}">
               <ion-icon slot="icon-only" name="person"></ion-icon><br>

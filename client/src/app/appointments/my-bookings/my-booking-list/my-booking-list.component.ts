@@ -64,6 +64,9 @@ export class MyBookingListComponent implements OnInit {
     }
   }
 
+  onChatWithTherapistBtnClicked(therapistUserName: string): void {
+    this.router.navigate(['/chats/chat_page', therapistUserName]);
+  }
   back(): void {
     this.router.navigate(['home']);
   }

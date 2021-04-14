@@ -10,6 +10,7 @@ export class RepositoryService {
   loggedInUser?: User;
   url?: string;
   daysDto: DayDto[];
+  previousUrl = '';
 
   constructor(private nav: NavController) {
     this.bindDays();
@@ -40,6 +41,8 @@ export class RepositoryService {
       this.nav.navigateBack('/auth/register');
     } else if (tag === 'account-policy') {
       this.nav.navigateBack('/account/policy');
+    } else if (tag === 'chat_list') {
+      this.nav.navigateBack('/chats/chat_list');
     }
   }
 

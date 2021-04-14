@@ -39,6 +39,8 @@
             </h4>
             <h5>{{client?.contactNo}}</h5>
           </ion-label>
+          <ion-button color="secondary" expand="full" shape="round" class="ion-padding"
+            (click)="onChatWithClientBtnClicked()">Chat</ion-button>
         </ion-item>
        <ion-item>
           <ion-icon name="calendar"></ion-icon>
@@ -96,8 +98,6 @@
       </ng-container>
     </ion-card-content>
   </ion-card>
-  <ion-button color="secondary" expand="full" shape="round" class="ion-padding"
-  (click)="onChatWithClientBtnClicked()">Chat</ion-button>
 </ion-content>
 
 <!-- <ng-container *ngIf="appointment">

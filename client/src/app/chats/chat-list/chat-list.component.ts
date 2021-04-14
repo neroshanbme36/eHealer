@@ -36,7 +36,6 @@ export class ChatListComponent implements OnInit {
       this.alertify.presentAlert('Error', error);
     }, () => {
       this.chatList = this.chatFirebaseSer.getChatListMessages(this.users);
-      console.log(this.chatList);
     });
   }
 

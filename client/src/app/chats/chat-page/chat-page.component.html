@@ -1,11 +1,19 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>{{sender.firstName + ' ' + sender.lastName}}</ion-title>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
+      </ion-button>  
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">{{sender.firstName + ' ' + sender.lastName}}</ion-text>
+      </ion-button>
+    </ion-buttons> 
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <ion-grid>
     <ion-row *ngFor="let message of messages | async">
       <ion-col size="9" class="message"
@@ -18,22 +26,21 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="light">
+  <!-- <ion-toolbar color="light"> -->
     <ion-row class="ion-align-items-center">
       <ion-col size="10">
         <ion-textarea autoGrow="true" class="message-input" rows="1" maxLength="500" [(ngModel)]="newMsg" >
         </ion-textarea>
       </ion-col>
       <ion-col size="2">
-        <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg === ''"
+        <ion-button expand="block" fill="clear" color="secondary" [disabled]="newMsg === ''"
           class="msg-btn" (click)="sendMessage()">
-          <ion-icon name="send" slot="icon-only"></ion-icon>
+          <ion-icon name="send" slot="icon-only" style="color: white;"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
-  </ion-toolbar>
+  <!-- </ion-toolbar> -->
 </ion-footer>

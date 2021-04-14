@@ -1,9 +1,21 @@
-<ion-item (click)="onChatMsgBtnClicked(cls.senderEmail)" *ngFor="let cls of chatList | async">
-  <ion-avatar slot="start">
-    <img [src]="imgUrl + 'male.png'">
-  </ion-avatar>
-  <ion-label>
-    <h2>{{cls.firstname + ' ' + cls.lastname}}</h2>
-    <p>{{cls.lastMsg}}</p>
-  </ion-label>
-</ion-item>
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons  slot="start">
+      <ion-button slot="end" style="color: white;">
+        <ion-icon style="color: white;" name="chatbubbles" ></ion-icon> 
+        <ion-text style="color: white;margin-left: 5px;">Chats</ion-text>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item (click)="onChatMsgBtnClicked(cls.senderEmail)" *ngFor="let cls of chatList | async">
+    <ion-avatar slot="start">
+      <img [src]="imgUrl + 'other.png'">
+    </ion-avatar>
+    <ion-label>
+      <h2>{{cls.firstname + ' ' + cls.lastname}}</h2>
+      <p>{{cls.lastMsg}}</p>
+    </ion-label>
+  </ion-item>
+</ion-content>

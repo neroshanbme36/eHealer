@@ -63,4 +63,8 @@ export class ClientAppointmentListComponent implements OnInit {
       return 'client-other.png';
     }
   }
+
+  onChatWithClientBtnClicked(clientUserName: string): void {
+    this.router.navigate(['/chats/chat_page', clientUserName]);
+  }
 }

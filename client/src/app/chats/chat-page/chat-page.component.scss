@@ -8,6 +8,17 @@
     --padding-start: 8px;
 }
 
+.msg-btn{
+    background-color: black;
+    border-radius: 28px;
+}
+.back-color{
+    --background:  var(--ion-color-top-main) !important;
+}
+button{
+    color: white !important;
+}
+
 .message {
     padding: 10px !important;
     border-radius: 10px !important;
@@ -16,17 +27,23 @@
 }
 
 .my-message {
-    background: var(--ion-color-tertiary);
-    color: #fff;
+    background: #bbf4bb;
+    color: black;
 }
 
 .other-message {
-    background: var(--ion-color-secondary);
-    color: #fff;
+    background: white;
+    color: black;
 }
 
 .time {
-    color: #dfdfdf;
     float: right;
     font-size: small;
+    color: black;
+}
+ion-content{
+    --background: #fff url('../../../assets/images/chat.png') no-repeat center center / cover;
+}
+ion-footer{
+    background: #fff url('../../../assets/images/chat.png') no-repeat center center / cover;
 }

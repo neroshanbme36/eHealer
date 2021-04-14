@@ -28,7 +28,7 @@
   <ion-row>
     <ion-col size="12" class="ion-text-center">
       <ion-list>
-        <ion-item *ngFor="let apt of filteredAppointments">
+        <ion-item-sliding *ngFor="let apt of filteredAppointments">
           <ion-item  (click)="onClientAppointmentBtnClicked(apt.id)">
             <ion-thumbnail slot="start">
               <ion-img [src]="imgUrl + getImg(apt.client.gender)"></ion-img>
@@ -49,7 +49,13 @@
               </h4>
             </ion-label>
           </ion-item>
-        </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="secondary" style="margin-right: 5px;" 
+              (click)="onChatWithClientBtnClicked(apt.client.username)">
+              <ion-icon name="chatbubbles" ></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
       </ion-list>
     </ion-col>
   </ion-row>

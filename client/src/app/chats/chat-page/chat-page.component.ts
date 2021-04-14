@@ -40,6 +40,9 @@ export class ChatPageComponent implements OnInit {
     } else {
       this.router.navigate(['']);
     }
+    if (this.mainRepo.previousUrl === '') {
+      this.mainRepo.previousUrl = 'chats/chat_list';
+    }
   }
 
   sendMessage(): void {
@@ -60,6 +63,10 @@ export class ChatPageComponent implements OnInit {
     }, error => {
       this.alertify.presentAlert('Error', error);
       this.router.navigate(['']);
-    })
+    });
+  }
+
+  back(): void {
+    this.router.navigate([this.mainRepo.previousUrl]);
   }
 }
