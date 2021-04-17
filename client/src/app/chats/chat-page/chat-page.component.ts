@@ -69,4 +69,8 @@ export class ChatPageComponent implements OnInit {
   back(): void {
     this.router.navigate([this.mainRepo.previousUrl]);
   }
+
+  videoCall(callTo: string): void {
+    this.router.navigate(['/chats/video_call', callTo]);
+  }
 }

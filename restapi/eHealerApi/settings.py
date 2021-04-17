@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # api application 
     'api',
     'corsheaders',
+    'sslserver'
 ]
 
 AUTH_USER_MODEL = 'api.User'

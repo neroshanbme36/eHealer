@@ -3,11 +3,12 @@
     <ion-buttons>
       <ion-button class="back" fill="clear" (click)="back()" slot="start">
         <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
+        <ion-text style="color: white;">{{sender.firstName + ' ' + sender.lastName}}</ion-text>
       </ion-button>  
     </ion-buttons>
     <ion-buttons  slot="end">
-      <ion-button slot="end" style="color: white;">
-        <ion-text style="color: white;">{{sender.firstName + ' ' + sender.lastName}}</ion-text>
+      <ion-button slot="end" style="color: white;" (click)="videoCall(sender.firstName)">
+        <ion-icon style="color: white;" name="videocam" ></ion-icon> 
       </ion-button>
     </ion-buttons> 
   </ion-toolbar>

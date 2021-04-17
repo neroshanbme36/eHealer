@@ -19,7 +19,8 @@ const routes: Routes = [
         { path: 'account' , loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule) },
         { path: 'echannel', loadChildren: () => import('./echannel/echannel.module').then( m => m.EchannelModule) },
         { path: 'schedules', loadChildren: () => import('./schedules/schedules.module').then( m => m.SchedulesModule)},
-        { path: 'consultation_fee', loadChildren: () => import('./consultation-fee/consultation-fee.module').then( m => m.ConsultationFeeModule)},
+        { path: 'consultation_fee', loadChildren: () =>
+          import('./consultation-fee/consultation-fee.module').then( m => m.ConsultationFeeModule)},
         { path: 'appointments', loadChildren: () => import('./appointments/appointments.module').then( m => m.AppointmentsModule)},
         { path: 'chats', loadChildren: () => import('./chats/chats.module').then( m => m.ChatsModule)},
       ]

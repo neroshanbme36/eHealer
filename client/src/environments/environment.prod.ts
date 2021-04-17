@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
+  // apiUrl: 'https://192.168.8.101:8000/api/',
+  // apiDomain: '192.168.8.101:8000',
   apiUrl: 'http://localhost:8000/api/',
   apiDomain: 'localhost:8000',
   firebaseConfig: {
