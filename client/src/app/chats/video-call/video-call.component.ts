@@ -6,7 +6,7 @@ import { WebrtcService } from '../../core/services/webrtc.service';
 @Component({
   selector: 'app-video-call',
   templateUrl: './video-call.component.html',
-  styleUrls: ['./video-call.component.css']
+  styleUrls: ['./video-call.component.scss']
 })
 export class VideoCallComponent implements OnInit, AfterViewInit {
 
@@ -25,7 +25,7 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.mainRepo.loggedInUser.firstName;
+    this.userId = this.mainRepo.loggedInUser.username;
     this.partnerId = this.route.snapshot.params.id;
     this.myEl = this.elRef.nativeElement.querySelector('#my-video');
     this.partnerEl = this.elRef.nativeElement.querySelector('#partner-video');
