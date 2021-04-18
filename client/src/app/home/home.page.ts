@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChatFirebaseService } from '../core/services/chatFirebase.service';
+import { RepositoryService } from '../core/services/repository.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +7,5 @@ import { ChatFirebaseService } from '../core/services/chatFirebase.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(private chatFirebaseSer: ChatFirebaseService) {}
-
-  onCheckUserBtnClicked() {
-    console.log(this.chatFirebaseSer.currentUser);
-  }
+  constructor(public mainRepo: RepositoryService) {}
 }

@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   // apiUrl: 'https://192.168.8.101:8000/api/',
   // apiDomain: '192.168.8.101:8000',
-  apiUrl: 'http://localhost:8000/api/',
-  apiDomain: 'localhost:8000',
+  apiUrl: 'https://192.168.8.102:8000/api/',
+  apiDomain: '192.168.8.102:8000',
   firebaseConfig: {
     apiKey: "AIzaSyDNr-hDfkkYmSnyIAkrfUNCZeGiikPdYPw",
     authDomain: "ehealer-887d2.firebaseapp.com",
