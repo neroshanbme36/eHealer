@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from '../core/services/alert.service';
+import { ChatFirebaseService } from '../core/services/chatFirebase.service';
 import { RepositoryService } from '../core/services/repository.service';
-import { UsersService } from '../core/services/users.service';
 
 @Component({
   selector: 'app-account',
@@ -9,7 +10,11 @@ import { UsersService } from '../core/services/users.service';
 })
 export class AccountPage implements OnInit {
 
-  constructor(public repository: RepositoryService, private usersService: UsersService) { }
+  constructor(
+    public repository: RepositoryService,
+    private chatFirebaseSer: ChatFirebaseService,
+    private alertify: AlertService
+  ) { }
 
   ngOnInit() {
   }
@@ -30,7 +35,7 @@ export class AccountPage implements OnInit {
   get name(): string {
     if (this.repository.loggedInUser) {
       if (this.repository.loggedInUser.lastName) {
-          return this.repository.loggedInUser.firstName + ' ' + this.repository.loggedInUser.lastName;
+        return this.repository.loggedInUser.firstName + ' ' + this.repository.loggedInUser.lastName;
       } else {
         return this.repository.loggedInUser.firstName;
       }
@@ -42,7 +47,12 @@ export class AccountPage implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('healerToken');
-    location.reload();
+    this.chatFirebaseSer.signOut()
+      .then((res) => {
+        localStorage.removeItem('healerToken');
+        location.reload();
+      }, async (err) => {
+        await this.alertify.presentAlert(':(', err.message);
+      });
   }
 }
