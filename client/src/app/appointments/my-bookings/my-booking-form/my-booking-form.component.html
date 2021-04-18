@@ -41,6 +41,10 @@
           </ion-label>
           <ion-button color="secondary" shape="round" class="ion-padding"
             (click)="onChatWithTherapistBtnClicked()">Chat</ion-button>
+          <br>
+          <!-- check therapist name ui-->
+          <ion-button color="secondary" shape="round" class="ion-padding"
+            (click)="onStartSessionBtnClicked()" *ngIf="!isSessionCompleted">Start Session</ion-button>
         </ion-item>
        <ion-item>
           <ion-icon name="calendar"></ion-icon>
@@ -95,7 +99,7 @@
       </ng-container>
     </ion-card-content>
   </ion-card>
-  
+
 </ion-content>
 <!-- <ng-container *ngIf="appointment">
   <ng-container *ngIf="appointment.statusType <= 1">

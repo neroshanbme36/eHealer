@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Appointment } from 'src/app/core/models/appointment';
 import { Payment } from 'src/app/core/models/payment';
+import { Session } from 'src/app/core/models/session';
 import { User } from 'src/app/core/models/user';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { AppointmentsService } from 'src/app/core/services/appointments.service';
 import { PaymentTransactionsService } from 'src/app/core/services/paymentTransactions.service';
+import { SessionsService } from 'src/app/core/services/sessions.service';
 import { UsersService } from 'src/app/core/services/users.service';
 
 @Component({
@@ -17,6 +19,7 @@ export class ClientAppointmentFormComponent implements OnInit {
   appointment?: Appointment;
   client?: User;
   payment?: Payment;
+  isSessionCompleted: boolean;
 
   constructor(
     private alertify: AlertService,
@@ -24,11 +27,13 @@ export class ClientAppointmentFormComponent implements OnInit {
     private paymentTransSer: PaymentTransactionsService,
     private usersSer: UsersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sessionSer: SessionsService
   ) { }
 
   ngOnInit() {
     const aptId = this.route.snapshot.params.id;
+    this.isSessionCompleted = false;
     this.bindAppoitmentDetails(aptId);
   }
 
@@ -66,6 +71,12 @@ export class ClientAppointmentFormComponent implements OnInit {
         }, error => {
           this.alertify.presentAlert('Error', error);
           this.router.navigate(['']);
+        }, () => {
+          this.sessionSer.getSessionByAppointmentId(this.appointment.id)
+          .subscribe((res: Session) => {
+            this.isSessionCompleted = true;
+            console.log(res);
+          });
         });
       });
     });
@@ -107,5 +118,9 @@ export class ClientAppointmentFormComponent implements OnInit {
 
   onChatWithClientBtnClicked(): void {
     this.router.navigate(['/chats/chat_page', this.client.username]);
+  }
+
+  onStartSessionBtnClicked(): void {
+    this.router.navigate(['chats/video_call/', this.appointment.client], {queryParams: {appointmentId: this.appointment.id}});
   }
 }

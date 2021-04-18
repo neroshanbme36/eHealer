@@ -193,3 +193,21 @@ class SessionViewSet(viewsets.ModelViewSet):
   serializer_class = SessionSerializer
   permission_classes = (IsAuthenticated,)
   http_method_names = ['get','post', 'put']
+
+  def post(self, request, *args, **kwargs):
+    serializer = SessionSerializer(data=request.data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+      return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+  @action(methods=['get'], detail=False)
+  def session_by_appointment(self, request):
+    try:
+      qu_appointment_id = request.query_params.get('appointment_id')
+      session = Session.objects.get(appointment=qu_appointment_id)
+      serializer = SessionSerializer(session, many=False)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '404', 'detail': 'Session not found'}, status=status.HTTP_404_NOT_FOUND)

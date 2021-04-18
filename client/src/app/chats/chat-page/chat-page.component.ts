@@ -70,7 +70,7 @@ export class ChatPageComponent implements OnInit {
     this.router.navigate([this.mainRepo.previousUrl]);
   }
 
-  videoCall(callTo: number): void {
-    this.router.navigate(['/chats/video_call', callTo]);
-  }
+  // videoCall(callTo: number): void {
+  //   this.router.navigate(['/chats/video_call', callTo]);
+  // }
 }

@@ -63,4 +63,5 @@ class Session(models.Model):
   appointment = models.OneToOneField(Appointment, blank=False, on_delete=models.DO_NOTHING, related_name='sessions')
   client = models.ForeignKey(User,blank=False, on_delete=models.DO_NOTHING, related_name='client_sessions')
   therapist = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='therapist_sessions')
+  file = models.FileField(blank=False, null=False)
 

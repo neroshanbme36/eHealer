@@ -4,6 +4,7 @@ export class Session {
     public summary: string = '',
     public appointment: number = 0,
     public client: number = 0,
-    public therapist: number = 0
+    public therapist: number = 0,
+    public file: File = null
   ) {}
 }

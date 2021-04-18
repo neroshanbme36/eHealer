@@ -1,5 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Appointment } from 'src/app/core/models/appointment';
+import { Session } from 'src/app/core/models/session';
+import { AlertService } from 'src/app/core/services/alert.service';
+import { AppointmentsService } from 'src/app/core/services/appointments.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
 import { WebrtcService } from '../../core/services/webrtc.service';
 
@@ -8,7 +12,9 @@ import { WebrtcService } from '../../core/services/webrtc.service';
   templateUrl: './video-call.component.html',
   styleUrls: ['./video-call.component.scss']
 })
-export class VideoCallComponent implements OnInit, AfterViewInit {
+export class VideoCallComponent implements OnInit {
+  appointment?: Appointment;
+  appointmentId: number;
 
   topVideoFrame = 'partner-video';
   userId: string;
@@ -21,10 +27,13 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
     public elRef: ElementRef,
     private router: Router,
     private route: ActivatedRoute,
-    private mainRepo: RepositoryService
+    private mainRepo: RepositoryService,
+    private appointmentsSer: AppointmentsService,
+    private alertify: AlertService
   ) {}
 
   ngOnInit(): void {
+    this.appointmentId = this.route.snapshot.queryParams.appointmentId;
     this.userId = this.mainRepo.loggedInUser.id.toString();
     this.partnerId = this.route.snapshot.params.id;
     this.myEl = this.elRef.nativeElement.querySelector('#my-video');
@@ -33,8 +42,24 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
     this.login();
   }
 
-  ngAfterViewInit(): void {
-    // this.call();
+  ionViewWillEnter() {
+    if (this.mainRepo.loggedInUser.roleType === 'therapist') {
+      this.webRTC.isTherapist = true;
+      this.appointmentsSer.getAppoitment(this.appointmentId)
+      .subscribe((res: Appointment) => {
+        this.appointment = res;
+      }, error => {
+        this.alertify.presentAlert('Error', error);
+      }, () => {
+        this.webRTC.session = new Session(
+          1, '', this.appointment.id, this.appointment.client, this.appointment.therapist, null
+        );
+      });
+    }
+  }
+
+  ionViewDidLeave() {
+    this.webRTC.stopBothVideoAndAudio();
   }
 
   login() {
@@ -51,7 +76,11 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
   }
 
   close() {
-    this.router.navigate([this.mainRepo.previousUrl]);
+    if (this.webRTC.isRecording && this.webRTC.isTherapist) {
+      console.log('stopping');
+      this.webRTC.stopRecording();
+    }
+    // this.webRTC.stopBothVideoAndAudio();
+    // this.router.navigate([this.mainRepo.previousUrl]);
   }
-
 }
