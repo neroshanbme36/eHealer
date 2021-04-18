@@ -25,7 +25,7 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.mainRepo.loggedInUser.username;
+    this.userId = this.mainRepo.loggedInUser.id.toString();
     this.partnerId = this.route.snapshot.params.id;
     this.myEl = this.elRef.nativeElement.querySelector('#my-video');
     this.partnerEl = this.elRef.nativeElement.querySelector('#partner-video');
