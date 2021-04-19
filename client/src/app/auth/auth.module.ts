@@ -21,10 +21,6 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     LoginComponent,
     RegisterComponent
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-    NO_ERRORS_SCHEMA
   ]
 })
 export class AuthModule {}

@@ -38,13 +38,17 @@
               {{therapist?.firstName + ' ' + therapist?.lastName}}
             </h4>
             <h5>{{therapist?.specialization}}</h5>
+            <div>
+              <ion-badge color="warning" 
+                (click)="onChatWithTherapistBtnClicked()">Chat</ion-badge>
+              <ion-badge color="secondary" style="margin-left: 10px;"
+                (click)="onStartSessionBtnClicked()" *ngIf="!isSessionCompleted">Start Session</ion-badge>
+              <ion-badge color="secondary" style="margin-left: 10px;"
+                *ngIf="isSessionCompleted">Session Completed</ion-badge>
+            </div>
           </ion-label>
-          <ion-button color="secondary" shape="round" class="ion-padding"
-            (click)="onChatWithTherapistBtnClicked()">Chat</ion-button>
-          <br>
-          <!-- check therapist name ui-->
-          <ion-button color="secondary" shape="round" class="ion-padding"
-            (click)="onStartSessionBtnClicked()" *ngIf="!isSessionCompleted">Start Session</ion-button>
+          
+          
         </ion-item>
        <ion-item>
           <ion-icon name="calendar"></ion-icon>
