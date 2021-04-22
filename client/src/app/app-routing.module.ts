@@ -23,6 +23,7 @@ const routes: Routes = [
           import('./consultation-fee/consultation-fee.module').then( m => m.ConsultationFeeModule)},
         { path: 'appointments', loadChildren: () => import('./appointments/appointments.module').then( m => m.AppointmentsModule)},
         { path: 'chats', loadChildren: () => import('./chats/chats.module').then( m => m.ChatsModule)},
+        { path: 'reports', loadChildren: () => import('./reports/reports.module').then( m => m.ReportsModule)},
       ]
 },
 { path: '**' , redirectTo: '/home', pathMatch: 'full'},

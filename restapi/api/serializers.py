@@ -65,3 +65,11 @@ class SessionSerializer(serializers.ModelSerializer):
   class Meta:
     model = Session
     fields = '__all__'
+
+class SessionReportSerializer(serializers.ModelSerializer):
+  therapist = UserSerializer(many=False)
+  client = UserSerializer(many=False)
+  appointment = AppointmentSerializer(many=False)
+  class Meta:
+    model = Session
+    fields = '__all__'

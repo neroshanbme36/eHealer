@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { SessionReportDto } from '../dtos/sessionReportDto';
 import { Session } from '../models/session';
 
 @Injectable({
@@ -35,5 +36,17 @@ export class SessionsService {
     let params = new HttpParams();
     params = params.append('appointment_id', appointmentId.toString());
     return this.http.get<Session>(this.baseUrl + 'session_by_appointment/', {params});
+  }
+
+  getReportByClient(clientId: number): Observable<SessionReportDto[]> {
+    let params = new HttpParams();
+    params = params.append('client_id', clientId.toString());
+    return this.http.get<SessionReportDto[]>(this.baseUrl + 'report_by_client/', {params});
+  }
+
+  getReportByTherapist(therapistId: number): Observable<SessionReportDto[]> {
+    let params = new HttpParams();
+    params = params.append('therapist_id', therapistId.toString());
+    return this.http.get<SessionReportDto[]>(this.baseUrl + 'report_by_therapist/', {params});
   }
 }

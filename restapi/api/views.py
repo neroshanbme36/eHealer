@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
-from .serializers import PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
+from .serializers import SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
@@ -211,3 +211,23 @@ class SessionViewSet(viewsets.ModelViewSet):
       return Response(serializer.data, status = status.HTTP_200_OK)
     except Exception:
         return Response({'status_code': '404', 'detail': 'Session not found'}, status=status.HTTP_404_NOT_FOUND)
+
+  @action(methods=['get'], detail=False)
+  def report_by_client(self, request):
+    try:
+      qu_client_id = request.query_params.get('client_id')
+      sessions = Session.objects.filter(client=qu_client_id,is_end=True)
+      serializer = SessionReportSerializer(sessions, many=True)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+  @action(methods=['get'], detail=False)
+  def report_by_therapist(self, request):
+    try:
+      qu_therapist_id = request.query_params.get('therapist_id')
+      sessions = Session.objects.filter(therapist=qu_therapist_id,is_end=True)
+      serializer = SessionReportSerializer(sessions, many=True)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

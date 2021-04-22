@@ -60,9 +60,6 @@ class PaymentTransaction(models.Model):
 
 class Session(models.Model):
   summary = models.TextField(max_length=3000, blank=True, null = True)
-  appointment = models.OneToOneField(Appointment, blank=False, on_delete=models.DO_NOTHING, related_name='sessions')
-  client = models.ForeignKey(User,blank=False, on_delete=models.DO_NOTHING, related_name='client_sessions')
-  therapist = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='therapist_sessions')
   file = models.FileField(blank=False, null=False)
   is_start = models.BooleanField(blank=True, default=False)
   is_end = models.BooleanField(blank=True, default=False)
@@ -75,3 +72,6 @@ class Session(models.Model):
   surprise = models.DecimalField(blank=True,max_digits=5, decimal_places=2, default=0)
   depression_level = models.DecimalField(blank=True,max_digits=5, decimal_places=2, default=0)
   improvement_level = models.DecimalField(blank=True,max_digits=5, decimal_places=2, default=0)
+  appointment = models.OneToOneField(Appointment, blank=False, on_delete=models.DO_NOTHING, related_name='sessions')
+  client = models.ForeignKey(User,blank=False, on_delete=models.DO_NOTHING, related_name='client_sessions')
+  therapist = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='therapist_sessions')
