@@ -1,0 +1,17 @@
+Client -> Home - Schedule, consultation fee, client appointments should be removed
+            - Add progress chart, My therapists (List of therapist communicated earlier/current therapist profiel), 
+              notes page (if possible)
+
+Client -> Search Therapist -> Therapist Profile ->  password should not be shown, Can add chat option before booking
+                           -> While searching the search field cannot recongnise upper case letters 
+                           -> newly added therapist profile showing (Internal server Error)
+Client -> Book -> Should show only future time available slots
+
+
+Therapist -> Search therapist shall be removed & clients profiles can be added (the clients profile who booked)
+          -> Therapist shall be able to update status of the therapist like if its onprogress or therapy completed. (if possible)
+
+Therapist -> Schedule -> Schedule can only be added for today (Should be changed as shedules should be added any other day)
+                      -> Success Message should be "Schedule", "Schedule saved successfully"
+                      -> after saving redirect to schedule page ( it is landing on the same page where schendule was created)
+                      -> Delete schedule

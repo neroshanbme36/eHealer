@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Django REST framework 
     'rest_framework',
-    # api application 
-    'api',
+    # api application
     'corsheaders',
-    'sslserver'
+    'sslserver',
+    'api.apps.ApiConfig'
 ]
 
 AUTH_USER_MODEL = 'api.User'

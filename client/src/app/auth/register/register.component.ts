@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   registerUser?: User;
   registerNext ?: number;
   repeatPassword?: string;
-  isAgreePolicy: false;
+  isAgreePolicy = false;
   roleType = 'client';
 
   constructor(
@@ -70,11 +70,11 @@ export class RegisterComponent implements OnInit {
       this.alertify.presentAlert('Error', e);
     }, () => {
       this.chatFirebaseSer.signup(this.registerUser.username, this.registerUser.password)
-      .then((user)=> {
+      .then((user) => {
         this.repository.navigate('login');
       }, async (err) => {
         await this.alertify.presentAlert('Sign up failed', err.message);
-      })
+      });
     });
   }
 

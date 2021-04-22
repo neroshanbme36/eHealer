@@ -54,7 +54,7 @@ export class WebrtcService {
 
   stopBothVideoAndAudio() {
     this.myStream.getTracks().forEach(track => {
-      if (track.readyState == 'live') {
+      if (track.readyState === 'live') {
         track.stop();
       }
     });
@@ -132,7 +132,7 @@ export class WebrtcService {
   // Recording
   startRecording() {
     this.recordedBlobs = [];
-    let options: MediaRecorderOptions = { mimeType: 'video/webm' };
+    const options: MediaRecorderOptions = { mimeType: 'video/webm' };
 
     try {
       this.mediaRecorder = new MediaRecorder(this.partnerStream, options);
@@ -148,7 +148,7 @@ export class WebrtcService {
         if (event.data && event.data.size > 0) {
           this.recordedBlobs.push(event.data);
         }
-      }
+      };
     } catch (error) {
       console.log(error);
     }
@@ -167,7 +167,7 @@ export class WebrtcService {
               this.alertify.presentAlert('Error', error);
             });
         }
-      }
+      };
     } catch (error) {
       console.log(error);
     }
