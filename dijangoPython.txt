@@ -1,0 +1,135 @@
+install python 3.7.3 above
+set environmental variable
+
+pip install Django --- dont install globally
+
+https://code.visualstudio.com/docs/python/tutorial-django
+
+creating virtual environmanent
+python -m venv venv
+venv\Scripts\activate
+pip install Django
+pip install djangorestframework
+pip install --upgrade pip --user
+django-admin startproject movierater .
+django-admin startapp api
+python manage.py migrate
+python manage.py runserver
+
+pip install pylint --> for lint
+Pylance extension
+
+python manage.py migrate
+python manage.py makemigrations
+add application in installed app in setting.py first
+python manage.py migrate
+to see in admin panale u need to registar your model in admin.py
+
+====================
+python manage.py createsuperuser
+
+add python interpretor in pycharm
+https://www.jetbrains.com/help/pycharm/configuring-python-interpreter.html#add_new_project_interpreter
+
+https://docs.djangoproject.com/en/3.1/ref/models/fields/
+
+pip install djangorestframework
+add in installed app 'rest_framework'
+run this cmd after adding installed app always -> python manage.py migrate
+
+add in installed app rest_framework.authtoken
+ python manage.py migrate
+
+// changes from tutorial
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': {
+        'rest_framework.permissions.IsAuthenticated',
+    }
+}
+To
+==============
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}
+
+https://phoenixnap.com/kb/install-mysql-on-windows
+cmd /K “C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe” -uroot -pmg812yn
+http://localhost/phpmyadmin/
+https://dev.mysql.com/doc/refman/8.0/en/creating-database.html
+https://www.metaltoad.com/blog/angular-api-calls-django-authentication-jwt
+https://ionicframework.com/docs/angular/your-first-app
+https://grokonez.com/django-angular-10-crud-example
+https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
+https://medium.com/django-rest/django-rest-framework-jwt-authentication-94bee36f2af8
+https://www.freakyjolly.com/ionic-4-make-http-calls-and-handle-responses-easily-using-an-interceptor/
+https://dzone.com/articles/how-to-fix-django-cors-error
+https://github.com/vbabiy/djangorestframework-camel-case
+https://medium.com/django-rest/django-rest-framework-change-password-and-update-profile-1db0c144c0a3
+
+
+mysql
+CREATE DATABASE ehealer;
+DROP DATABASE ehealer;
+USE ehealer
+SHOW TABLES;
+SHOW COLUMNS FROM City;
+
+https://github.com/ionic-team/ionic-storage#encryption-support
+
+jobs = []
+values = Record.objects.filter(record_id__in=[1,2,3], is_main_record=True, status='open', set__in=['sasi', 'kuttu','vava'])
+if values.exists():
+   all_item = ['sasi', 'kuttu','vava']
+   for mask in all_item:
+       for x in values:
+           data = {'item' : x.item, 'device': x.device, 'log': x.log}
+           jobs.append(data)
+
+print jobs # <--- print here, then you see the whole list
+
+===================================================
+timer
+https://www.youtube.com/watch?v=1vrQIdMF4LY
+
+=================================================
+deep learning
+
+https://www.youtube.com/watch?v=AqQWqo6IiE0
+https://github.com/Spidy20/python_best_practice
+https://github.com/akash720/Facial-expression-recognition/blob/master/complete_notebook.ipynb
+
+https://www.kaggle.com/ashishpatel26/tutorial-facial-expression-classification-keras
+
+https://github.com/akash720/Facial-expression-recognition
+
+==============================================
+text msg
+https://github.com/SATPAL-BHARDWAJ/ionic-messenger-firebase
+https://sbsharma.com/ionic-4-chat-app-firebase/
+https://www.djamware.com/post/5a629d9880aca7059c142976/build-ionic-3-angular-5-and-firebase-simple-chat-app
+https://devdactic.com/ionic-firebase-chat/
+https://blog.logrocket.com/creating-a-crud-firebase-documents-in-angular/
+
+=======================================================
+video call
+https://github.com/nakulkundaliya/ionic-3-video-calling-using-webrtc
+https://medium.com/@Anderson7301/agora-io-stackblitz-angular-video-chat-app-in-5lines-of-code-b88779018411
+https://prodocs.cometchat.com/docs/cordova-ionic-calling
+https://dev.to/sebalr/video-call-with-webrtc-angular-and-asp-net-core-39hg
+
+https://websitebeaver.com/insanely-simple-webrtc-video-chat-using-firebase-with-codepen-demo
+
+https://dev.to/sebalr/video-call-with-webrtc-angular-and-asp-net-core-39hg
+
+https://www.twilio.com/blog/video-chat-app-asp-net-core-angular-twilio
+
+
+good
+https://dev.to/timsar2/ionic-video-call-by-peerjs-4fli
+https://github.com/kousik97/Video-Expression-Recognition
+
