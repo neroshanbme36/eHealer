@@ -29,4 +29,10 @@ export class PaymentTransactionsService {
     params = params.append('appointment_id', aptId.toString());
     return this.http.get<Payment>(this.baseUrl + 'payment_by_appointmentId/', {params});
   }
+
+  getPaymentsByTherapistId(therapistId: number): Observable<Payment[]> {
+    let params = new HttpParams();
+    params = params.append('therapist_id', therapistId.toString());
+    return this.http.get<Payment[]>(this.baseUrl + 'payments_by_therapist_id/', {params});
+  }
 }

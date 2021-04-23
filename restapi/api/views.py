@@ -188,6 +188,16 @@ class PaymentTransactionViewSet(viewsets.ModelViewSet):
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+  @action(methods=['get'], detail=False)
+  def payments_by_therapist_id(self, request):
+    try:
+      qu_therapist_id = request.query_params.get('qu_therapist_id')
+      payment = PaymentTransaction.objects.filter(therapist=qu_therapist_id)
+      serializer = PaymentTransactionSerializer(payment, many=True)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class SessionViewSet(viewsets.ModelViewSet):
   queryset = Session.objects.all()
   serializer_class = SessionSerializer

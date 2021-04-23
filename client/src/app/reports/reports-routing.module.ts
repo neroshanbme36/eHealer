@@ -4,6 +4,7 @@ import { ReportDetailedSessionComponent } from './report-detailed-session/report
 import { ReportSessionClientComponent } from './report-session-client/report-session-client.component';
 import { ReportSessionTherapistComponent } from './report-session-therapist/report-session-therapist.component';
 import { ReportsComponent } from './reports/reports.component';
+import { RevenueReportComponent } from './revenue-report/revenue-report.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
       { path: 'list', component: ReportsComponent },
       { path: 'session_client', component: ReportSessionClientComponent },
       { path: 'session_therapist', component: ReportSessionTherapistComponent },
-      { path: 'detailed_report/:id', component: ReportDetailedSessionComponent }
+      { path: 'detailed_report/:id', component: ReportDetailedSessionComponent },
+      { path: 'revenue', component: RevenueReportComponent}
     ]
   }
 ];
