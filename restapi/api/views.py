@@ -236,3 +236,14 @@ class NotepadViewSet(viewsets.ModelViewSet):
   queryset = Notepad.objects.all()
   serializer_class = NotepadSerializer
   permission_classes = (IsAuthenticated,)
+  http_method_names = ['get','post', 'put', 'delete']
+
+  @action(methods=['get'], detail=False)
+  def notepads_by_user_id(self, request):
+    try:
+      qu_user_id = request.query_params.get('user_id')
+      notepads = Notepad.objects.filter(user=qu_user_id)
+      serializer = NotepadSerializer(notepads, many=True)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

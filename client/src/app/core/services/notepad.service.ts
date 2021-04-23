@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -20,11 +20,17 @@ export class NotepadService {
     return this.http.put<Notepad>(this.baseUrl + model.id + '/', model);
   }
 
+  deleteNotepad(id: number): Observable<void> {
+    return this.http.delete<void>(this.baseUrl + id + '/');
+  }
+
   getNotepad(id: number): Observable<Notepad> {
     return this.http.get<Notepad>(this.baseUrl + id + '/');
   }
 
-  getNotepads(): Observable<Notepad[]> {
-    return this.http.get<Notepad[]>(this.baseUrl);
+  getNotepadsByUserId(userId: number): Observable<Notepad[]> {
+    let params = new HttpParams();
+    params = params.append('user_id', userId.toString());
+    return this.http.get<Notepad[]>(this.baseUrl + 'notepads_by_user_id/', {params});
   }
 }

@@ -13,7 +13,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { NotesComponent } from './notes/notes.component';
 
 export function tokenGetter() {
   const token = localStorage.getItem('healerToken');
@@ -27,9 +26,7 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  declarations: [	AppComponent,
-      NotesComponent
-   ],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     IonicStorageModule.forRoot({

@@ -24,13 +24,10 @@ const routes: Routes = [
         { path: 'appointments', loadChildren: () => import('./appointments/appointments.module').then( m => m.AppointmentsModule)},
         { path: 'chats', loadChildren: () => import('./chats/chats.module').then( m => m.ChatsModule)},
         { path: 'reports', loadChildren: () => import('./reports/reports.module').then( m => m.ReportsModule)},
+        { path: 'notes', loadChildren: () => import('./notes/notes.module').then( m => m.NotesModule)},
       ]
 },
-{ path: '**' , redirectTo: '/home', pathMatch: 'full'},  {
-    path: 'notes',
-    loadChildren: () => import('./notes/notes.module').then( m => m.NotesPageModule)
-  },
-
+{ path: '**' , redirectTo: '/home', pathMatch: 'full'},
 ];
 
 @NgModule({

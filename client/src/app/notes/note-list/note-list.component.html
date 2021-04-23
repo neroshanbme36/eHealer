@@ -1,3 +1,8 @@
-<p>
-  note-list works!
-</p>
+<ion-button color="secondary" expand="full" shape="round" (click)="onCreateBtnClicked()" class="ion-padding">Add
+</ion-button>
+
+<ion-button color="secondary" expand="full" shape="round" *ngFor="let nts of notes" (click)="onUpdateBtnClicked(nts.id)"
+  class="ion-padding">Edit</ion-button>
+
+<ion-button color="danger" expand="full" shape="round" *ngFor="let nts of notes" (click)="onDeleteBtnClicked(nts.id)"
+  class="ion-padding">Delete</ion-button>

@@ -45,7 +45,7 @@ export class ScheduleFormComponent implements OnInit {
     this.endDateIsoStr = (this.today).toISOString();
     this.bindScheduleDetails();
     const path = this.route.snapshot.routeConfig.path;
-    if (path === 'new') {
+    if (path.trim().toLowerCase() === 'new') {
       this.headingStr = 'Create';
     }
   }
