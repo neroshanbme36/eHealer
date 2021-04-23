@@ -1,5 +1,5 @@
-import { Appointment } from "../models/appointment";
-import { User } from "../models/user";
+import { Appointment } from '../models/appointment';
+import { User } from '../models/user';
 
 export class SessionReportDto {
   constructor(

@@ -1,3 +1,29 @@
-<p>
-  report-session-client works!
-</p>
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">Client Appoinments</ion-text>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-list>
+  <ion-item (click)="onClientAppointmentBtnClicked(apt.id)"
+  *ngFor="let apt of appointmentUserDtos">
+    <ion-label>{{apt.id}}</ion-label>
+  </ion-item>
+</ion-list> -->
+
+<ion-searchbar placeholder="Client Name" name="searchClientName" id="searchClientName"
+  [(ngModel)]="searchClientName">
+</ion-searchbar>
+
+<ion-content >
+
+</ion-content>

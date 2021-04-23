@@ -1,3 +1,33 @@
-<p>
-  report-detailed-session works!
-</p>
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">Report</ion-text>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label class="lbl">Pick Appointment</ion-label>
+        <ion-select placeholder="Select One" [value]="selectedSessionReport.id"
+           [(ngModel)]="selectedSessionReport.id"
+          (ngModelChange)="change()">
+          <ion-select-option 
+            [value]="report.id" *ngFor="let report of sessionReportDatas">
+              {{report.id}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <div >
+    <canvas #barCanvas id="barCanvas" width="400" height="400"></canvas>
+  </div>
+</ion-content>
