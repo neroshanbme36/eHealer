@@ -59,6 +59,10 @@ class PaymentTransaction(models.Model):
   therapist = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='therapist_payments')
 
 class Session(models.Model):
+  created_on = models.DateTimeField(blank=False)
+  start_time = models.DateTimeField(blank=False)
+  end_time = models.DateTimeField(blank=False)
+  duration_in_mins = models.IntegerField(blank=False)
   summary = models.TextField(max_length=3000, blank=True, null = True)
   file = models.FileField(blank=False, null=False)
   is_start = models.BooleanField(blank=True, default=False)
@@ -75,3 +79,9 @@ class Session(models.Model):
   appointment = models.OneToOneField(Appointment, blank=False, on_delete=models.DO_NOTHING, related_name='sessions')
   client = models.ForeignKey(User,blank=False, on_delete=models.DO_NOTHING, related_name='client_sessions')
   therapist = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='therapist_sessions')
+
+class Notepad(models.Model):
+  note = models.TextField(max_length=2000, blank=False)
+  created_on = models.DateTimeField(auto_now_add=True)
+  updated_on = models.DateTimeField(auto_now=True)
+  user = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='notepads')

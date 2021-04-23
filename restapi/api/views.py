@@ -2,11 +2,11 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
-from .serializers import SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
+from .serializers import NotepadSerializer, SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction
+from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils.dateparse import parse_date
@@ -231,3 +231,8 @@ class SessionViewSet(viewsets.ModelViewSet):
       return Response(serializer.data, status = status.HTTP_200_OK)
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class NotepadViewSet(viewsets.ModelViewSet):
+  queryset = Notepad.objects.all()
+  serializer_class = NotepadSerializer
+  permission_classes = (IsAuthenticated,)
