@@ -23,6 +23,7 @@ export class User {
     public country: string = '',
     public updatedOn: string = '',
     public specialization: string = '',
-    public experience: number = 0
+    public experience: number = 0,
+    public firebasePassword: string = ''
   ) {}
 }

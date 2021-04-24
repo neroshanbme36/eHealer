@@ -1,10 +1,10 @@
 to makek digango https
 https://github.com/teddziuba/django-sslserver
 1. run in venv => pip install django-sslserver
-2. python manage.py runsslserver 192.168.8.101:8000
+2. python manage.py runsslserver 192.168.8.102:8000
 
 to run ionic https
-ionic serve --address 192.168.8.101 --ssl
+ionic serve --address 192.168.8.102 --ssl
 
 peer js
 https://dev.to/timsar2/ionic-video-call-by-peerjs-4fli

@@ -18,13 +18,13 @@ export class RepositoryService {
 
   private bindDays(): void {
     this.daysDto = [];
-    this.daysDto.push({id: 1, name: 'MONDAY'});
-    this.daysDto.push({id: 2, name: 'TUESDAY'});
-    this.daysDto.push({id: 3, name: 'WEDNESDAY'});
-    this.daysDto.push({id: 4, name: 'THURSDAY'});
-    this.daysDto.push({id: 5, name: 'FRIDAY'});
-    this.daysDto.push({id: 6, name: 'SATURDAY'});
-    this.daysDto.push({id: 7, name: 'SUNDAY'});
+    this.daysDto.push({ id: 1, name: 'MONDAY' });
+    this.daysDto.push({ id: 2, name: 'TUESDAY' });
+    this.daysDto.push({ id: 3, name: 'WEDNESDAY' });
+    this.daysDto.push({ id: 4, name: 'THURSDAY' });
+    this.daysDto.push({ id: 5, name: 'FRIDAY' });
+    this.daysDto.push({ id: 6, name: 'SATURDAY' });
+    this.daysDto.push({ id: 7, name: 'SUNDAY' });
   }
 
   navigate(tag: string): void {
@@ -57,21 +57,21 @@ export class RepositoryService {
     }
   }
 
-  public getCsharpFormat(d: string, tag: string ) {
+  public getCsharpFormat(d: string, tag: string) {
     const ddd = d.split('T');
     const dd = ddd[0];
     // tslint:disable-next-line:variable-name
     const date_ = new Date(dd);
     const month = ('0' + (date_.getMonth() + 1)).slice(-2);
-    const day  = ('0' + date_.getDate()).slice(-2);
+    const day = ('0' + date_.getDate()).slice(-2);
     const hour = ('0' + date_.getHours()).slice(-2);
     const minutes = ('0' + date_.getMinutes()).slice(-2);
     if (tag === 'current') {
-      return [ date_.getFullYear(), month, day ].join('-');
+      return [date_.getFullYear(), month, day].join('-');
     } else if (tag === 'start') {
-      return [ date_.getFullYear(), month, day ].join('-');
+      return [date_.getFullYear(), month, day].join('-');
     } else if (tag === 'end') {
-      return [ date_.getFullYear(), month, day ].join('-');
+      return [date_.getFullYear(), month, day].join('-');
     }
   }
 
@@ -84,6 +84,15 @@ export class RepositoryService {
       t.getMinutes(),
       t.getSeconds(),
       t.getMilliseconds()
-      );
+    );
+  }
+
+  randomStr(len: number): string {
+    let res = '';
+    const arr = '0123456789abcdefghijklmnopqrstuvwxyz'
+    for (let i = len; i > 0; i--) {
+      res += arr[Math.floor(Math.random() * arr.length)];
+    }
+    return res;
   }
 }

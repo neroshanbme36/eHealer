@@ -133,3 +133,7 @@ good
 https://dev.to/timsar2/ionic-video-call-by-peerjs-4fli
 https://github.com/kousik97/Video-Expression-Recognition
 
+reset password
+https://www.ionicanddjangotutorial.com/django-reset-password-part-two.html
+https://www.ionicanddjangotutorial.com/django-reset-password.html
+https://www.ionicanddjangotutorial.com/django-reset-password.html

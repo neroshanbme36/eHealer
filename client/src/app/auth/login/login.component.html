@@ -20,46 +20,48 @@
         <ion-label *ngIf="!email.valid && email.dirty" class="error">Should be a valid email address!!</ion-label>
         <ion-item lines="none" class="w100 mt-20">
           <ion-icon name="lock-open-outline"></ion-icon>
-          <ion-input class="inpt" minlength="4" name="password" placeholder="Password" ngModel #pwd="ngModel" required 
+          <ion-input class="inpt" minlength="6" name="password" placeholder="Password" ngModel #pwd="ngModel" required
           type="password" show-hide-input></ion-input>
         <ion-label class="lbl"> Password</ion-label>
         </ion-item>
-        <ion-label *ngIf="!pwd.valid && pwd.dirty" class="error">Should at least be 4 characters long.</ion-label>
+        <ion-label *ngIf="!pwd.valid && pwd.dirty" class="error">Should at least be 6 characters long.</ion-label>
       </ion-list>
-      
+
       <ion-button expand="block" type="submit" color="secondary"
         [disabled]="f.invalid">
         <ion-icon name="log-in" class="icon-login"></ion-icon>
         SignIn
-      </ion-button>      
+      </ion-button>
     </form>
      <ion-row>
       <ion-col size="12" class="ion-text-center">
         <ion-text style="padding-top: 30px;" class="create">
-          Dont't have an account? 
-          <a style="text-decoration: none;" class="b-link" 
+          Dont't have an account?
+          <a style="text-decoration: none;" class="b-link"
           [routerLink]="['/auth/register']" [queryParams]="{ roleType: 'client'}"
           routerDirection="root"> Create Account</a>
         </ion-text>
       </ion-col>
-      
+
     </ion-row>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
         <ion-text style="padding-top: 30px;" class="create">
-          <a style="text-decoration: none;" class="b-link" 
+          <a style="text-decoration: none;" class="b-link"
           [routerLink]="['/auth/register']" [queryParams]="{ roleType: 'therapist'}"
           routerDirection="root"> Register Therapist?</a>
         </ion-text>
       </ion-col>
-      
+
     </ion-row>
   </div>
 </ion-content>
 <ion-row>
   <ion-col size="12" class="ion-text-center">
-    <ion-text class="policy">By signing in, You are accepting the 
+    <ion-text class="policy">By signing in, You are accepting the
       <b class="b-link" [routerLink]="['/auth/login/policy']">Privacy Policy</b>
       of ehealer</ion-text>
   </ion-col>
 </ion-row>
+
+<ion-button color="secondary" expand="full" [routerLink]="['/auth/forgot_password']">Forgot Password</ion-button>

@@ -7,9 +7,10 @@ import { LoadingController } from '@ionic/angular';
 export class LoaderService {
   private loaderToShow: HTMLIonLoadingElement;
 
-  constructor(public loadingController: LoadingController) {}
+  constructor(private loadingController: LoadingController) {}
 
   async showLoader() {
+    await this.hideLoader();
     this.loaderToShow = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',

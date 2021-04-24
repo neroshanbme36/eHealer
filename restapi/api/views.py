@@ -10,6 +10,17 @@ from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransac
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils.dateparse import parse_date
+from django.http import HttpResponse
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.tokens import default_token_generator
+from django.template import loader
+import sendgrid
+from sendgrid.helpers.mail import Mail,Email,Content
+from django.shortcuts import render
+from django.views.generic import *
+from django.core.mail import EmailMessage
+
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -72,6 +83,37 @@ class UserViewSet(viewsets.ModelViewSet):
       except Exception:
           return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @action(methods=['get'], detail=False)
+    def send_password_link(self, request):
+      qu_username = request.query_params.get('username')
+      if len(qu_username) > 0:
+          try:
+            user = get_user_model().objects.get(username=qu_username)
+            subject_dto = {
+                'protocol': 'https',
+                'site_name': 'eHealer',
+                'domain': request.META['HTTP_HOST'],
+                'user': user,
+                'email': user.email,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+            }
+            subject_temp_path = 'registration/password_reset_subject.txt'
+            email_temp_path = 'registration/password_reset_email.html'
+            subject = loader.render_to_string(subject_temp_path, subject_dto)
+            subject = ''.join(subject.splitlines())
+            email = loader.render_to_string(email_temp_path, subject_dto)
+            try:
+                message = EmailMessage(subject, email, to=[user.email])
+                message.send()
+            except Exception as e:
+                print(e)
+            return HttpResponse(status=200)
+          except Exception as e:
+                  print(e)
+          return HttpResponse(status=404)
+      else:
+          return HttpResponse(status=404)
 
 class UserUpdateViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
