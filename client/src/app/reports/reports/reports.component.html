@@ -20,7 +20,7 @@
         <ion-button color="secondary" expand="full" [routerLink]="['/reports/session_therapist']">
           <div >
             <ion-icon slot="icon-only" name="logo-buffer"></ion-icon><br>
-            <ion-label>Session Therapist</ion-label>
+            <ion-label>Session</ion-label>
           </div>
         </ion-button>
       </ion-col>
@@ -28,11 +28,11 @@
         <ion-button color="secondary" expand="full" [routerLink]="['/reports/session_client']">
           <div >
             <ion-icon slot="icon-only" name="logo-buffer"></ion-icon><br>
-            <ion-label>Session Client</ion-label>
+            <ion-label>Session</ion-label>
           </div>
         </ion-button>
       </ion-col>
-      <ion-col size="6">
+      <ion-col size="6" *ngIf="mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'therapist'">
         <ion-button color="secondary" expand="full" [routerLink]="['/reports/revenue']">
           <div >
             <ion-icon slot="icon-only" name="list"></ion-icon><br>
@@ -42,7 +42,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  
+
 
 
 
