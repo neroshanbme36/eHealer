@@ -20,11 +20,15 @@ export class ForgotPasswordComponent implements OnInit {
 
   onResetPasswordBtnClicked(username: string): void {
     this.usersSer.sendResetPasswordLink(username)
-    .subscribe((res: void)=> {
+    .subscribe((res: void) => {
       this.alertify.presentAlert('Message', 'Password reset link has been sent to given email.');
       this.router.navigate(['/auth/login']);
     }, error => {
       this.alertify.presentAlert('Error', error);
     });
+  }
+
+  back(): void {
+    this.router.navigate(['auth/login']);
   }
 }
