@@ -8,7 +8,7 @@
       <!-- <div style="padding-left: 41%">
         <ion-avatar item-start>
           <ion-img src="../assets/images/person.png?tui"></ion-img>
-        </ion-avatar> 
+        </ion-avatar>
       </div> -->
       <h6>
         {{name | titlecase}}
@@ -110,7 +110,7 @@
             <div><b >Address 1</b></div>
             <div>{{user?.addressLine1}}</div>
           </ion-label>
-        </ion-item>   
+        </ion-item>
         <ion-item>
           <ion-icon name="pin-outline"></ion-icon>
           <ion-label>
@@ -145,7 +145,7 @@
             <div><b >Country</b></div>
             <div>{{user?.country}}</div>
           </ion-label>
-        </ion-item>    
+        </ion-item>
       </ion-list>
     </ion-col>
   </ion-row>
@@ -157,17 +157,17 @@
           <ion-list style="margin-bottom: 0px;">
             <ion-item class="required">
               <ion-icon name="person"></ion-icon>
-              <ion-input class="inpt" name="fname" [(ngModel)]="editUser.firstName" required></ion-input>
+              <ion-input class="inpt" name="fname" [(ngModel)]="editUser.firstName" required disabled></ion-input>
               <ion-label class="lbl"> First Name </ion-label>
             </ion-item>
             <ion-item class="required">
               <ion-icon name="person"></ion-icon>
-              <ion-input class="inpt" name="lname" [(ngModel)]="editUser.lastName" required></ion-input>
+              <ion-input class="inpt" name="lname" [(ngModel)]="editUser.lastName" required disabled></ion-input>
               <ion-label class="lbl"> Last Name </ion-label>
             </ion-item>
             <ion-item class="required">
               <ion-icon name="mail-outline"></ion-icon>
-              <ion-input class="inpt" name="email" #email="ngModel" [(ngModel)]="editUser.email" email required></ion-input>
+              <ion-input class="inpt" name="email" #email="ngModel" [(ngModel)]="editUser.email" email required disabled></ion-input>
               <ion-label class="lbl">E-mail </ion-label>
             </ion-item>
             <ion-label *ngIf="!email.valid && email.dirty" class="error">Should be a valid email address!!</ion-label>
@@ -269,6 +269,6 @@
       </ion-row>
     </form>
   </ng-container>
-  
+
 </ion-content>
 <!-- <app-footer></app-footer> -->

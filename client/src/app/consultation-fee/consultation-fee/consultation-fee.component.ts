@@ -22,6 +22,10 @@ export class ConsultationFeeComponent implements OnInit {
 
   ngOnInit() {
     this.therapistFee = new TherapistFee();
+  }
+
+  ionViewWillEnter() {
+    this.therapistFee = new TherapistFee();
     this.therapistFee.user = this.mainRepo.loggedInUser.id;
     this.bindTherapistFeeDetails();
   }
@@ -34,7 +38,7 @@ export class ConsultationFeeComponent implements OnInit {
         console.log(this.therapistFee);
       }
     }, error => {
-      this.alertify.presentAlert('Error', error);
+      // this.alertify.presentAlert('Error', error);
     });
   }
 

@@ -31,6 +31,10 @@ export class ScheduleFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.schedule = new Schedule();
+  }
+
+  ionViewWillEnter() {
     const url = this.router.url;
     const urlArr = url.split('/');
     if (urlArr.length >= 3) {
@@ -57,7 +61,7 @@ export class ScheduleFormComponent implements OnInit {
         if (res) {
           this.therapistFee = res;
           // Adding end time in milliseconds
-          this.endDateIsoStr = (new Date(this.today.getTime() + (this.therapistFee.slotDurationInMins * 60 * 1000))).toISOString();
+          this.endDateIsoStr = (new Date(this.today.getTime() + (this.therapistFee.slotDurationInMins * 59 * 1000))).toISOString();
         } else {
           this.alertify.presentAlert('Error', errMsg);
           this.router.navigate(['']);
@@ -97,29 +101,39 @@ export class ScheduleFormComponent implements OnInit {
     this.schedule.closingTime = endTime.getHours() + ':' + endTime.getMinutes() + ':' + '59';
     this.schedule.user = this.mainRepo.loggedInUser.id;
     if (this.isEditForm) {
-      this.schedulesSer.updateSchedule(this.schedule)
+      this.schedulesSer.isScheduleExist(this.schedule).subscribe((res: void) => {
+        this.schedulesSer.updateSchedule(this.schedule)
         .subscribe((res: Schedule) => {
           this.schedule = res;
           this.alertify.presentAlert('Message', 'Schedule updated successfully');
         }, error => {
           this.alertify.presentAlert('Error', error);
+        }, () => {
+          this.router.navigate(['/schedules/list']);
         });
+      }, error => {
+        this.alertify.presentAlert('Error', error);
+      });
     } else {
-      this.schedulesSer.createSchedule(this.schedule)
+      this.schedulesSer.isScheduleExist(this.schedule).subscribe((res: void) => {
+        this.schedulesSer.createSchedule(this.schedule)
         .subscribe((res: Schedule) => {
           this.schedule = res;
           this.alertify.presentAlert('Message', 'Schedule saved successfully');
         }, error => {
           this.alertify.presentAlert('Error', error);
         }, () => {
-          this.router.navigate(['schedules/edit', this.schedule.id]);
+          this.router.navigate(['/schedules/list']);
         });
+      }, error => {
+        this.alertify.presentAlert('Error', error);
+      });
     }
   }
 
   onStartTimeChanged(): void {
     // tslint:disable-next-line:max-line-length
-    this.endDateIsoStr = (new Date((new Date(this.startDateIsoStr).getTime()) + (this.therapistFee.slotDurationInMins * 60 * 1000))).toISOString();
+    this.endDateIsoStr = (new Date((new Date(this.startDateIsoStr).getTime()) + (this.therapistFee.slotDurationInMins * 59 * 1000))).toISOString();
   }
 
   back(): void {

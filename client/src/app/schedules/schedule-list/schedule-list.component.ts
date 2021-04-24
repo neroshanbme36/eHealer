@@ -21,7 +21,9 @@ export class ScheduleListComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.filterByDay = '';
     this.bindSchedules();
   }

@@ -46,14 +46,16 @@ export class NoteListComponent implements OnInit {
   }
 
   onDeleteBtnClicked(id: number): void {
-    this.notesSer.deleteNotepad(id)
-    .subscribe((res: void) => {
-      this.alertify.presentAlert('Message', 'Notepad deleted successfully.');
-    }, error => {
-      this.alertify.presentAlert('Error', error);
-    }, () => {
-      this.bindNotepadList();
-    });
+    this.alertify.presentAlertConfirm('Confirm', 'Are you sure to delete', 'ok', 'cancel', () => {
+      this.notesSer.deleteNotepad(id)
+      .subscribe((res: void) => {
+        this.alertify.presentAlert('Message', 'Notepad deleted successfully.');
+      }, error => {
+        this.alertify.presentAlert('Error', error);
+      }, () => {
+        this.bindNotepadList();
+      });
+    }, () => {});
   }
 
   back(): void {

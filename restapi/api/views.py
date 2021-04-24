@@ -136,18 +136,26 @@ class ScheduleViewSet(viewsets.ModelViewSet):
       except Exception:
           return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    # @action(methods=['get'], detail=False)
-    # def is_schedule_exist(self, request):
-    #   try:
-    #     qu_user_id = request.query_params.get('user_id')
-    #     qu_opening_time = request.query_params.get('opening_time')
-    #     qu_closing_time = request.query_params.get('closing_time')
-    #     qu_day_of_week = request.query_params.get('day_of_week')
-    #     schedules = Schedule.objects.filter(user=qu_user_id)
-    #     serializer = ScheduleSerializer(schedules, many=True)
-    #     return Response(serializer.data, status = status.HTTP_200_OK)
-    #   except Exception:
-    #       return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    @action(methods=['get'], detail=False)
+    def is_schedule_exist(self, request):
+      try:
+        qu_id = request.query_params.get('id')
+        qu_user_id = request.query_params.get('user_id')
+        qu_opening_time = request.query_params.get('opening_time')
+        qu_closing_time = request.query_params.get('closing_time')
+        qu_day_of_week = request.query_params.get('day_of_week')
+        schedules = Schedule.objects.filter(user=qu_user_id,day_of_week=qu_day_of_week)
+        if qu_id != 0:
+          schedules = schedules.filter(~Q(id=qu_id))
+        is_exist = schedules.filter(opening_time__gte=qu_opening_time,opening_time__lte=qu_closing_time).exists()
+        if is_exist == False:
+          is_exist = schedules.filter(closing_time__gte=qu_opening_time,closing_time__lte=qu_closing_time).exists()
+        if is_exist == False:
+           return Response({'status_code': '200', 'detail': 'Schedule doesnt exist'}, status = status.HTTP_200_OK)
+        else:
+          return Response({'status_code': '400', 'detail': 'Schedule already exist in the given range.'}, status = status.HTTP_400_BAD_REQUEST)
+      except Exception:
+          return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(methods=['get'], detail=False)
     def unbooked_slots(self, request):

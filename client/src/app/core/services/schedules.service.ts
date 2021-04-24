@@ -41,4 +41,14 @@ export class SchedulesService {
     params = params.append('requested_date', requestedDate.toString());
     return this.http.get<Schedule[]>(this.baseUrl + 'unbooked_slots/', {params});
   }
+
+  isScheduleExist(model: Schedule): Observable<void> {
+    let params = new HttpParams();
+    params = params.append('id', model.id.toString());
+    params = params.append('user_id', model.user.toString());
+    params = params.append('opening_time', model.openingTime);
+    params = params.append('closing_time', model.closingTime);
+    params = params.append('day_of_week', model.dayOfWeek.toString());
+    return this.http.get<void>(this.baseUrl + 'is_schedule_exist/', {params})
+  }
 }

@@ -8,7 +8,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-img src="../../assets/images/logo.png"></ion-img>
+<!-- <ion-img src="../../assets/images/logo.png"></ion-img> -->
 <ion-content>
   <ion-grid>
     <ion-row>
@@ -31,15 +31,6 @@
         <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/my_booking_list']">My Bookings</ion-button> -->
       </ion-col>
       <ion-col size="6" *ngIf="mainRepo.loggedInUser.roleType === 'therapist'">
-        <ion-button color="secondary" expand="full" [routerLink]="['/schedules/list']">
-          <div >
-            <ion-icon slot="icon-only" name="calendar"></ion-icon><br>
-            <ion-label>Schedules</ion-label>
-          </div>
-        </ion-button>
-        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/schedules/list']">Schedules</ion-button> -->
-      </ion-col>
-      <ion-col size="6" *ngIf="mainRepo.loggedInUser.roleType === 'therapist'">
         <ion-button color="secondary" expand="full" [routerLink]="['/consultation_fee']">
           <div >
             <ion-icon slot="icon-only" name="thumbs-up"></ion-icon><br>
@@ -47,6 +38,15 @@
           </div>
         </ion-button>
         <!-- <ion-button color="secondary" expand="full" [routerLink]="['/consultation_fee']">Consultation Fee</ion-button> -->
+      </ion-col>
+      <ion-col size="6" *ngIf="mainRepo.loggedInUser.roleType === 'therapist'">
+        <ion-button color="secondary" expand="full" [routerLink]="['/schedules/list']">
+          <div >
+            <ion-icon slot="icon-only" name="calendar"></ion-icon><br>
+            <ion-label>Schedules</ion-label>
+          </div>
+        </ion-button>
+        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/schedules/list']">Schedules</ion-button> -->
       </ion-col>
       <ion-col size="6" *ngIf="mainRepo.loggedInUser.roleType === 'therapist'">
         <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">
@@ -58,19 +58,19 @@
         <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">Client Appoitments</ion-button> -->
       </ion-col>
       <ion-col size="6">
-        <ion-button color="secondary" expand="full" [routerLink]="['/reports/list']">
+        <ion-button color="secondary" expand="full" [routerLink]="['/notes/list']">
           <div >
-            <ion-icon slot="icon-only" name="logo-buffer"></ion-icon><br>
-            <ion-label>Reports </ion-label>
+            <ion-icon slot="icon-only" name="bookmarks"></ion-icon><br>
+            <ion-label>Notes</ion-label>
           </div>
         </ion-button>
         <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">Client Appoitments</ion-button> -->
       </ion-col>
       <ion-col size="6">
-        <ion-button color="secondary" expand="full" [routerLink]="['/notes/list']">
+        <ion-button color="secondary" expand="full" [routerLink]="['/reports/list']">
           <div >
-            <ion-icon slot="icon-only" name="bookmarks"></ion-icon><br>
-            <ion-label>Notes</ion-label>
+            <ion-icon slot="icon-only" name="logo-buffer"></ion-icon><br>
+            <ion-label>Reports </ion-label>
           </div>
         </ion-button>
         <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">Client Appoitments</ion-button> -->

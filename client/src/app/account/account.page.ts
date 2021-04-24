@@ -47,12 +47,14 @@ export class AccountPage implements OnInit {
   }
 
   logout() {
-    this.chatFirebaseSer.signOut()
+    this.alertify.presentAlertConfirm('Confirm', 'Are you sure to logout?', 'ok', 'cancel', () => {
+      this.chatFirebaseSer.signOut()
       .then((res) => {
         localStorage.removeItem('healerToken');
         location.reload();
       }, async (err) => {
         await this.alertify.presentAlert(':(', err.message);
       });
+    }, () => {});
   }
 }
