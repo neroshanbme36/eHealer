@@ -136,6 +136,19 @@ class ScheduleViewSet(viewsets.ModelViewSet):
       except Exception:
           return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    # @action(methods=['get'], detail=False)
+    # def is_schedule_exist(self, request):
+    #   try:
+    #     qu_user_id = request.query_params.get('user_id')
+    #     qu_opening_time = request.query_params.get('opening_time')
+    #     qu_closing_time = request.query_params.get('closing_time')
+    #     qu_day_of_week = request.query_params.get('day_of_week')
+    #     schedules = Schedule.objects.filter(user=qu_user_id)
+    #     serializer = ScheduleSerializer(schedules, many=True)
+    #     return Response(serializer.data, status = status.HTTP_200_OK)
+    #   except Exception:
+    #       return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     @action(methods=['get'], detail=False)
     def unbooked_slots(self, request):
       try:
@@ -233,7 +246,7 @@ class PaymentTransactionViewSet(viewsets.ModelViewSet):
   @action(methods=['get'], detail=False)
   def payments_by_therapist_id(self, request):
     try:
-      qu_therapist_id = request.query_params.get('qu_therapist_id')
+      qu_therapist_id = request.query_params.get('therapist_id')
       payment = PaymentTransaction.objects.filter(therapist=qu_therapist_id)
       serializer = PaymentTransactionSerializer(payment, many=True)
       return Response(serializer.data, status = status.HTTP_200_OK)
