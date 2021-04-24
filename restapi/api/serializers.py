@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad, FirebaseUser
+from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad
 from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
@@ -11,12 +11,13 @@ class UserSerializer(serializers.ModelSerializer):
         'birth_date','gender','martial_status','contact_no',
         'qualification','role_type','address_line_1',
         'address_line_2','city','postcode','state',
-        'country','updated_on', 'specialization', 'experience'
+        'country','updated_on', 'specialization', 'experience', 'firebase_password'
       )
       # hashed password should not be displayed in get api method
       # by adding this password will be available only for post and put methods
       extra_kwargs = {
-        'username': {'min_length': 4},
+        'username': {'required': True},
+        'firebase_password': {'required': True},
         'password': {'write_only': True, 'min_length': 6},
         'first_name': {'required': True}, 'last_name': {'required': True},
         'email': {'required': True}}
@@ -32,7 +33,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
           'address_line_2','city','postcode','state',
           'country','updated_on', 'specialization', 'experience'
         )
-        extra_kwargs = {'password': {'read_only': True}, 'last_login': {'read_only': True}}
+        extra_kwargs = {'firebase_password': {'read_only': True}, 'password': {'read_only': True}, 'last_login': {'read_only': True}}
 
 class ScheduleSerializer(serializers.ModelSerializer):
   class Meta:
@@ -77,9 +78,4 @@ class SessionReportSerializer(serializers.ModelSerializer):
 class NotepadSerializer(serializers.ModelSerializer):
   class Meta:
     model = Notepad
-    fields = '__all__'
-
-class FirebaseUserSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = FirebaseUser
     fields = '__all__'

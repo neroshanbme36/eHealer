@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { JwtTokenDto } from 'src/app/core/dtos/jwtTokenDto';
 import { LoginDto } from 'src/app/core/dtos/loginDto';
-import { FirebaseUser } from 'src/app/core/models/firebaseUser';
+import { User } from 'src/app/core/models/user';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { ChatFirebaseService } from 'src/app/core/services/chatFirebase.service';
-import { FirebaseUsersService } from 'src/app/core/services/firebaseUsers.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
 import { UsersService } from 'src/app/core/services/users.service';
 
@@ -21,8 +20,7 @@ export class LoginComponent implements OnInit {
     private repository: RepositoryService,
     private usersService: UsersService,
     private alertify: AlertService,
-    private chatFirebaseSer: ChatFirebaseService,
-    private firebaseUsersSer: FirebaseUsersService
+    private chatFirebaseSer: ChatFirebaseService
   ) { }
 
   ngOnInit() { }
@@ -39,8 +37,8 @@ export class LoginComponent implements OnInit {
       this.alertify.presentAlert('Error', error);
     }, () => {
       const userId = this.usersService.decodedToken.user_id;
-      this.firebaseUsersSer.getUserByUserId(userId).subscribe((res: FirebaseUser) => {
-        this.chatFirebaseSer.signIn(res.email, res.password)
+      this.usersService.getUser(userId).subscribe((res: User) => {
+        this.chatFirebaseSer.signIn(res.email, res.firebasePassword)
           .then((res) => {
             this.repository.navigate('home');
           }, async (err) => {

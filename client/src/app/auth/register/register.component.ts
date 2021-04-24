@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FirebaseUser } from 'src/app/core/models/firebaseUser';
 import { User } from 'src/app/core/models/user';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { ChatFirebaseService } from 'src/app/core/services/chatFirebase.service';
-import { FirebaseUsersService } from 'src/app/core/services/firebaseUsers.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
 import { UsersService } from 'src/app/core/services/users.service';
 
@@ -25,8 +23,7 @@ export class RegisterComponent implements OnInit {
     private usersService: UsersService,
     private alertify: AlertService,
     private route: ActivatedRoute,
-    private chatFirebaseSer: ChatFirebaseService,
-    private firebaseUserSer: FirebaseUsersService
+    private chatFirebaseSer: ChatFirebaseService
   ) { }
 
   ngOnInit() {
@@ -68,6 +65,7 @@ export class RegisterComponent implements OnInit {
     this.registerUser.username = this.registerUser.email;
     this.registerUser.roleType = this.roleType;
     this.registerUser.birthDate = this.repository.getCsharpFormat(this.registerUser.birthDate, 'start');
+    this.registerUser.firebasePassword = this.repository.randomStr(20);
     this.usersService.createUser(this.registerUser).subscribe((res: User) => {
       this.registerUser = res;
       this.registerUser.password = this.repeatPassword;
@@ -75,24 +73,12 @@ export class RegisterComponent implements OnInit {
     }, e => {
       this.alertify.presentAlert('Error', e);
     }, () => {
-      let firebaseUser = new FirebaseUser();
-      firebaseUser.email = this.registerUser.email;
-      firebaseUser.password = this.repository.randomStr(20);
-      firebaseUser.user = this.registerUser.id;
-      console.log(firebaseUser);
-      this.firebaseUserSer.createUser(firebaseUser).subscribe((res: FirebaseUser) => {
-        firebaseUser = res;
-        console.log(res);
-      }, error => {
-        this.alertify.presentAlert('Error', error);
-      }, () => {
-        this.chatFirebaseSer.signup(firebaseUser.email, firebaseUser.password)
+      this.chatFirebaseSer.signup(this.registerUser.email, this.registerUser.firebasePassword)
           .then((user) => {
             this.repository.navigate('login');
           }, async (err) => {
             await this.alertify.presentAlert('Sign up failed', err.message);
           });
-      });
     });
   }
 

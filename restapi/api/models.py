@@ -20,6 +20,7 @@ class User(AbstractUser):
   updated_on = models.DateTimeField(auto_now=True)
   specialization = models.TextField(max_length=250, blank=True, default='')
   experience = models.DecimalField(blank=True,max_digits=5, decimal_places=2,validators=[MinValueValidator(0), MaxValueValidator(200)], default=0)
+  firebase_password = models.CharField(blank=False, max_length=50, default='')
 
 class Schedule(models.Model):
   day_of_week = models.IntegerField(blank=False, validators=[MinValueValidator(1),MaxValueValidator(7)])
@@ -85,8 +86,3 @@ class Notepad(models.Model):
   created_on = models.DateTimeField(auto_now_add=True)
   updated_on = models.DateTimeField(auto_now=True)
   user = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='notepads')
-
-class FirebaseUser(models.Model):
-  email = models.CharField(blank=False, max_length=50, unique=True)
-  password = models.CharField(blank=False, max_length=50)
-  user = models.OneToOneField(User, blank=False, on_delete=models.CASCADE, related_name='firebase_users')

@@ -2,11 +2,11 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
-from .serializers import FirebaseUserSerializer, NotepadSerializer, SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
+from .serializers import NotepadSerializer, SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad, FirebaseUser
+from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils.dateparse import parse_date
@@ -296,21 +296,6 @@ class NotepadViewSet(viewsets.ModelViewSet):
       qu_user_id = request.query_params.get('user_id')
       notepads = Notepad.objects.filter(user=qu_user_id)
       serializer = NotepadSerializer(notepads, many=True)
-      return Response(serializer.data, status = status.HTTP_200_OK)
-    except Exception:
-        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-class FirebaseUserViewSet(viewsets.ModelViewSet):
-  queryset = FirebaseUser.objects.all()
-  serializer_class = FirebaseUserSerializer
-  http_method_names = ['get', 'post']
-
-  @action(methods=['get'], detail=False)
-  def firebase_user_by_user_id(self, request):
-    try:
-      qu_user_id = request.query_params.get('user_id')
-      firebase_user = FirebaseUser.objects.get(user=qu_user_id)
-      serializer = FirebaseUserSerializer(firebase_user, many=False)
       return Response(serializer.data, status = status.HTTP_200_OK)
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

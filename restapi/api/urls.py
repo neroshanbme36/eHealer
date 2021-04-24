@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework import routers
 from django.conf.urls import include
-from .views import FirebaseUserViewSet, NotepadViewSet, PaymentTransactionViewSet, SessionViewSet, UserViewSet, UserUpdateViewSet, ScheduleViewSet, TherapistFeeViewSet, AppointmentViewSet
+from .views import NotepadViewSet, PaymentTransactionViewSet, SessionViewSet, UserViewSet, UserUpdateViewSet, ScheduleViewSet, TherapistFeeViewSet, AppointmentViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -16,7 +16,6 @@ router.register('appointments', AppointmentViewSet)
 router.register('sessions', SessionViewSet)
 router.register('payment_transactions', PaymentTransactionViewSet)
 router.register('notepads', NotepadViewSet)
-router.register('firebase_users', FirebaseUserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

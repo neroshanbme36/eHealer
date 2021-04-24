@@ -4,10 +4,7 @@ class PasswordResetRequestForm(forms.Form):
     email_or_username = forms.CharField(label=("Email Or Username"), max_length=254)
 
 class SetPasswordForm(forms.Form):
-    """
-    A form that lets a user change set their password without entering the old
-    password
-    """
+    # user can change their password
     error_messages = {
         'password_mismatch': ("Passwords doesn't match."),
         'password_length': ("Your password must be 6 characters minimum."),
