@@ -30,6 +30,12 @@ DEBUG = True
 ALLOWED_HOSTS=['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'neroshanbme36@gmail.com'
+EMAIL_HOST_PASSWORD = 'pulsar180jaguar'
+EMAIL_PORT = 587
 
 # Application definition
 
@@ -45,7 +51,8 @@ INSTALLED_APPS = [
     # api application
     'corsheaders',
     'sslserver',
-    'api.apps.ApiConfig'
+    'api.apps.ApiConfig',
+    'resetpassword'
 ]
 
 AUTH_USER_MODEL = 'api.User'

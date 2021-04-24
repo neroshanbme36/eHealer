@@ -85,3 +85,8 @@ class Notepad(models.Model):
   created_on = models.DateTimeField(auto_now_add=True)
   updated_on = models.DateTimeField(auto_now=True)
   user = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='notepads')
+
+class FirebaseUser(models.Model):
+  email = models.CharField(blank=False, max_length=50, unique=True)
+  password = models.CharField(blank=False, max_length=50)
+  user = models.OneToOneField(User, blank=False, on_delete=models.CASCADE, related_name='firebase_users')

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad
+from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad, FirebaseUser
 from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
@@ -77,4 +77,9 @@ class SessionReportSerializer(serializers.ModelSerializer):
 class NotepadSerializer(serializers.ModelSerializer):
   class Meta:
     model = Notepad
+    fields = '__all__'
+
+class FirebaseUserSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = FirebaseUser
     fields = '__all__'

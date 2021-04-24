@@ -58,4 +58,11 @@ export class UsersService {
     params = params.append('username', username);
     return this.http.get<User>(this.baseUrl + 'user_by_username/', {params});
   }
+
+  sendResetPasswordLink(username: string): Observable<void> {
+    let params = new HttpParams();
+    params = params.append('username', username);
+    console.log(username);
+    return this.http.get<void>(this.baseUrl + 'send_password_link/', {params})
+ }
 }

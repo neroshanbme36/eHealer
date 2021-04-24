@@ -14,10 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import include
+# from resetpassword.utils.views import sendPasswordLink,PasswordResetConfirmView,pwdenvoye
+from resetpassword.utils.views import PasswordResetConfirmView,pwdenvoye
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    # path('account/reset_password', sendPasswordLink, name='reset_password'),
+    re_path('account/reset_password_confirm/(?P<uidb64>[0-9A-Za-z]+)/(?P<token>.+)',PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('account/pwdenvoye', pwdenvoye, name="pwdenvoye")
 ]
