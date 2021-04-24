@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/core/models/user';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { ChatFirebaseService } from 'src/app/core/services/chatFirebase.service';
+import { LoaderService } from 'src/app/core/services/loader.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';
 import { UsersService } from 'src/app/core/services/users.service';
 
@@ -23,7 +24,8 @@ export class RegisterComponent implements OnInit {
     private usersService: UsersService,
     private alertify: AlertService,
     private route: ActivatedRoute,
-    private chatFirebaseSer: ChatFirebaseService
+    private chatFirebaseSer: ChatFirebaseService,
+    private loader: LoaderService
   ) { }
 
   ngOnInit() {
@@ -73,11 +75,14 @@ export class RegisterComponent implements OnInit {
     }, e => {
       this.alertify.presentAlert('Error', e);
     }, () => {
+      this.loader.showLoader();
       this.chatFirebaseSer.signup(this.registerUser.email, this.registerUser.firebasePassword)
           .then((user) => {
             this.repository.navigate('login');
+            this.loader.hideLoader();
           }, async (err) => {
             await this.alertify.presentAlert('Sign up failed', err.message);
+            this.loader.hideLoader();
           });
     });
   }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HTTP_INTERCEPTORS, HttpResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { LoaderService } from '../services/loader.service';
 
 @Injectable()
@@ -12,8 +11,7 @@ import { LoaderService } from '../services/loader.service';
 export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(
-    private router: Router,
-    public loader: LoaderService
+    private loader: LoaderService
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
