@@ -30,6 +30,10 @@ export class ReportDetailedSessionComponent  implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.selectedSessionReport = new ReportDto();
+  }
+
+  ionViewWillEnter() {
     this.sessionReports = [];
     this.sessionReportDatas = [];
     this.selectedSessionReport = new ReportDto();

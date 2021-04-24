@@ -26,6 +26,7 @@ export class ReportSessionClientComponent implements OnInit {
 
   ngOnInit() {
     this.sessionReports = [];
+    this.distinctClient = [];
     this.searchClientName = '';
     this.bindSessionReports();
   }
@@ -33,14 +34,14 @@ export class ReportSessionClientComponent implements OnInit {
   private bindSessionReports(): void {
     this.sessionSer.getReportByTherapist(this.mainRepo.loggedInUser.id).subscribe((res: SessionReportDto[]) => {
       this.sessionReports = res;
-      // this.getDistinctClients();
+      this.getDistinctClients();
       console.log(this.sessionReports);
     }, error => {
       this.alertify.presentAlert('Error', error);
     });
   }
 
-  /*getDistinctClients(): void {
+  getDistinctClients(): void {
     const ls = this.sessionReports.map(x => x.client);
     const uniqueIds = [...new Set(ls.map(x => x.id))];
     uniqueIds.forEach(id => {
@@ -57,9 +58,12 @@ export class ReportSessionClientComponent implements OnInit {
     }
     return ls;
   }
-  */
 
   back(): void {
     this.router.navigate(['reports/list']);
+  }
+
+  onViewClientSession(client: User): void {
+    this.router.navigate(['reports/detailed_report', client.id]);
   }
 }

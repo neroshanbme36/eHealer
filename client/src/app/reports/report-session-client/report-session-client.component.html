@@ -13,12 +13,12 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-list>
-  <ion-item (click)="onClientAppointmentBtnClicked(apt.id)"
-  *ngFor="let apt of appointmentUserDtos">
+<ion-list>
+  <ion-item (click)="onViewClientSession(apt)"
+  *ngFor="let apt of filteredClients">
     <ion-label>{{apt.id}}</ion-label>
   </ion-item>
-</ion-list> -->
+</ion-list>
 
 <ion-searchbar placeholder="Client Name" name="searchClientName" id="searchClientName"
   [(ngModel)]="searchClientName">
