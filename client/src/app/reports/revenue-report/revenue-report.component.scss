@@ -1,0 +1,27 @@
+.back-color{
+    --background:  var(--ion-color-top-main) !important;
+}
+button{
+    color: white !important;
+}
+.text-right{
+    text-align: right;
+}
+ion-item ion-icon{
+    background-color: var(--ion-color-icon-bg);
+    color: white;
+    border-radius: 20px;
+    padding: 5px;
+    font-size: 25px;
+}
+.lbl{
+    padding-left: 15px;
+    font-size: 15px;
+}
+.header {
+   background-color: var(--ion-color-secondary);
+   color: white; 
+}
+.line{
+    border-bottom: 1px solid var(--ion-color-secondary);
+}

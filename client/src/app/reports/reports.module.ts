@@ -5,6 +5,7 @@ import { ReportSessionClientComponent } from './report-session-client/report-ses
 import { ReportSessionTherapistComponent } from './report-session-therapist/report-session-therapist.component';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports/reports.component';
+import { RevenueReportComponent } from './revenue-report/revenue-report.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ReportsComponent } from './reports/reports.component';
     ReportsComponent,
     ReportSessionTherapistComponent,
     ReportSessionClientComponent,
-    ReportDetailedSessionComponent
+    ReportDetailedSessionComponent,
+    RevenueReportComponent
   ]
 })
 export class ReportsModule {}

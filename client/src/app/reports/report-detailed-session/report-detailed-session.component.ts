@@ -39,8 +39,9 @@ export class ReportDetailedSessionComponent  implements OnInit {
     this.selectedSessionReport = new ReportDto();
     this.filterUserId = Number(this.route.snapshot.params.id); // if client then filter therapist
     this.bindSessionReports();
-    this.createBarChart();
-    this.createLineChart();
+    // this.createBarChart();
+    // this.createLineChart();
+    this.getChart();
   }
 
   private bindSessionReports(): void {

@@ -1,3 +1,59 @@
-<p>
-  revenue-report works!
-</p>
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon> 
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">Revenue</ion-text>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-icon name="time"></ion-icon>
+        <ion-label class="lbl">Start Date</ion-label>
+        <ion-datetime displayFormat="MMM D, YYYY" [(ngModel)]="startDateIsoStr"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-icon name="time"></ion-icon>
+        <ion-label class="lbl">End Date</ion-label>
+        <ion-datetime displayFormat="MMM D, YYYY" [(ngModel)]="endDateIsoStr"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-button expand="block" color="secondary" sahpe="round" class="ion-padding"
+       (click)="search()">
+     Get Revenues
+   </ion-button>
+  <ion-card>
+    <ion-grid>
+      <ion-row style="font-weight: bold;">
+        <ion-col size="6">Total Revenue</ion-col>
+        <ion-col size="6" class="text-right">{{tot | number: '.2-2'}}</ion-col>
+      </ion-row>
+      <ion-row class="header">
+        <ion-col>Id</ion-col>
+        <ion-col>Date</ion-col>
+        <ion-col>Description</ion-col>
+        <ion-col class="text-right">Fee</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let payment of filteredPayments"
+        class="line">
+        <ion-col size="2">{{payment.id}}</ion-col>
+        <ion-col size="4">{{payment.createdOn | date: 'MMM dd, yyyy'}}</ion-col>
+        <ion-col size="3">{{payment.transType == 0 ? 'Revenue': 'Refund'}}</ion-col>
+        <ion-col size="3" class="text-right">{{getFee(payment) | number:'.2-2'}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>
