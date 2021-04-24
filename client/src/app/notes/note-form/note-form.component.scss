@@ -1,0 +1,18 @@
+.back-color{
+    --background:  var(--ion-color-top-main) !important;
+}
+button{
+    color: white !important;
+}
+ion-textarea {
+    --background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    height: 80%;
+    border: 1px solid;
+    margin-left: auto;
+    width: 80%;
+    margin-right: auto;
+    margin-top: 10px;
+
+}

@@ -8,6 +8,7 @@ export class ReportDto {
         public therapist: User = null,
         public client: User = null,
         public chartLabels: string[] = [],
-        public datas: number[] = []
+        public datas: number[] = [],
+        public levels: number[] = []
     ) {}
   }

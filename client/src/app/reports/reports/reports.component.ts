@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RepositoryService } from 'src/app/core/services/repository.service';
 
 @Component({
   selector: 'app-reports',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public mainRepo: RepositoryService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
+  }
+
+  back(): void {
+    this.router.navigate(['home']);
   }
 
 }

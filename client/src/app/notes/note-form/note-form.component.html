@@ -1,2 +1,32 @@
-<ion-button color="secondary" expand="full" shape="round"
-    (click)="onSubmitBtnClicked()" class="ion-padding">Submit</ion-button>
+<ion-header>
+    <ion-toolbar  class="back-color">
+        <ion-buttons>
+        <ion-button class="back" fill="clear" (click)="back()" slot="start">
+            <ion-icon style="color: white;" name="arrow-back" ></ion-icon>
+        </ion-button>
+        </ion-buttons>
+        <ion-buttons  slot="end">
+        <ion-button slot="end" style="color: white;">
+            <ion-text style="color: white;">Note</ion-text>
+        </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-textarea name="note"
+        [(ngModel)]="notepad.note" 
+        placeholder="...something on your mind?"
+        rows="17" cols="20">
+    </ion-textarea>
+    <ion-row>
+        <ion-col>
+            <ion-button color="secondary" expand="full" shape="round"
+                (click)="onSubmitBtnClicked()" class="ion-padding">Submit
+            </ion-button>
+        </ion-col>
+      </ion-row>
+</ion-content>
+
+
+

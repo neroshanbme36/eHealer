@@ -16,18 +16,23 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label class="lbl">Pick Appointment</ion-label>
+        <ion-label class="lbl">Pick Session</ion-label>
         <ion-select placeholder="Select One" [value]="selectedSessionReport.id"
            [(ngModel)]="selectedSessionReport.id"
           (ngModelChange)="change()">
           <ion-select-option
             [value]="report.id" *ngFor="let report of sessionReportDatas">
-              {{report.id}}</ion-select-option>
+              Session {{report.id}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>
   </ion-row>
   <div >
-    <canvas #barCanvas id="barCanvas" width="400" height="400"></canvas>
+    <ion-card>
+      <canvas #barCanvas id="barCanvas" width="400" height="300"></canvas>
+    </ion-card>
+    <ion-card>
+      <canvas #lineCanvas id="lineCanvas" width="400" height="150"></canvas>
+    </ion-card>
   </div>
 </ion-content>

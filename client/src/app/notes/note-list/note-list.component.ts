@@ -55,4 +55,8 @@ export class NoteListComponent implements OnInit {
       this.bindNotepadList();
     });
   }
+
+  back(): void {
+    this.router.navigate(['home']);
+  }
 }

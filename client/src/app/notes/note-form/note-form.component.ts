@@ -19,10 +19,12 @@ export class NoteFormComponent implements OnInit {
     private notepadSer: NotepadService,
     private alertify: AlertService,
     private router: Router,
-    private mainRepo: RepositoryService
+    public mainRepo: RepositoryService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.notepad = new Notepad();
+  }
 
   ionViewWillEnter() {
     const path = this.route.snapshot.routeConfig.path;
@@ -37,7 +39,7 @@ export class NoteFormComponent implements OnInit {
   private bindNotepad(id: number): void {
     this.notepadSer.getNotepad(id)
     .subscribe((res: Notepad) => {
-      if(res) {
+      if (res) {
         this.notepad = res;
         console.log(this.notepad);
       } else {
@@ -56,6 +58,7 @@ export class NoteFormComponent implements OnInit {
       .subscribe((res: Notepad) => {
         this.notepad = res;
         this.alertify.presentAlert('Message', 'Note saved successfully.');
+        this.router.navigate(['notes/list']);
       }, error => {
         this.alertify.presentAlert('Error', error);
       });
@@ -64,9 +67,14 @@ export class NoteFormComponent implements OnInit {
       .subscribe((res: Notepad) => {
         this.notepad = res;
         this.alertify.presentAlert('Message', 'Note updated successfully.');
+        this.router.navigate(['notes/list']);
       }, error => {
         this.alertify.presentAlert('Error', error);
       });
     }
+  }
+
+  back(): void {
+    this.router.navigate(['notes/list']);
   }
 }

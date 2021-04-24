@@ -17,9 +17,9 @@ export class ReportDetailedSessionComponent  implements OnInit {
   sessionReports?: SessionReportDto[];
   sessionReportDatas?: ReportDto[];
   selectedSessionReport: ReportDto;
-  @ViewChild('barCanvas') barCanvas: ElementRef;
 
   private barChart: Chart;
+  private lineChart: Chart;
 
   constructor(
     private sessionSer: SessionsService,
@@ -40,6 +40,7 @@ export class ReportDetailedSessionComponent  implements OnInit {
     this.filterUserId = Number(this.route.snapshot.params.id); // if client then filter therapist
     this.bindSessionReports();
     this.createBarChart();
+    this.createLineChart();
   }
 
   private bindSessionReports(): void {
@@ -75,6 +76,7 @@ export class ReportDetailedSessionComponent  implements OnInit {
         }
       }
     });
+    console.log(this.sessionReportDatas);
     if (this.sessionReportDatas.length > 0) {
       this.selectedSessionReport = new ReportDto();
       Object.assign(this.selectedSessionReport, this.sessionReportDatas[0]);
@@ -84,13 +86,14 @@ export class ReportDetailedSessionComponent  implements OnInit {
 
   private fillReportDto(dto: SessionReportDto): ReportDto {
     const reportDto: ReportDto = new ReportDto();
-    reportDto.id = dto.appointment.id;
+    reportDto.id = dto.id;
     reportDto.appointment = dto.appointment;
     reportDto.client = dto.client;
     reportDto.therapist = dto.therapist;
     reportDto.chartLabels.push('Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise');
     reportDto.datas.push(dto.angry, dto.disgust, dto.fear,
       dto.happy, dto.neutral, dto.sad, dto.surprise);
+    reportDto.levels.push(dto.depressionLevel, dto.improvementLevel);
     return reportDto;
   }
 
@@ -103,6 +106,18 @@ export class ReportDetailedSessionComponent  implements OnInit {
         this.barChart,
         this.selectedSessionReport.chartLabels,
         this.selectedSessionReport.datas
+      );
+      this.barChart.update();
+    }
+
+    if (!this.lineChart) {
+      this.createLineChart();
+    } else {
+      this.removeData(this.lineChart);
+      this.addData(
+        this.lineChart,
+        ['Depression Level', 'Improvement Level'],
+        this.selectedSessionReport.levels
       );
       this.barChart.update();
     }
@@ -136,7 +151,7 @@ export class ReportDetailedSessionComponent  implements OnInit {
           labels: this.selectedSessionReport.chartLabels,
           datasets: [
             {
-              label: 'Emotions',
+              label: 'Emotions Classifications',
               data: this.selectedSessionReport.datas,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -164,6 +179,36 @@ export class ReportDetailedSessionComponent  implements OnInit {
     }
   }
 
+  createLineChart() {
+    Chart.register(...registerables);
+    if (this.selectedSessionReport) {
+      this.lineChart = new Chart('lineCanvas', {
+        type: 'bar',
+        data: {
+          labels: ['Depression Level', 'Improvement Level'],
+          datasets: [
+            {
+              label: 'Emotion Levels',
+              data: this.selectedSessionReport.levels,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+        }
+      });
+    }
+  }
+
   change() {
     if (this.sessionReportDatas.length > 0) {
       const m = this.sessionReportDatas.filter(x => x.id === Number(this.selectedSessionReport.id))[0];
@@ -173,6 +218,10 @@ export class ReportDetailedSessionComponent  implements OnInit {
   }
 
   back(): void {
-    this.router.navigate(['reports/session_therapist']);
+    if (this.mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'client') {
+      this.router.navigate(['reports/session_therapist']);
+    } else {
+      this.router.navigate(['reports/session_client']);
+    }
   }
 }

@@ -16,6 +16,7 @@ export class ReportSessionClientComponent implements OnInit {
   sessionReports?: SessionReportDto[];
   distinctClient?: User[];
   searchClientName: string;
+  imgUrl = '';
 
   constructor(
     private sessionSer: SessionsService,
@@ -28,6 +29,7 @@ export class ReportSessionClientComponent implements OnInit {
     this.sessionReports = [];
     this.distinctClient = [];
     this.searchClientName = '';
+    this.imgUrl = '../../../assets/images/';
     this.bindSessionReports();
   }
 
@@ -53,12 +55,21 @@ export class ReportSessionClientComponent implements OnInit {
   get filteredClients(): User[] {
     let ls = Object.assign([], this.distinctClient);
     if (this.searchClientName !== '') {
-      ls = ls.filter(x => (x.client.firstName.trim().toLowerCase() + ' ' + x.client.lastName.trim().toLowerCase())
+      ls = ls.filter(x => (x.firstName.trim().toLowerCase() + ' ' + x.lastName.trim().toLowerCase())
       .includes(this.searchClientName));
     }
     return ls;
   }
 
+  getImg(gender: string): string {
+    if (gender === 'male') {
+      return 'client-male.png';
+    } else if (gender === 'female'){
+      return 'client-female.png';
+    } else {
+      return 'client-other.png';
+    }
+  }
   back(): void {
     this.router.navigate(['reports/list']);
   }
