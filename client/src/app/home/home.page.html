@@ -57,8 +57,8 @@
         </ion-button>
         <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">Client Appoitments</ion-button> -->
       </ion-col>
-      <ion-col size="6">
-        <ion-button color="secondary" expand="full" [routerLink]="['/my_therapists/list']" *ngIf="mainRepo.loggedInUser.roleType === 'client'">
+      <ion-col size="6"  *ngIf="mainRepo.loggedInUser.roleType === 'client'">
+        <ion-button color="secondary" expand="full" [routerLink]="['/my_therapists/list']">
           <div >
             <ion-icon slot="icon-only" name="star"></ion-icon><br>
             <ion-label>My therapists</ion-label>
