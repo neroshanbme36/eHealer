@@ -78,8 +78,9 @@ export class BookAnAppointmentComponent implements OnInit {
   }
 
   onConfirmBtnClicked(): void {
+    const requestedDate = this.datepipe.transform(this.selectedDate, 'yyyy-MM-dd');
     this.router.navigate(['echannel/checkout'],
-    {queryParams: {requested_date: this.selectedDate, therapist_id: this.therapistId, schedule_id: this.selectedSchedule.id}});
+    {queryParams: {requested_date: requestedDate, therapist_id: this.therapistId, schedule_id: this.selectedSchedule.id}});
   }
 
   back(): void {
