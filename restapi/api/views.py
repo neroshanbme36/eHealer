@@ -2,11 +2,11 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
-from .serializers import NotepadSerializer, SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
+from .serializers import FavouriteTherapistSerializer, NotepadSerializer, SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad
+from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad, FavouriteTherapist
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils.dateparse import parse_date
@@ -373,5 +373,31 @@ class NotepadViewSet(viewsets.ModelViewSet):
       notepads = Notepad.objects.filter(user=qu_user_id)
       serializer = NotepadSerializer(notepads, many=True)
       return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class FavouriteTherapistViewSet(viewsets.ModelViewSet):
+  queryset = FavouriteTherapist.objects.all()
+  serializer_class = FavouriteTherapistSerializer
+  # permission_classes = (IsAuthenticated,)
+  http_method_names =  ['get','post', 'delete']
+
+  @action(methods=['get'], detail=False)
+  def therapists_by_client_id(self, request):
+    try:
+      qu_client_id = request.query_params.get('client_id')
+      fav_therapists = FavouriteTherapist.objects.filter(client=qu_client_id)
+      serializer = FavouriteTherapistSerializer(fav_therapists, many=True)
+      return Response(serializer.data, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+  
+  @action(methods=['get'], detail=False)
+  def is_favourite_therapist(self, request):
+    try:
+      qu_client_id = request.query_params.get('client_id')
+      qu_therapist_id = request.query_params.get('therapist_id')
+      is_fav = FavouriteTherapist.objects.filter(client=qu_client_id, therapist=qu_therapist_id).exists()
+      return Response({'result': is_fav}, status = status.HTTP_200_OK)
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

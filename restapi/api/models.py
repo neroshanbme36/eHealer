@@ -84,3 +84,9 @@ class Notepad(models.Model):
   created_on = models.DateTimeField(auto_now_add=True)
   updated_on = models.DateTimeField(auto_now=True)
   user = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='notepads')
+
+class FavouriteTherapist(models.Model):
+  client = models.ForeignKey(User,blank=False, on_delete=models.CASCADE, related_name='client_favourite_therapist')
+  therapist = models.ForeignKey(User, blank=False, on_delete=models.CASCADE, related_name='therapist_favourite_therapist')
+  class Meta:
+    unique_together = ('client', 'therapist',)

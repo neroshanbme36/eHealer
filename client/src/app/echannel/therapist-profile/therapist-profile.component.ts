@@ -4,6 +4,7 @@ import { Schedule } from 'src/app/core/models/schedule';
 import { TherapistFee } from 'src/app/core/models/therapistFee';
 import { User } from 'src/app/core/models/user';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { RepositoryService } from 'src/app/core/services/repository.service';
 import { SchedulesService } from 'src/app/core/services/schedules.service';
 import { TherapistfeesService } from 'src/app/core/services/therapistfees.service';
 import { UsersService } from 'src/app/core/services/users.service';
@@ -24,7 +25,8 @@ export class TherapistProfileComponent implements OnInit {
     private usersSer: UsersService,
     private alertify: AlertService,
     private therapistFeesSer: TherapistfeesService,
-    private router: Router
+    private router: Router,
+    private mainRepo: RepositoryService
   ) { }
 
   ngOnInit() {
@@ -65,7 +67,8 @@ export class TherapistProfileComponent implements OnInit {
       return 'other.png';
     }
   }
+
   back(): void {
-    this.router.navigate(['echannel/therapists']);
+    this.router.navigate([this.mainRepo.previousUrl]);
   }
 }

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad
+from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad, FavouriteTherapist
 from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
@@ -78,4 +78,10 @@ class SessionReportSerializer(serializers.ModelSerializer):
 class NotepadSerializer(serializers.ModelSerializer):
   class Meta:
     model = Notepad
+    fields = '__all__'
+
+class FavouriteTherapistSerializer(serializers.ModelSerializer):
+  therapist = UserSerializer(many=False)
+  class Meta:
+    model = FavouriteTherapist
     fields = '__all__'
