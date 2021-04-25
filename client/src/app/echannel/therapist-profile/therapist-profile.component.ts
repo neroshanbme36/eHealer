@@ -28,9 +28,12 @@ export class TherapistProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.imgUrl = '../../../assets/therapists/';
+  }
+
+  ionViewWillEnter() {
     this.userId = Number(this.route.snapshot.params.id);
     this.bindTherapistDetails();
-    this.imgUrl = '../../../assets/therapists/';
   }
 
   bindTherapistDetails(): void {

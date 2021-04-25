@@ -41,6 +41,11 @@ export class CheckoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.imgUrl = '../../../assets/therapists/';
+    this.stripeElementDto = new StripeElementDto();
+  }
+
+  ionViewWillEnter() {
     const therapistId = this.route.snapshot.queryParams.therapist_id;
     this.requestedDate = this.route.snapshot.queryParams.requested_date;
     const scheduleId = this.route.snapshot.queryParams.schedule_id;
@@ -50,7 +55,6 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.router.navigate(['']);
     }
-    this.imgUrl = '../../../assets/therapists/';
   }
 
   bindRequiredDetails(therapistId: number, scheduleId: number): void {
@@ -153,6 +157,10 @@ export class CheckoutComponent implements OnInit {
             }, error => {
               this.alertify.presentAlert('Error', error);
             }, () => {
+              this.appointmentSer.sendEmailByStatus(this.appointment.id).subscribe((res: void) => {},
+              error => {
+                this.alertify.presentAlert('Error', error);
+              });
               this.router.navigate(['echannel/payment_confirmation', payt.id]);
             });
           } else {

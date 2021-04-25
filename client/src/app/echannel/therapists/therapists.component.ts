@@ -13,7 +13,7 @@ import { FilterTherapistsComponent } from './filter-therapists/filter-therapists
   styleUrls: ['./therapists.component.scss']
 })
 export class TherapistsComponent implements OnInit {
-  therapists: User[];
+  therapists?: User[];
   imgUrl = '';
 
   constructor(
@@ -25,9 +25,12 @@ export class TherapistsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.imgUrl = '../../../assets/therapists/';
+  }
+
+  ionViewWillEnter() {
     this.therapists = [];
     this.bindTherapists();
-    this.imgUrl = '../../../assets/therapists/';
   }
 
   private bindTherapists(): void {

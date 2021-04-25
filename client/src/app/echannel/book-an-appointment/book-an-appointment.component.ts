@@ -12,8 +12,8 @@ import { SchedulesService } from 'src/app/core/services/schedules.service';
 })
 export class BookAnAppointmentComponent implements OnInit {
   therapistId: number;
-  schedules: Schedule[];
-  unbookedSlots: Schedule[];
+  schedules?: Schedule[];
+  unbookedSlots?: Schedule[];
   selectedDate: string;
   maxAppointmentYear: number;
   selectedSchedule?: Schedule;
@@ -28,6 +28,10 @@ export class BookAnAppointmentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.unbookedSlots = [];
+  }
+
+  ionViewWillEnter() {
     this.therapistId = Number(this.route.snapshot.params.id);
     this.schedules = [];
     this.unbookedSlots = [];

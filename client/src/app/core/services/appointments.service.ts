@@ -43,4 +43,10 @@ export class AppointmentsService {
     params = params.append('user_id', therapistId.toString());
     return this.http.get<AppoitmentUserDto[]>(this.baseUrl + 'appointments_to_therapist/', {params});
   }
+
+  sendEmailByStatus(appointmentId: number): Observable<void> {
+    let params = new HttpParams();
+    params = params.append('appointment_id', appointmentId.toString());
+    return this.http.get<void>(this.baseUrl + 'send_email_by_status/', {params});
+  }
 }

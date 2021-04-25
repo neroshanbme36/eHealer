@@ -27,7 +27,9 @@ export class PaymentConfirmationComponent implements OnInit {
     private paySer: PaymentTransactionsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     const paymentId = this.route.snapshot.params.id;
     paymentId > 0 ? this.bindDetails(paymentId) : this.router.navigate(['']);
   }

@@ -164,15 +164,17 @@ class ScheduleViewSet(viewsets.ModelViewSet):
         qu_user_id = request.query_params.get('user_id')
         req_day_name = parse_date(qu_requested_date).strftime("%A")
         start_date = parse_date(qu_requested_date)
-        end_date = parse_date(qu_requested_date) + timedelta(days=1)
         schedules = Schedule.objects.filter(user=qu_user_id, day=req_day_name)
-        appointments = Appointment.objects.filter(therapist=qu_user_id, slot_date__gte=start_date, slot_date__lte=end_date, status_type__lte=1)
+        appointments = Appointment.objects.filter(therapist=qu_user_id, slot_date__gte=start_date, status_type__lte=1)
         unbooked_sch = []
         if schedules.exists():
           for s in schedules:
             open_tim = datetime.combine(start_date, s.opening_time)
             clos_tim = datetime.combine(start_date, s.closing_time)
-            if appointments.filter(slot_start_time__gte=open_tim, slot_start_time__lte=clos_tim).exists() == False:
+            is_exits = appointments.filter(slot_start_time__gte=open_tim, slot_start_time__lte=clos_tim).exists()
+            if is_exits == False:
+              is_exits = appointments.filter(slot_end_time__gte=open_tim, slot_end_time__lte=clos_tim).exists()
+            if is_exits == False:
               unbooked_sch.append(s)
         serializer = ScheduleSerializer(unbooked_sch, many=True)
         return Response(serializer.data, status = status.HTTP_200_OK)
@@ -220,7 +222,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
       return Response(serializer.data, status = status.HTTP_200_OK)
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+  
   @action(methods=['get'], detail=False)
   def is_appointment_exist(self, request):
     try:
@@ -232,6 +234,59 @@ class AppointmentViewSet(viewsets.ModelViewSet):
       clos_tim = datetime.combine(req_date, schedule.closing_time)
       is_appointment_exist = Appointment.objects.filter(therapist=schedule.user, slot_date=qu_requested_date, slot_start_time__gte=open_tim, slot_end_time__lte=clos_tim).exists()
       return Response({'result': is_appointment_exist}, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+  @action(methods=['get'], detail=False)
+  def send_email_by_status(self, request):
+    try:
+      qu_appointment_id = request.query_params.get('appointment_id')
+      print(qu_appointment_id)
+      print('i am in appointment')
+      appointments = Appointment.objects.filter(id=qu_appointment_id)
+      if len(appointments) > 0:
+        header = 'Information about your appointment no ' + str(appointments[0].id)
+        client_body = ''
+        therapist_body = ''
+        is_send_therapist = False
+        if appointments[0].status_type == 0: #waiting
+          client_body = 'Thanks for you appointment.'
+          therapist_body = 'You have new appointment'
+          is_send_therapist = True
+        elif appointments[0].status_type == 1: # Accepted
+          client_body = 'Congrats your appointment is accepted'
+          is_send_therapist = False
+        elif appointments[0].status_type == 2: #Completed
+          client_body = 'Session had completed successfully'
+          therapist_body = 'Session had completed successfully'
+          is_send_therapist = True
+        elif appointments[0].status_type == 3: # Cancelled By Therapist
+          client_body = 'Appointment cancelled by therapist'
+          therapist_body = 'You have cancelled the appointment'
+          is_send_therapist = True
+        elif appointments[0].status_type == 4: #  Cancelled by Client
+          client_body = 'You have cancelled the appointment'
+          therapist_body = 'Appointment cancelled by client'
+          is_send_therapist = True
+        try:
+          users = list()
+          user = get_user_model().objects.get(email=appointments[0].client)
+          users.append(user)
+          if is_send_therapist == True:
+            user = get_user_model().objects.get(email=appointments[0].therapist)
+            users.append(user)
+          for i in range(len(users)):
+            main_body = client_body
+            if is_send_therapist and users[i].role_type == 'therapist':
+              main_body = therapist_body
+            message = EmailMessage(header, main_body, to=[users[i].email])
+            message.send()
+            print(main_body)
+        except:
+          return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+      else:
+        return Response({'status_code': '400', 'detail': 'Appointment doesnt exists'}, status=status.HTTP_400_BAD_REQUEST)
+      return Response({'status_code': '200', 'detail': 'email sent successfully'}, status = status.HTTP_200_OK)
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
