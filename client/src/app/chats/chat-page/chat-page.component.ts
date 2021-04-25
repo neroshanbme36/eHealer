@@ -31,6 +31,10 @@ export class ChatPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.sender = new User();
+  }
+
+  ionViewWillEnter() {
     this.recEmail = this.route.snapshot.params.id;
     this.newMsg = '';
     this.sender = new User();

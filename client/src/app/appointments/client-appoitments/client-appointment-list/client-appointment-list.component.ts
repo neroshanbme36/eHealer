@@ -23,8 +23,12 @@ export class ClientAppointmentListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.bindAppointments();
     this.imgUrl = '../../../assets/images/';
+  }
+
+  ionViewWillEnter() {
+    this.bindAppointments();
+    console.log('ionViewWillEnter');
   }
 
   private bindAppointments(): void {

@@ -232,7 +232,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
       req_date = parse_date(qu_requested_date)
       open_tim = datetime.combine(req_date, schedule.opening_time)
       clos_tim = datetime.combine(req_date, schedule.closing_time)
-      is_appointment_exist = Appointment.objects.filter(therapist=schedule.user, slot_date=qu_requested_date, slot_start_time__gte=open_tim, slot_end_time__lte=clos_tim).exists()
+      is_appointment_exist = Appointment.objects.filter(therapist=schedule.user, slot_date=qu_requested_date, slot_start_time__gte=open_tim, slot_end_time__lte=clos_tim, status_type__lte=1).exists()
       return Response({'result': is_appointment_exist}, status = status.HTTP_200_OK)
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

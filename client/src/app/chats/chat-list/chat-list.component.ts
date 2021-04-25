@@ -26,6 +26,9 @@ export class ChatListComponent implements OnInit {
 
   ngOnInit() {
     this.imgUrl = '../../../assets/therapists/';
+  }
+
+  ionViewWillEnter() {
     this.bindUserDetails();
   }
 

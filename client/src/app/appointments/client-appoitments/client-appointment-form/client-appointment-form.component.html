@@ -41,13 +41,15 @@
             <div>
               <ion-badge color="warning"
                 (click)="onChatWithClientBtnClicked()">Chat</ion-badge>
-              <ion-badge color="secondary" style="margin-left: 10px;"
+                <ng-container *ngIf="appointment.statusType > 0 && appointment.statusType < 3">
+                <ion-badge color="secondary" style="margin-left: 10px;"
                 (click)="onStartSessionBtnClicked()" *ngIf="!isSessionCompleted">Start Session</ion-badge>
               <ion-badge color="secondary" style="margin-left: 10px;"
                 *ngIf="isSessionCompleted">Session Completed</ion-badge>
+              </ng-container>
             </div>
           </ion-label>
-          
+
         </ion-item>
        <ion-item>
           <ion-icon name="calendar"></ion-icon>

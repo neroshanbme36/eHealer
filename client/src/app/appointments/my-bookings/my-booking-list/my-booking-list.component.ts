@@ -24,8 +24,11 @@ export class MyBookingListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.bindAppointments();
     this.imgUrl = '../../../assets/therapists/';
+  }
+
+  ionViewWillEnter() {
+    this.bindAppointments();
   }
 
   private bindAppointments(): void {

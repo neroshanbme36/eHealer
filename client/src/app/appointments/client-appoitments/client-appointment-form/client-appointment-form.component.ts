@@ -16,7 +16,7 @@ import { UsersService } from 'src/app/core/services/users.service';
   styleUrls: ['./client-appointment-form.component.scss']
 })
 export class ClientAppointmentFormComponent implements OnInit {
-  appointment?: Appointment;
+  appointment: Appointment;
   client?: User;
   payment?: Payment;
   isSessionCompleted: boolean;
@@ -32,6 +32,10 @@ export class ClientAppointmentFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.appointment = new Appointment();
+  }
+
+  ionViewWillEnter() {
     const aptId = this.route.snapshot.params.id;
     this.isSessionCompleted = false;
     this.bindAppoitmentDetails(aptId);
@@ -109,6 +113,8 @@ export class ClientAppointmentFormComponent implements OnInit {
           this.alertify.presentAlert('Error', error);
         });
       }
+      this.appointmentsSer.sendEmailByStatus(this.appointment.id).subscribe((res: void) => {},
+          error => {this.alertify.presentAlert('Error', error)});
     });
   }
 

@@ -32,6 +32,10 @@ export class MyBookingFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.appointment = new Appointment();
+  }
+
+  ionViewWillEnter() {
     const aptId = this.route.snapshot.params.id;
     this.isSessionCompleted = false;
     this.bindAppoitmentDetails(aptId);
@@ -104,6 +108,8 @@ export class MyBookingFormComponent implements OnInit {
                 this.alertify.presentAlert('Error', error);
               });
           }
+          this.appointmentsSer.sendEmailByStatus(this.appointment.id).subscribe((res: void) => {},
+          error => {this.alertify.presentAlert('Error', error)});
         });
     }, () => { });
   }

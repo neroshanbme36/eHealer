@@ -170,6 +170,8 @@ export class CheckoutComponent implements OnInit {
             });
           }
         });
+      } else {
+        this.alertify.presentAlert('Error', 'Sorry. Schedule is booked by another user. Please select another schedule.');
       }
     });
   }
