@@ -87,14 +87,21 @@ export class ClientAppointmentFormComponent implements OnInit {
   }
 
   onAcceptBtnClicked(): void {
-    this.appointment.statusType = 1; // Accept
-    this.appointment.cancellationReason = '';
-    this.updateAppointment();
+    this.alertify.presentAlertConfirm('Confirm', 'Are you sure to accept this appointment?',
+    'ok', 'cancel', () => {
+      this.appointment.statusType = 1; // Accept
+      this.appointment.cancellationReason = '';
+      this.updateAppointment();
+      this.appointment.cancellationReason='';
+    }, () => {});
   }
 
   onCancelBtnClicked(): void {
-    this.appointment.statusType = 3; // Cancel by therapist
-    this.updateAppointment();
+    this.alertify.presentAlertConfirm('Confirm', 'Are you sure to cancel this appointment?',
+    'ok', 'cancel', () => {
+      this.appointment.statusType = 3; // Cancel by therapist
+      this.updateAppointment();
+    }, () => {});
   }
 
   private updateAppointment(): void {

@@ -28,6 +28,7 @@ export class MyBookingListComponent implements OnInit {
   }
 
   ionViewWillEnter() {
+    console.log('ionViewWillEnter');
     this.bindAppointments();
   }
 

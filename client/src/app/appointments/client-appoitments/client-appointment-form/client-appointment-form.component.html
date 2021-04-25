@@ -99,7 +99,7 @@
       </ion-col>
       <ng-container *ngIf="appointment.statusType == 0">
         <ion-button color="success" expand="full" shape="round" class="ion-padding"
-           (click)="onAcceptBtnClicked(); appointment.cancellationReason='';">Accept
+           (click)="onAcceptBtnClicked();">Accept
         </ion-button>
         <ion-button color="danger" expand="full" shape="round" class="ion-padding" (click)="onCancelBtnClicked()"
         [disabled]="appointment.cancellationReason==''">Cancel
