@@ -17,7 +17,7 @@ export class FavouriteTherapistsService {
     return this.http.post<FavouriteTherapist>(this.baseUrl, model);
   }
 
-  deleteSchedule(id: number): Observable<void> {
+  deleteFavTherapist(id: number): Observable<void> {
     return this.http.delete<void>(this.baseUrl + id + '/');
   }
 
@@ -27,10 +27,10 @@ export class FavouriteTherapistsService {
     return this.http.get<FavouriteTherapistDto[]>(this.baseUrl + 'therapists_by_client_id/', {params});
   }
 
-  isFavTherapist(clientId: number, therapistId: number): Observable<FavouriteTherapistDto[]> {
+  favByTherapist_id(clientId: number, therapistId: number): Observable<FavouriteTherapistDto> {
     let params = new HttpParams();
     params = params.append('client_id', clientId.toString());
     params = params.append('therapist_id', therapistId.toString());
-    return this.http.get<FavouriteTherapistDto[]>(this.baseUrl + 'is_favourite_therapist/', {params});
+    return this.http.get<FavouriteTherapistDto>(this.baseUrl + 'fav_by_therapist_id/', {params});
   }
 }

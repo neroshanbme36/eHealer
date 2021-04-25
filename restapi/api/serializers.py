@@ -80,8 +80,13 @@ class NotepadSerializer(serializers.ModelSerializer):
     model = Notepad
     fields = '__all__'
 
-class FavouriteTherapistSerializer(serializers.ModelSerializer):
+class FavouriteTherapistDtoSerializer(serializers.ModelSerializer):
   therapist = UserSerializer(many=False)
+  class Meta:
+    model = FavouriteTherapist
+    fields = '__all__'
+
+class FavouriteTherapistSerializer(serializers.ModelSerializer):
   class Meta:
     model = FavouriteTherapist
     fields = '__all__'
