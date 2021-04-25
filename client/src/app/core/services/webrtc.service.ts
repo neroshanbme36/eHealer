@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import Peer from 'peerjs';
 import { Session } from '../models/session';
 import { AlertService } from './alert.service';
+import { RepositoryService } from './repository.service';
 import { SessionsService } from './sessions.service';
 
 const constraints: MediaStreamConstraints = { video: true, audio: false };
@@ -34,7 +36,9 @@ export class WebrtcService {
 
   constructor(
     private sessionSer: SessionsService,
-    private alertify: AlertService
+    private alertify: AlertService,
+    private router: Router,
+    private mainRepo: RepositoryService
   ) {
     this.options = {  // not used, by default it'll use peerjs server
       key: 'cd1ft79ro8g833di',
@@ -163,6 +167,7 @@ export class WebrtcService {
           this.sessionSer.createSession(this.session)
             .subscribe((res: Session) => {
               console.log(res);
+              this.router.navigate([this.mainRepo.previousUrl]);
             }, error => {
               this.alertify.presentAlert('Error', error);
             });

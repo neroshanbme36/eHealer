@@ -18,8 +18,6 @@ export class Session {
     public depressionLevel: number = 0,
     public improvementLevel: number = 0,
     public createdOn: Date = new Date('1900-01-01'),
-    public startTime: Date = new Date('1900-01-01'),
-    public endTime: Date = new Date('1900-01-01'),
     public DurationInMins: number = 0
   ) {}
 }

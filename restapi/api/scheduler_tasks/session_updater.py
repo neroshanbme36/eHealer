@@ -5,6 +5,7 @@ import numpy as np
 from keras.models import load_model
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
+import decimal
 
 def start():
   print('start job')
@@ -95,24 +96,36 @@ def predictions():
         print(*emotion_res, sep = "\n") # * will loop and sep will create new line
         if (len(emotion_res) > 0):
             for i in range(len(emotion_res)):
-                emotion_res[i] = 100 * emotion_res[i]/sum_of_emo_res
-            print(*emotion_res, sep = "\n") # * will loop and sep will create new line
-            session.angry = emotion_res[0]
-            session.disgust = emotion_res[1]
-            session.fear = emotion_res[2]
-            session.happy = emotion_res[3]
-            session.neutral = emotion_res[4]
-            session.sad = emotion_res[5]
-            session.surprise = emotion_res[6]
+                emo_res = decimal.Decimal(100 * emotion_res[i]/sum_of_emo_res)
+                if i == 0:
+                    session.angry = emo_res
+                if i == 1:
+                    session.disgust = emo_res
+                if i == 2:
+                    session.fear = emo_res
+                if i == 3:
+                    session.happy = emo_res
+                if i == 4:
+                    session.neutral = emo_res
+                if i == 5:
+                    session.sad = emo_res
+                if i == 6:
+                    session.surprise = emo_res
             session.depression_level = session.angry + session.disgust + session.fear + session.sad 
       print("Deppressed")
       print(session.depression_level)
       try:
-        pre_session = Session.objects.filter(is_start=True, is_end=True).last()
-        if pre_session.depression_level > session.depression_level:
-            session.improvement_level = pre_session.depression_level - session.depression_level
-        else:
+        pre_session = Session.objects.filter(is_start=True, is_end=True, therapist=session.therapist, client=session.client).last()
+        print('Presession')
+        print(pre_session.depression_level)
+        if pre_session.depression_level > session.depression_level: #83 > 100
+            print('pre_session.depression_level > session.depression_level')
+            # session.improvement_level = pre_session.depression_level - session.depression_level
             session.improvement_level = session.depression_level - pre_session.depression_level
+        else: #83 < 100
+            print('pre_session.depression_level < session.depression_level')
+            # session.improvement_level = session.depression_level - pre_session.depression_level 
+            session.improvement_level =  pre_session.depression_level - session.depression_level 
       except:
         print('previous session doesnt exist')
         pass

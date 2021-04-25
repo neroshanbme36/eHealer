@@ -207,7 +207,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
   def appointments_by_client(self, request):
     try:
       qu_user_id = request.query_params.get('user_id')
-      appointments = Appointment.objects.filter(client=qu_user_id)
+      appointments = Appointment.objects.filter(client=qu_user_id).order_by('-id')
       serializer = AppoitmentUserSerializer(appointments, many=True)
       return Response(serializer.data, status = status.HTTP_200_OK)
     except Exception:
@@ -217,7 +217,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
   def appointments_to_therapist(self, request):
     try:
       qu_user_id = request.query_params.get('user_id')
-      appointments = Appointment.objects.filter(therapist=qu_user_id)
+      appointments = Appointment.objects.filter(therapist=qu_user_id).order_by('-id')
       serializer = AppoitmentUserSerializer(appointments, many=True)
       return Response(serializer.data, status = status.HTTP_200_OK)
     except Exception:

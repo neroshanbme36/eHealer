@@ -8,7 +8,7 @@ class User(AbstractUser):
   birth_date = models.DateField(blank=False)
   gender = models.CharField(max_length=20, blank=False)
   martial_status = models.CharField(max_length=20, blank=False)
-  contact_no = models.CharField(max_length=10, blank=False)
+  contact_no = models.CharField(max_length=20, blank=False)
   qualification = models.CharField(max_length=50, blank=True, null=True, default=None)
   role_type = models.CharField(max_length=50, blank=False)
   address_line_1 = models.CharField(max_length=100, blank=False)
@@ -60,10 +60,8 @@ class PaymentTransaction(models.Model):
   therapist = models.ForeignKey(User, blank=False, on_delete=models.DO_NOTHING, related_name='therapist_payments')
 
 class Session(models.Model):
-  created_on = models.DateTimeField(blank=False)
-  start_time = models.DateTimeField(blank=False)
-  end_time = models.DateTimeField(blank=False)
-  duration_in_mins = models.IntegerField(blank=False)
+  created_on = models.DateTimeField(auto_now_add=True)
+  duration_in_mins = models.IntegerField(blank=True,default=0)
   summary = models.TextField(max_length=3000, blank=True, null = True)
   file = models.FileField(blank=False, null=False)
   is_start = models.BooleanField(blank=True, default=False)

@@ -79,6 +79,8 @@ export class VideoCallComponent implements OnInit {
     if (this.webRTC.isRecording && this.webRTC.isTherapist) {
       console.log('stopping');
       this.webRTC.stopRecording();
+    } else {
+      this.router.navigate([this.mainRepo.previousUrl]);
     }
     // this.webRTC.stopBothVideoAndAudio();
     // this.router.navigate([this.mainRepo.previousUrl]);

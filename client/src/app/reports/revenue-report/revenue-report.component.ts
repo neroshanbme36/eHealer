@@ -16,7 +16,8 @@ export class RevenueReportComponent implements OnInit {
   startDateIsoStr: string;
   endDateIsoStr: string;
   filteredPayments?: Payment[];
-  tot = 0;
+  totalRevenue: number;
+  totalRefund: number;
 
   constructor(
     private mainRepo: RepositoryService,
@@ -29,10 +30,15 @@ export class RevenueReportComponent implements OnInit {
   ngOnInit() { }
 
   ionViewWillEnter() {
-    this.startDateIsoStr = (new Date()).toISOString();
-    this.endDateIsoStr = (new Date()).toISOString();
+    const today = new Date();
+    this.startDateIsoStr = this.datepipe.transform(today, 'yyyy-MM-dd') + 'T00:00:00';
+    this.endDateIsoStr = this.datepipe.transform(today, 'yyyy-MM-dd') + 'T23:59:59';
+    console.log(this.startDateIsoStr);
+    console.log(this.endDateIsoStr);
     this.payments = [];
     this.filteredPayments = [];
+    this.totalRevenue = 0;
+    this.totalRefund = 0;
     this.bindPayments();
   }
 
@@ -58,24 +64,22 @@ export class RevenueReportComponent implements OnInit {
 
   search(): void {
     this.filteredPayments.length = 0;
-    const sDate = this.mainRepo.getCsharpFormat(this.startDateIsoStr, 'start');
-    const eDate = this.mainRepo.getCsharpFormat(this.endDateIsoStr, 'start');
-    this.filteredPayments = this.payments.filter(x => (this.mainRepo.getCsharpFormat(x.createdOn.toString(), 'start') >= sDate)
-      && (this.mainRepo.getCsharpFormat(x.createdOn.toString(), 'start') <= eDate));
-    this.tot = 0;
-    this.tot = this.getTotal();
+    const sDate = this.mainRepo.getCsharpFormat(this.startDateIsoStr, 'start') + 'T00:00:00';
+    const eDate = this.mainRepo.getCsharpFormat(this.endDateIsoStr, 'end') + 'T23:59:59';
+    this.filteredPayments = this.payments.filter(x => (x.createdOn.toString() >= sDate)
+      && (x.createdOn.toString() <= eDate));
+    this.totalRevenue = 0;
+    this.totalRefund = 0
+    this.getTotal();
   }
 
-  getTotal(): number {
-    let tot = 0;
+  getTotal(): void {
     if (this.filteredPayments && this.filteredPayments.length > 0) {
-      const revenue = this.filteredPayments.filter(x => x.transType === 0)
+      this.totalRevenue = this.filteredPayments.filter(x => x.transType === 0)
         .map(x => x.fee).reduce((a, b) => Number(a) + Number(b));
-      const refund = this.filteredPayments.filter(x => x.transType === 1)
+      this.totalRefund = this.filteredPayments.filter(x => x.transType === 1)
         .map(x => Number(x.fee)).reduce((a, b) => Number(a) + Number(b));
-      tot = revenue - refund;
     }
-    return tot;
   }
 
   back(): void {
