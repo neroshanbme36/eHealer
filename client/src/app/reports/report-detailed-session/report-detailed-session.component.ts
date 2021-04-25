@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportDto } from 'src/app/core/dtos/reportDto';
 import { SessionReportDto } from 'src/app/core/dtos/sessionReportDto';
@@ -87,6 +87,11 @@ export class ReportDetailedSessionComponent  implements OnInit {
 
   private fillReportDto(dto: SessionReportDto): ReportDto {
     const reportDto: ReportDto = new ReportDto();
+    let index = 0;
+    if (this.sessionReportDatas) {
+      index = this.sessionReportDatas.reduce((acc, shot) => acc = acc > shot.index ? acc : shot.index, 0);
+    }
+    reportDto.index = index + 1;
     reportDto.id = dto.id;
     reportDto.appointment = dto.appointment;
     reportDto.client = dto.client;

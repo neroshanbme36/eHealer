@@ -22,7 +22,7 @@
           (ngModelChange)="change()">
           <ion-select-option
             [value]="report.id" *ngFor="let report of sessionReportDatas">
-              Session {{report.id}}</ion-select-option>
+              Session {{report.index}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-col>
