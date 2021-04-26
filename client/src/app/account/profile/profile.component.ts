@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { error } from 'selenium-webdriver';
 import { User } from 'src/app/core/models/user';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { RepositoryService } from 'src/app/core/services/repository.service';

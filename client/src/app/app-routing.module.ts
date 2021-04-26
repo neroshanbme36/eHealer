@@ -26,6 +26,7 @@ const routes: Routes = [
         { path: 'reports', loadChildren: () => import('./reports/reports.module').then( m => m.ReportsModule)},
         { path: 'notes', loadChildren: () => import('./notes/notes.module').then( m => m.NotesModule)},
         { path: 'my_therapists', loadChildren: () => import('./my-therapists/my-therapists.module').then( m => m.MyTherapistsModule)},
+        { path: 'administrations', loadChildren: () => import('./administrations/administrations.module').then( m => m.AdministrationsModule)},
       ]
 },
 { path: '**' , redirectTo: '/home', pathMatch: 'full'},

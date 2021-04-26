@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar  class="back-color">
+    <ion-buttons>
+      <ion-button class="back" fill="clear" (click)="back()" slot="start">
+        <ion-icon style="color: white;" name="arrow-back" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button slot="end" style="color: white;">
+        <ion-text style="color: white;">Users</ion-text>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-searchbar placeholder="Name" name="searchByFullName" id="searchByFullName"
+  [(ngModel)]="searchByFullName" >
+</ion-searchbar>
+<ion-searchbar placeholder="Specialization" name="searchSpecialization" id="searchSpecialization"
+  [(ngModel)]="searchSpecialization" *ngIf="searchByRoleType.trim().toLowerCase() === 'therapist'">
+</ion-searchbar>
+<ion-list style="margin-bottom: 0px;">
+  <ion-row>
+    <ion-col>
+      <ion-item class="required">
+        <ion-icon name="man-outline"></ion-icon>
+        <ion-select class="inpt" name="roleType" required
+            [ngModel]="searchByRoleType"
+            (ionChange)="onRoleTypeChanged($event)">
+              <ion-select-option value="all">All</ion-select-option>
+              <ion-select-option value="client">Client</ion-select-option>
+              <ion-select-option value="therapist">Therapist</ion-select-option>
+          </ion-select>
+        <ion-label class="lbl select-lbl">Role Type</ion-label>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item class="required">
+        <ion-icon name="pulse"></ion-icon>
+        <ion-select class="inpt" name="isActive" required
+            [ngModel]="searchByIsActive"
+            (ionChange)="onIsActiveChanged($event)">
+              <ion-select-option value="all">All</ion-select-option>
+              <ion-select-option value="yes">Yes</ion-select-option>
+              <ion-select-option value="no">No</ion-select-option>
+          </ion-select>
+        <ion-label class="lbl select-lbl">Active Status</ion-label>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-list>
+<ion-content >
+  <ion-row>
+    <ion-col size="12" class="ion-text-center">
+      <ion-list>
+        <ion-item *ngFor="let per of filteredUsers">
+          <ion-item  (click)="onViewUserBtnClicked(per)">
+            <ion-thumbnail slot="start">
+              <ion-img [src]="getImg(per.gender, per.roleType)"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h3 style="font-weight: bold;">{{per.firstName + ' ' + per.lastName}}</h3>
+              <ng-container *ngIf="per.roleType.trim().toLowerCase() === 'therapist'">
+                <h4>Qualification: {{per.qualification}}</h4>
+                <h4>Specialization: {{per.specialization}}</h4>
+                <h4>Experince: {{per.experience | number:'.0-0'}} year</h4>
+              </ng-container>
+              <ng-container *ngIf="per.roleType.trim().toLowerCase() === 'client'">
+                <h4>Contact No: {{per.contactNo}}</h4>
+              </ng-container>
+            </ion-label>
+          </ion-item>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

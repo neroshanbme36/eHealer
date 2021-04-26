@@ -11,7 +11,8 @@
           </ion-button>
         </ion-col>
         <ion-col size="4">
-          <ion-button expand="block" fill="clear" (click)="navigate('chat_list')">
+          <ion-button expand="block" fill="clear" (click)="navigate('chat_list')"
+          *ngIf="service.loggedInUser.roleType.trim().toLowerCase() !== 'admin'">
             <div [ngClass]="{'active':service.active == 'chat_list'}">
               <ion-icon slot="icon-only" name="chatbubbles"></ion-icon><br>
               <ion-label>CHATS</ion-label>
@@ -31,7 +32,7 @@
             <div [ngClass]="{'active':service.active == 'benefits'}">
               <ion-icon slot="icon-only" name="gift"></ion-icon><br>
               <ion-label>BENEFITS</ion-label>
-            </div>  
+            </div>
           </ion-button>
         </ion-col> -->
         <ion-col size="4">
@@ -39,10 +40,10 @@
             <div [ngClass]="{'active':service.active == 'account'}">
               <ion-icon slot="icon-only" name="person"></ion-icon><br>
               <ion-label>ACCOUNT</ion-label>
-            </div>  
+            </div>
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ion-toolbar>  
+  </ion-toolbar>
 </ion-footer>
