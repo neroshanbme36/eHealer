@@ -121,11 +121,11 @@ def predictions():
         if pre_session.depression_level > session.depression_level: #83 > 100
             print('pre_session.depression_level > session.depression_level')
             # session.improvement_level = pre_session.depression_level - session.depression_level
-             session.improvement_level =  pre_session.depression_level - session.depression_level 
+            session.improvement_level =  pre_session.depression_level - session.depression_level 
         else: #83 < 100
             print('pre_session.depression_level < session.depression_level')
             # session.improvement_level = session.depression_level - pre_session.depression_level 
-           session.improvement_level = session.depression_level - pre_session.depression_level
+            session.improvement_level =  session.depression_level - pre_session.depression_level
       except:
         print('previous session doesnt exist')
         pass
