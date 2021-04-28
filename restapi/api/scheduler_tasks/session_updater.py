@@ -6,6 +6,8 @@ from keras.models import load_model
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
 import decimal
+from django.core.mail import EmailMessage
+from django.contrib.auth import get_user_model
 
 def start():
   print('start job')
@@ -137,6 +139,20 @@ def predictions():
       cv2.destroyAllWindows()
       cap.release()
       print('Prediction completed successfully')
+      
+      header = 'Session Analysis'
+      body = 'Session report is ready for appointment no. ' + str(session.appointment)
+      try:
+        message = EmailMessage(header, body, to=[session.client])
+        message.send()
+      except:
+        print('email sending to client failed')
+      
+      try:
+        message = EmailMessage(header, body, to=[session.therapist])
+        message.send()
+      except:
+        print('email sending to therapist failed')
     else:
       print('No session to predict')
 
