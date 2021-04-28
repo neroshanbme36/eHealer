@@ -22,7 +22,7 @@ def predictions():
       # Step 9 loading the model
       # Use the latest created model from training folder
       # predection on the live video set
-      model = load_model('././training/model-012.model')
+      model = load_model('././training/model-010.model')
       face_clsfr = cv2.CascadeClassifier('././haarcascade_frontalface_alt.xml')
       #   cap=cv2.VideoCapture("././vb1.webm")
       cap = cv2.VideoCapture(session.file.path)
@@ -121,11 +121,11 @@ def predictions():
         if pre_session.depression_level > session.depression_level: #83 > 100
             print('pre_session.depression_level > session.depression_level')
             # session.improvement_level = pre_session.depression_level - session.depression_level
-            session.improvement_level = session.depression_level - pre_session.depression_level
+            session.improvement_level =  pre_session.depression_level - session.depression_level 
         else: #83 < 100
             print('pre_session.depression_level < session.depression_level')
             # session.improvement_level = session.depression_level - pre_session.depression_level 
-            session.improvement_level =  pre_session.depression_level - session.depression_level 
+            session.improvement_level =  session.depression_level - pre_session.depression_level
       except:
         print('previous session doesnt exist')
         pass
