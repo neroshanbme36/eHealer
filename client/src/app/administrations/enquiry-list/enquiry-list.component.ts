@@ -34,7 +34,9 @@ export class EnquiryListComponent implements OnInit {
     this.cusContEnqSer.getCustomerContactEnquiries()
     .subscribe((res: CustomerContactEnquiry[]) => {
       this.enquires = res;
-      console.log(res);
+      if (this.enquires.length > 0) {
+        this.enquires = this.enquires.sort((n1,n2) => n2.id - n1.id);
+      }
     }, error => {
       this.alertify.presentAlert('Error', error);
     });

@@ -92,12 +92,11 @@ class FavouriteTherapist(models.Model):
     unique_together = ('client', 'therapist',)
 
 class CustomerContactEnquiry(models.Model):
-  Name = models.CharField(max_length=50, blank=False)
+  name = models.CharField(max_length=50, blank=False)
   contact_no = models.CharField(max_length=20, blank=False)
   email_address = models.CharField(max_length=50, blank=False)
   message = models.TextField(max_length=500, blank=False)
   admin_reply_message = models.TextField(max_length=500, blank=True, default='')
   is_admin_replied = models.BooleanField(blank=True, default=False)
-  is_sent = models.BooleanField(blank=True, default=False)
   created_on = models.DateTimeField(auto_now_add=True)
   updated_on = models.DateTimeField(auto_now=True)

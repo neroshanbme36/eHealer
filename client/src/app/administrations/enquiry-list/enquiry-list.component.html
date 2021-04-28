@@ -13,8 +13,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content >
-  <ion-button color="secondary" expand="full" shape="round" (click)="onCreateBtnClicked()" class="ion-padding">Create
-  </ion-button>
   <ion-row>
     <ion-col size="12" class="ion-text-center">
       <ion-list>
@@ -24,7 +22,7 @@
               <ion-img [src]="imgUrl +'enquery.png'"></ion-img>
             </ion-thumbnail>
             <ion-label>
-              <h3 style="font-weight: bold;">{{enquery.name}}</h3>         
+              <h3 style="font-weight: bold;">{{enquery.name}}</h3>
               <h4>{{enquery.contactNo}}</h4>
               <h4>{{enquery.message}}</h4>
             </ion-label>

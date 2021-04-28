@@ -7,7 +7,6 @@ export class CustomerContactEnquiry {
     public message: string = '',
     public adminReplyMessage: string = '',
     public isAdminReplied: boolean = false,
-    public isSent: boolean = false,
     public createdOn: Date = new Date('1900-01-01'),
     public updatedOn: Date = new Date('1900-01-01')
   ){}

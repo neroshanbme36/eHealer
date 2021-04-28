@@ -60,10 +60,15 @@ export class ContactUsFormComponent implements OnInit {
       this.cusContEnqSer.update(this.contactUs)
       .subscribe((res: CustomerContactEnquiry) => {
         this.contactUs = res;
-        this.alertify.presentAlert('Message', 'Email sent with your reply successfully.');
-        this.router.navigate(['/administrations/enquiries']);
       }, error => {
         this.alertify.presentAlert('Error', error);
+      }, () => {
+        this.cusContEnqSer.sendReplyEmail(this.contactUs.id)
+        .subscribe((res: void) => {}, error => {
+          this.alertify.presentAlert('Error', error);
+        });
+        this.alertify.presentAlert('Message', 'Email sent with your reply successfully.');
+        this.router.navigate(['/administrations/enquiries']);
       });
     }
   }

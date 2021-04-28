@@ -21,7 +21,7 @@
             <ion-icon name="person" color="secondary"></ion-icon>
               Name
           </ion-label>
-          <ion-input [(ngModel)]="contactUs.name">
+          <ion-input [(ngModel)]="contactUs.name" [disabled]="!isNewForm">
           </ion-input>
         </ion-item>
         <ion-item>
@@ -29,7 +29,7 @@
             <ion-icon name="call" color="secondary"></ion-icon>
               Contact No
           </ion-label>
-          <ion-input [(ngModel)]="contactUs.contactNo">
+          <ion-input [(ngModel)]="contactUs.contactNo" [disabled]="!isNewForm">
           </ion-input>
         </ion-item>
         <ion-item>
@@ -38,7 +38,7 @@
               Email
           </ion-label>
           <ion-input email name="mail" #mail="ngModel"
-            [(ngModel)]="contactUs.emailAddress">
+            [(ngModel)]="contactUs.emailAddress" [disabled]="!isNewForm">
           </ion-input>
         </ion-item>
         <ion-label *ngIf="!mail.valid && mail.dirty" class="error">Should be a valid email address!!</ion-label>
@@ -47,22 +47,22 @@
             <ion-icon name="chatbubbles" color="secondary"></ion-icon>
               Message
           </ion-label>
-          <ion-textarea [(ngModel)]="contactUs.message" 
-            placeholder="any enquery?">
+          <ion-textarea [(ngModel)]="contactUs.message"
+            placeholder="any enquery?" [disabled]="!isNewForm" [rows]="4">
           </ion-textarea>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="!isNewForm">
           <ion-label position="floating">
             <ion-icon name="chatbubbles" color="secondary"></ion-icon>
-              Admin Reply
+              Reply
           </ion-label>
-          <ion-textarea [(ngModel)]="contactUs.adminReplyMessage" 
-            placeholder="...repply">
+          <ion-textarea [(ngModel)]="contactUs.adminReplyMessage" [rows]="4"
+            placeholder="...reply" [disabled]="contactUs.isAdminReplied">
           </ion-textarea>
         </ion-item>
       </ion-list>
     </ion-col>
   </ion-row>
-  <ion-button color="secondary" expand="full" shape="round" (click)="onSubmitBtnClicked()" class="ion-padding">Save
+  <ion-button color="secondary" expand="full" shape="round" (click)="onSubmitBtnClicked()" class="ion-padding" *ngIf="!contactUs.isAdminReplied">Submit
   </ion-button>
 </ion-content>
