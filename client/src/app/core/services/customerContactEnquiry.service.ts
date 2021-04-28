@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -26,5 +26,11 @@ export class CustomerContactEnquiryService {
 
   getCustomerContactEnquiries(): Observable<CustomerContactEnquiry[]> {
     return this.http.get<CustomerContactEnquiry[]>(this.baseUrl);
+  }
+
+  sendReplyEmail(id: number): Observable<void> {
+    let params = new HttpParams();
+    params = params.append('id', id.toString());
+    return this.http.get<void>(this.baseUrl + 'send_reply_email/', {params});
   }
 }

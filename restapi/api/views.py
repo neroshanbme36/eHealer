@@ -410,3 +410,22 @@ class CustomerContactEnquiryViewSet(viewsets.ModelViewSet):
   queryset = CustomerContactEnquiry.objects.all()
   serializer_class = CustomerContactEnquirySerializer
   http_method_names = ['get','post', 'put']
+
+  @action(methods=['get'], detail=False)
+  def send_reply_email(self, request):
+    try:
+      qu_id = request.query_params.get('id')
+      enquiry = CustomerContactEnquiry.objects.filter(id=qu_id)
+      if len(enquiry) > 0:
+        try:
+          print(enquiry[0].admin_reply_message)
+          print(enquiry[0].email_address)
+          message = EmailMessage('Reply for you enquiry', enquiry[0].admin_reply_message, to=[enquiry[0].email_address])
+          message.send()
+        except:
+          return Response({'status_code': '400', 'detail': 'sending email failed'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+      else:
+        return Response({'status_code': '400', 'detail': 'Enquiry doesnt exists'}, status=status.HTTP_400_BAD_REQUEST)
+      return Response({'status_code': '200', 'detail': 'email sent successfully'}, status = status.HTTP_200_OK)
+    except Exception:
+        return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
