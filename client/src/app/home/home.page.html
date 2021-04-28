@@ -93,6 +93,15 @@
         </ion-button>
         <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">Client Appoitments</ion-button> -->
       </ion-col>
+      <ion-col size="6" *ngIf="mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'admin'">
+        <ion-button color="secondary" expand="full" [routerLink]="['/administrations/enquiries']">
+          <div >
+            <ion-icon slot="icon-only" name="people"></ion-icon><br>
+            <ion-label>Enquires</ion-label>
+          </div>
+        </ion-button>
+        <!-- <ion-button color="secondary" expand="full" [routerLink]="['/appointments/client_appointment_list']">Client Appoitments</ion-button> -->
+      </ion-col>
       <!-- <ion-col size="6">
         <ion-button color="secondary" expand="full" [routerLink]="['/chats/chat_list']">
           <div >

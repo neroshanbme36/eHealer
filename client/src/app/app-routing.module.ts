@@ -3,9 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AuthUserResolver } from './core/resolvers/authUser.resolver';
 import { BaseComponent } from './core/components/base/base.component';
+import { ContactUsFormComponent } from './shared/components/contact-us-form/contact-us-form.component';
 
 const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule) },
+  { path: 'contact_us_new', component: ContactUsFormComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: '', component: BaseComponent,
@@ -29,7 +31,7 @@ const routes: Routes = [
         { path: 'administrations', loadChildren: () => import('./administrations/administrations.module').then( m => m.AdministrationsModule)},
       ]
 },
-{ path: '**' , redirectTo: '/home', pathMatch: 'full'},
+{ path: '**' , redirectTo: '/home', pathMatch: 'full'}
 ];
 
 @NgModule({

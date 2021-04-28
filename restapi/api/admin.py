@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Schedule, TherapistFee, Appointment, PaymentTransaction, Session, Notepad, FavouriteTherapist
+from .models import CustomerContactEnquiry, User, Schedule, TherapistFee, Appointment, PaymentTransaction, Session, Notepad, FavouriteTherapist
 
 # Register your models here.
 admin.site.register(User)
@@ -10,3 +10,4 @@ admin.site.register(PaymentTransaction)
 admin.site.register(Session)
 admin.site.register(Notepad)
 admin.site.register(FavouriteTherapist)
+admin.site.register(CustomerContactEnquiry)

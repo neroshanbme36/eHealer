@@ -2,11 +2,11 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
-from .serializers import FavouriteTherapistSerializer, FavouriteTherapistDtoSerializer, NotepadSerializer, SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
+from .serializers import CustomerContactEnquirySerializer, FavouriteTherapistSerializer, FavouriteTherapistDtoSerializer, NotepadSerializer, SessionReportSerializer, PaymentTransactionSerializer, AppoitmentUserSerializer, SessionSerializer, UserSerializer, UserUpdateSerializer, ScheduleSerializer, TherapistFeeSerializer, AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad, FavouriteTherapist
+from .models import CustomerContactEnquiry, Session, Schedule, TherapistFee, Appointment, PaymentTransaction, Notepad, FavouriteTherapist
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils.dateparse import parse_date
@@ -405,3 +405,8 @@ class FavouriteTherapistViewSet(viewsets.ModelViewSet):
         return Response({'status_code': '400', 'detail': 'This therapist is not assigned as favourite'}, status=status.HTTP_404_NOT_FOUND)
     except Exception:
         return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class CustomerContactEnquiryViewSet(viewsets.ModelViewSet):
+  queryset = CustomerContactEnquiry.objects.all()
+  serializer_class = CustomerContactEnquirySerializer
+  http_method_names = ['get','post', 'put']
