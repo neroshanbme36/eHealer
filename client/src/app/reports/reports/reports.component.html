@@ -20,7 +20,7 @@
         <ion-button color="secondary" expand="full" [routerLink]="['/reports/session_therapist']">
           <div >
             <ion-icon slot="icon-only" name="logo-buffer"></ion-icon><br>
-            <ion-label>Session</ion-label>
+            <ion-label>Sessions</ion-label>
           </div>
         </ion-button>
       </ion-col>
@@ -28,7 +28,23 @@
         <ion-button color="secondary" expand="full" [routerLink]="['/reports/session_client']">
           <div >
             <ion-icon slot="icon-only" name="logo-buffer"></ion-icon><br>
-            <ion-label>Session</ion-label>
+            <ion-label>Sessions</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" *ngIf="mainRepo.loggedInUser.roleType === 'admin'">
+        <ion-button color="secondary" expand="full" (click)="onAdminReportClientSessionClicked()">
+          <div >
+            <ion-icon slot="icon-only" name="logo-buffer"></ion-icon><br>
+            <ion-label>Client Sessions</ion-label>
+          </div>
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" *ngIf="mainRepo.loggedInUser.roleType === 'admin'">
+        <ion-button color="secondary" expand="full" (click)="onAdminReportTherapistSessionClicked()">
+          <div >
+            <ion-icon slot="icon-only" name="logo-buffer"></ion-icon><br>
+            <ion-label>Therapist Sessions</ion-label>
           </div>
         </ion-button>
       </ion-col>
@@ -42,9 +58,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
-
-
-
 </ion-content>

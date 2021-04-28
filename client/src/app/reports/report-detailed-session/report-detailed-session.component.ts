@@ -17,6 +17,8 @@ export class ReportDetailedSessionComponent  implements OnInit {
   sessionReports?: SessionReportDto[];
   sessionReportDatas?: ReportDto[];
   selectedSessionReport: ReportDto;
+  quClientId: number;
+  quTherapistId: number;
 
   private barChart: Chart;
   private lineChart: Chart;
@@ -34,6 +36,8 @@ export class ReportDetailedSessionComponent  implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.quClientId = this.route.snapshot.queryParams.clientId ? Number(this.route.snapshot.queryParams.clientId) : 0;
+    this.quTherapistId = this.route.snapshot.queryParams.therapistId ? Number(this.route.snapshot.queryParams.therapistId) : 0;
     this.sessionReports = [];
     this.sessionReportDatas = [];
     this.selectedSessionReport = new ReportDto();
@@ -45,8 +49,17 @@ export class ReportDetailedSessionComponent  implements OnInit {
   }
 
   private bindSessionReports(): void {
-    if (this.mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'client') {
-      this.sessionSer.getReportByClient(this.mainRepo.loggedInUser.id).subscribe((res: SessionReportDto[]) => {
+    if (this.quClientId > 0) { // for admin
+      console.log(this.quClientId);
+      this.sessionSer.getReportByClient(this.quClientId).subscribe((res: SessionReportDto[]) => {
+        this.sessionReports = res;
+      }, error => {
+        this.alertify.presentAlert('Error', error);
+      }, () => {
+        this.getDatas();
+      });
+    } else if (this.quTherapistId > 0) { // for admin
+      this.sessionSer.getReportByTherapist(this.quTherapistId).subscribe((res: SessionReportDto[]) => {
         this.sessionReports = res;
       }, error => {
         this.alertify.presentAlert('Error', error);
@@ -54,26 +67,46 @@ export class ReportDetailedSessionComponent  implements OnInit {
         this.getDatas();
       });
     } else {
-      this.sessionSer.getReportByTherapist(this.mainRepo.loggedInUser.id).subscribe((res: SessionReportDto[]) => {
-        this.sessionReports = res;
-      }, error => {
-        this.alertify.presentAlert('Error', error);
-      }, () => {
-        this.getDatas();
-      });
+      if (this.mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'client') {
+        this.sessionSer.getReportByClient(this.mainRepo.loggedInUser.id).subscribe((res: SessionReportDto[]) => {
+          this.sessionReports = res;
+        }, error => {
+          this.alertify.presentAlert('Error', error);
+        }, () => {
+          this.getDatas();
+        });
+      } else {
+        this.sessionSer.getReportByTherapist(this.mainRepo.loggedInUser.id).subscribe((res: SessionReportDto[]) => {
+          this.sessionReports = res;
+        }, error => {
+          this.alertify.presentAlert('Error', error);
+        }, () => {
+          this.getDatas();
+        });
+      }
     }
   }
 
   private getDatas(): void {
     this.sessionReportDatas.length = 0;
     this.sessionReports.forEach(report => {
-      if (this.mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'client') {
+      if (this.quClientId > 0) {
         if (report.therapist.id === this.filterUserId) {
           this.sessionReportDatas.push(this.fillReportDto(report));
         }
-      } else {
+      } else if (this.quTherapistId > 0) {
         if (report.client.id === this.filterUserId) {
           this.sessionReportDatas.push(this.fillReportDto(report));
+        }
+      } else {
+        if (this.mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'client') {
+          if (report.therapist.id === this.filterUserId) {
+            this.sessionReportDatas.push(this.fillReportDto(report));
+          }
+        } else {
+          if (report.client.id === this.filterUserId) {
+            this.sessionReportDatas.push(this.fillReportDto(report));
+          }
         }
       }
     });
@@ -224,10 +257,17 @@ export class ReportDetailedSessionComponent  implements OnInit {
   }
 
   back(): void {
-    if (this.mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'client') {
-      this.router.navigate(['reports/session_therapist']);
+    // admin_session_therapist?therapistId=0&clientId=81
+    if (this.quClientId > 0) {
+      this.router.navigate(['/reports/admin_session_therapist'], {queryParams: { therapistId: 0,  clientId: this.quClientId}});
+    } else if (this.quTherapistId > 0) {
+      this.router.navigate(['/reports/admin_session_client'], {queryParams: { therapistId: this.quTherapistId,  clientId: 0}});
     } else {
-      this.router.navigate(['reports/session_client']);
+      if (this.mainRepo.loggedInUser.roleType.trim().toLowerCase() === 'client') {
+        this.router.navigate(['reports/session_therapist']);
+      } else {
+        this.router.navigate(['reports/session_client']);
+      }
     }
   }
 }

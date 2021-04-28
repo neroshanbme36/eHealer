@@ -21,4 +21,11 @@ export class ReportsComponent implements OnInit {
     this.router.navigate(['home']);
   }
 
+  onAdminReportClientSessionClicked() {
+    this.router.navigate(['/reports/admin_session_client']);
+  }
+
+  onAdminReportTherapistSessionClicked() {
+    this.router.navigate(['/reports/admin_session_therapist']);
+  }
 }

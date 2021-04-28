@@ -26,10 +26,13 @@ export class ReportSessionClientComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sessionReports = [];
-    this.distinctClient = [];
     this.searchClientName = '';
     this.imgUrl = '../../../assets/images/';
+  }
+
+  ionViewWillEnter() {
+    this.sessionReports = [];
+    this.distinctClient = [];
     this.bindSessionReports();
   }
 
