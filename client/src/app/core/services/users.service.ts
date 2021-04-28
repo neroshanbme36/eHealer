@@ -65,4 +65,10 @@ export class UsersService {
     console.log(username);
     return this.http.get<void>(this.baseUrl + 'send_password_link/', {params})
  }
+
+ sendActivationEmail(id: number): Observable<void> {
+  let params = new HttpParams();
+  params = params.append('id', id.toString());
+   return this.http.get<void>(this.baseUrl + 'send_activation_email/', {params});
+ }
 }

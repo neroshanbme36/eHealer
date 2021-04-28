@@ -47,6 +47,14 @@ export class UserFormComponent implements OnInit {
       this.alertify.presentAlert('Message', 'User profile updated successfullly.');
     }, error => {
       this.alertify.presentAlert('Error', error);
+    }, () => {
+      if (this.user.isActive) {
+        this.userSer.sendActivationEmail(this.user.id)
+        .subscribe((res: void) => {},
+        error => {
+          this.alertify.presentAlert('Error', error);
+        })
+      }
     });
   }
 }

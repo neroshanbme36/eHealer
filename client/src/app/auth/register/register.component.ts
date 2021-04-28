@@ -71,7 +71,11 @@ export class RegisterComponent implements OnInit {
     this.usersService.createUser(this.registerUser).subscribe((res: User) => {
       this.registerUser = res;
       this.registerUser.password = this.repeatPassword;
-      this.alertify.presentAlert('Success', 'User registered successfully');
+      if (this.registerUser.roleType.trim().toLowerCase() === 'client') {
+        this.alertify.presentAlert('Message', 'User registered successfully');
+      } else {
+        this.alertify.presentAlert('Message', 'Please wait untill our administrator approve your account.');
+      }
     }, e => {
       this.alertify.presentAlert('Error', e);
     }, () => {

@@ -115,6 +115,23 @@ class UserViewSet(viewsets.ModelViewSet):
       else:
           return HttpResponse(status=404)
 
+    @action(methods=['get'], detail=False)
+    def send_activation_email(self, request):
+      try:
+        qu_id = request.query_params.get('id')
+        users = get_user_model().objects.filter(id=qu_id)
+        if len(users) > 0:
+          try:
+            message = EmailMessage('Account Activation Status', 'Congrats your account is activated successfully.', to=[users[0].email])
+            message.send()
+          except:
+            return Response({'status_code': '400', 'detail': 'sending email failed'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+          return Response({'status_code': '400', 'detail': 'user doesnt exists'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'status_code': '200', 'detail': 'email sent successfully'}, status = status.HTTP_200_OK)
+      except Exception:
+          return Response({'status_code': '500', 'detail': 'Something went wrong'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class UserUpdateViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserUpdateSerializer
