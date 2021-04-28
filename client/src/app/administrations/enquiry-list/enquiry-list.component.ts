@@ -12,6 +12,7 @@ import { RepositoryService } from 'src/app/core/services/repository.service';
 })
 export class EnquiryListComponent implements OnInit {
   enquires?: CustomerContactEnquiry[];
+  imgUrl = '';
 
   constructor(
     private cusContEnqSer: CustomerContactEnquiryService,
@@ -24,6 +25,7 @@ export class EnquiryListComponent implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.imgUrl = '../../../assets/images/';
     this.enquires = [];
     this.bindEnquires();
   }
@@ -32,18 +34,18 @@ export class EnquiryListComponent implements OnInit {
     this.cusContEnqSer.getCustomerContactEnquiries()
     .subscribe((res: CustomerContactEnquiry[]) => {
       this.enquires = res;
-      console.log(this.enquires);
+      console.log(res);
     }, error => {
       this.alertify.presentAlert('Error', error);
     });
   }
 
   onCreateBtnClicked(): void {
-    this.router.navigate(['/administrations/contact_us_new'])
+    this.router.navigate(['/administrations/contact_us_new']);
   }
 
   onUpdateBtnClicked(id: number): void {
-    this.router.navigate(['/administrations/contact_us_edit', id])
+    this.router.navigate(['/administrations/contact_us_edit', id]);
   }
 
   back(): void {

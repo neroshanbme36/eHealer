@@ -92,7 +92,7 @@ export class ClientAppointmentFormComponent implements OnInit {
       this.appointment.statusType = 1; // Accept
       this.appointment.cancellationReason = '';
       this.updateAppointment();
-      this.appointment.cancellationReason='';
+      this.appointment.cancellationReason = '';
     }, () => {});
   }
 
@@ -121,7 +121,7 @@ export class ClientAppointmentFormComponent implements OnInit {
         });
       }
       this.appointmentsSer.sendEmailByStatus(this.appointment.id).subscribe((res: void) => {},
-          error => {this.alertify.presentAlert('Error', error)});
+          error => {this.alertify.presentAlert('Error', error); });
     });
   }
 

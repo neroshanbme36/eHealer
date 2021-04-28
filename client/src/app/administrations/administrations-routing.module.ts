@@ -12,7 +12,8 @@ const routes: Routes = [
       {path: 'users', component: UserListComponent},
       {path: 'user_edit/:id', component: UserFormComponent},
       {path: 'enquiries', component: EnquiryListComponent},
-      {path: 'contact_us_edit/:id', component: ContactUsFormComponent}
+      {path: 'contact_us_edit/:id', component: ContactUsFormComponent},
+      {path: 'contact_us_new', component: ContactUsFormComponent}
     ]
   }
 ];

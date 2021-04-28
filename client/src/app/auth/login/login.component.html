@@ -41,7 +41,6 @@
           routerDirection="root"> Forgot Password?</a>
         </ion-text>
       </ion-col>
-
     </ion-row>
      <ion-row>
       <ion-col size="12" class="ion-text-center">
@@ -52,7 +51,6 @@
           routerDirection="root"> Create Account</a>
         </ion-text>
       </ion-col>
-
     </ion-row>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
@@ -64,7 +62,15 @@
       </ion-col>
 
     </ion-row>
-
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-text  class="create">
+          <a style="text-decoration: none;" class="b-link"
+          [routerLink]="['/contact_us_new']"
+          routerDirection="root"> Contact Us</a>
+        </ion-text>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-content>
 <ion-row>
@@ -74,7 +80,3 @@
       of ehealer</ion-text>
   </ion-col>
 </ion-row>
-
-<ion-button expand="block" type="submit" color="secondary"  [routerLink]="['/contact_us_new']">
-  Contact Us
-</ion-button>
