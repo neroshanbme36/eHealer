@@ -1,26 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { AccountPageRoutingModule } from './account-routing.module';
-
 import { AccountPage } from './account.page';
 import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from '../shared/shared.module';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
     AccountPageRoutingModule,
     SharedModule
   ],
   declarations: [
     AccountPage,
-    ProfileComponent
+    ProfileComponent,
+    AboutUsComponent
   ]
 })
 export class AccountPageModule {}

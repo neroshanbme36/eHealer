@@ -43,6 +43,8 @@ export class RepositoryService {
       this.nav.navigateBack('/account/policy');
     } else if (tag === 'chat_list') {
       this.nav.navigateBack('/chats/chat_list');
+    } else if (tag === 'account-about-us') {
+      this.nav.navigateBack('/account/about-us');
     }
   }
 
